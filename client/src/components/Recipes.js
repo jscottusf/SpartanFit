@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "../";
+import API from "../../utils/API";
 
 class Recipes extends Component {
   state = {
@@ -17,7 +17,7 @@ class Recipes extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.state.query) {
-      this.getBooks(this.state.query);
+      this.searchRecipes(this.state.query);
     }
   };
 
