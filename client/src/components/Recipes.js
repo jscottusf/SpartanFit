@@ -36,30 +36,37 @@ class Recipes extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div>
-          <form id="query-form">
-            <div>
-              <label>Search for Recipes</label>
-            </div>
-            <input
-              type="text"
-              value={this.state.query}
-              name="query"
-              id="query-input"
-              className="my-3"
-              size="50"
-              onChange={this.handleInputChange}
-            />
-          </form>
-          <button
-            type="submit"
-            className="btn bg-primary"
-            onClick={this.handleFormSubmit}
-            form="query-form"
-          >
-            Submit
-          </button>
+      <div className="container-fluid ml-1">
+        <div className="row">
+          <div className="col-md-5">
+            <label style={{ padding: 0, margin: "10px 0px 0px 0px" }}>
+              Recipe Search
+            </label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-5">
+            <form id="query-form" style={{ display: "inline" }}>
+              <input
+                type="text"
+                value={this.state.query}
+                name="query"
+                id="query-input"
+                className="my-3"
+                size="30"
+                onChange={this.handleInputChange}
+              />
+            </form>
+            <button
+              type="submit"
+              className="btn ml-1"
+              onClick={this.handleFormSubmit}
+              id="submit-form-btn"
+              form="query-form"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     );
