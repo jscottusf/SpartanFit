@@ -1,28 +1,28 @@
-import React, { Component } from "react";
-import API from "../../utils/API";
+import React, { Component } from 'react';
+import API from '../utils/API';
 
 class Recipes extends Component {
   state = {
     results: [],
-    query: "",
+    query: '',
   };
 
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
   };
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.query) {
       this.searchRecipes(this.state.query);
     }
   };
 
-  searchRecipes = (query) => {
-    API.getRecipes(query).then((results) => {
+  searchRecipes = query => {
+    API.getRecipes(query).then(results => {
       console.log(results);
       this.setState(results);
     });

@@ -26,9 +26,7 @@ app.get('/api/secret', function (req, res) {
 app.use(routes);
 
 // Connect to Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/fitnesswarrior'
-);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/spartanfit');
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
