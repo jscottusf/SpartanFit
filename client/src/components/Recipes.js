@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
+import API from "../utils/API";
 
 class Recipes extends Component {
   state = {
     results: [],
     query: "",
+  };
+
+  componentDidMount = () => {
+    this.searchRecipes("vegan");
   };
 
   handleInputChange = (event) => {
@@ -24,17 +28,19 @@ class Recipes extends Component {
   searchRecipes = (query) => {
     API.getRecipes(query).then((results) => {
       console.log(results);
-      this.setState(results);
+      this.setState({
+        results: results.data.hits,
+      });
     });
   };
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div>
           <form id="query-form">
             <div>
-              <label>Search Books, Authors, Summaries...</label>
+              <label>Search for Recipes</label>
             </div>
             <input
               type="text"
