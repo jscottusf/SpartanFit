@@ -72,7 +72,10 @@ class Recipes extends Component {
 
         <div className="row">
           {this.state.results.map((recipe) => (
-            <RecipeCard image={recipe.recipe.image} />
+            <RecipeCard
+              image={recipe.recipe.image}
+              name={recipe.recipe.label}
+            />
           ))}
         </div>
       </div>
