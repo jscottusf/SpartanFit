@@ -1,5 +1,5 @@
 import axios from "axios";
-import app from "config";
+import app from "./config";
 
 export default {
   getPosts: function () {
