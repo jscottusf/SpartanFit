@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import RecipeCard from "./RecipeCard";
 import API from "../utils/API";
 
 class Recipes extends Component {
@@ -67,6 +68,12 @@ class Recipes extends Component {
               Submit
             </button>
           </div>
+        </div>
+
+        <div className="row">
+          {this.state.results.map((recipe) => (
+            <RecipeCard image={recipe.recipe.image} />
+          ))}
         </div>
       </div>
     );
