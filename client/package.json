@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "SpartanFit",
   "version": "0.1.0",
-  "description": "Mern Demo",
+  "description": "SpartanFit",
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {

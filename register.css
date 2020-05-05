@@ -1,0 +1,51 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('./client/public/images/spartan.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+.register-wrapper {
+  width: 1010px;
+  margin: auto;
+  text-align: right;
+}
+
+.register-container {
+  text-align: left;
+  color: black;
+  padding-bottom: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  padding: 20px;
+}
+
+.register-container img {
+  width: 50px;
+  background-color: transparent;
+}
+
+.grid-container {
+  margin: 0;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px; /* Set the fixed height of the footer here */
+  line-height: 30px; /* Vertically center the text there */
+  text-align: center;
+}
