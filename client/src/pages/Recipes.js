@@ -71,6 +71,7 @@ class Recipes extends Component {
                   <RecipeCard
                     image={recipe.recipe.image}
                     name={recipe.recipe.label}
+                    link={recipe.recipe.url}
                   />
                 ))}
               </GridContainer>
