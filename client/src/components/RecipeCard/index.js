@@ -38,12 +38,12 @@ function RecipeCard(props) {
         </div>
       </div>
       <div className="view overlay">
-        <img
-          className="card-img-top rounded-0"
-          src={props.image}
-          alt={props.name}
-        />
-        <a href={props.link}>
+        <a href={props.link} target="_blank">
+          <img
+            className="card-img-top rounded-0"
+            src={props.image}
+            alt={props.name}
+          />
           <div className="mask rgba-white-slight"></div>
         </a>
       </div>
