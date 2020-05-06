@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
-import RecipeCard from '../components/RecipeCard';
-import API from '../utils/API';
-import Nav from '../components/Nav';
-import Wrapper from '../components/Wrapper';
-import { InputGroup, Input, SearchBtn } from '../components/SearchBar';
-import GridContainer from '../components/GridContainer';
-import Footer from '../components/Footer';
+import React, { Component } from "react";
+import RecipeCard from "../components/RecipeCard";
+import API from "../utils/API";
+import Nav from "../components/Nav";
+import Wrapper from "../components/Wrapper";
+import { InputGroup, Input, SearchBtn } from "../components/SearchBar";
+import GridContainer from "../components/GridContainer";
+import Footer from "../components/Footer";
 
 class Recipes extends Component {
   state = {
     results: [],
-    query: '',
+    query: "",
   };
 
   componentDidMount = () => {
-    this.searchRecipes('vegan');
+    this.searchRecipes("vegan");
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
   };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.state.query) {
       this.searchRecipes(this.state.query);
     }
   };
 
-  searchRecipes = query => {
-    API.getRecipes(query).then(results => {
+  searchRecipes = (query) => {
+    API.getRecipes(query).then((results) => {
       console.log(results);
       this.setState({
         results: results.data.hits,
@@ -65,17 +65,15 @@ class Recipes extends Component {
                     form="query-form"
                   />
                 </InputGroup>
-                <GridContainer
-                  style={{ 'grid-template-columns': '1fr 1fr 1fr' }}
-                >
-                  {this.state.results.map(recipe => (
-                    <RecipeCard
-                      image={recipe.recipe.image}
-                      name={recipe.recipe.label}
-                    />
-                  ))}
-                </GridContainer>
               </div>
+              <GridContainer style={{ "grid-template-columns": "1fr 1fr 1fr" }}>
+                {this.state.results.map((recipe) => (
+                  <RecipeCard
+                    image={recipe.recipe.image}
+                    name={recipe.recipe.label}
+                  />
+                ))}
+              </GridContainer>
             </div>
           </Wrapper>
           <Footer />
