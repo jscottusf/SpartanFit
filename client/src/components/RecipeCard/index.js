@@ -8,13 +8,8 @@ function RecipeCard(props) {
       {/* Card Image */}
       <div className="card-body" style={{ height: "3%" }}>
         <div className="collapse-content">
-          {/* Text */}
-          <p className="card-text collapse" id="collapseContent">
-            Recently, we added several exotic new dishes to our restaurant menu.
-            They come from countries such as Mexico, Argentina, and Spain. Come
-            to us, have some delicious wine and enjoy our juicy meals from
-            around the world.
-          </p>
+          {/* Text in collapsible element*/}
+          <p className="card-text collapse" id="collapseContent"></p>
           {/*Button*/}
           {/* <a
             className="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed"
@@ -40,6 +35,7 @@ function RecipeCard(props) {
             data-toggle="tooltip"
             data-placement="top"
             title="Add to My Recipes"
+            //   When this icon is clicked, save to MongoDB
             onClick={() => props.favorite(props.id)}
           ></i>
         </div>
@@ -72,7 +68,6 @@ function RecipeCard(props) {
           </h4>
         </div>
       </div>
-      {/* Card Content */}
     </div>
   );
 }

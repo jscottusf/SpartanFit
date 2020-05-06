@@ -13,10 +13,12 @@ class Recipes extends Component {
     query: "",
   };
 
+  // Upon initial render, populate recipe cards with default search "vegan"
   componentDidMount = () => {
     this.searchRecipes("vegan");
   };
 
+  // Handles changes in input of form
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -24,6 +26,7 @@ class Recipes extends Component {
     });
   };
 
+  // When recipe card favorite button clicked, create object and insert into MongoDB.
   handleFavoriteClick = (id) => {
     console.log(id);
     let savedRecipe = {
@@ -34,6 +37,7 @@ class Recipes extends Component {
     console.log(savedRecipe);
   };
 
+  // When search form submitted, search for recipes
   handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.state.query) {
@@ -41,6 +45,7 @@ class Recipes extends Component {
     }
   };
 
+  // Search for recipes using Edamam API
   searchRecipes = (query) => {
     API.getRecipes(query).then((results) => {
       console.log(results);
@@ -76,7 +81,8 @@ class Recipes extends Component {
                   />
                 </InputGroup>
               </div>
-              <GridContainer style={{ "grid-template-columns": "1fr 1fr 1fr" }}>
+              <GridContainer style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+                {/* Generate recipe cards for each result */}
                 {this.state.results.map((recipe, index) => (
                   <RecipeCard
                     key={index}
