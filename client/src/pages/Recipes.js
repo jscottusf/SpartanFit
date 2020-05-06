@@ -24,6 +24,16 @@ class Recipes extends Component {
     });
   };
 
+  handleFavoriteClick = (id) => {
+    console.log(id);
+    let savedRecipe = {
+      title: document.getElementById("card-title-" + id).textContent,
+      image: document.getElementById("card-image-" + id).getAttribute("src"),
+      link: document.getElementById("card-link-" + id).getAttribute("href"),
+    };
+    console.log(savedRecipe);
+  };
+
   handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.state.query) {
@@ -67,11 +77,14 @@ class Recipes extends Component {
                 </InputGroup>
               </div>
               <GridContainer style={{ "grid-template-columns": "1fr 1fr 1fr" }}>
-                {this.state.results.map((recipe) => (
+                {this.state.results.map((recipe, index) => (
                   <RecipeCard
+                    key={index}
+                    id={index}
                     image={recipe.recipe.image}
                     name={recipe.recipe.label}
                     link={recipe.recipe.url}
+                    favorite={this.handleFavoriteClick}
                   />
                 ))}
               </GridContainer>

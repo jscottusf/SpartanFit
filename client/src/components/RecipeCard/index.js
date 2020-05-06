@@ -3,7 +3,7 @@ import "./style.css";
 
 function RecipeCard(props) {
   return (
-    <div className="card promoting-card">
+    <div className="card promoting-card" id={`card-${props.id}`}>
       {/* Card content */}
       {/* Card Image */}
       <div className="card-body" style={{ height: "3%" }}>
@@ -16,13 +16,13 @@ function RecipeCard(props) {
             around the world.
           </p>
           {/*Button*/}
-          <a
+          {/* <a
             className="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed"
             data-toggle="collapse"
             href="#collapseContent"
             aria-expanded="false"
             aria-controls="collapseContent"
-          ></a>
+          ></a> */}
           <i
             className="fas fa-share-alt text-muted float-right p-1 my-1"
             data-toggle="tooltip"
@@ -40,13 +40,19 @@ function RecipeCard(props) {
             data-toggle="tooltip"
             data-placement="top"
             title="Add to My Recipes"
-            onClick={() => console.log("Adding recipe to favorites...")}
+            onClick={() => props.favorite(props.id)}
           ></i>
         </div>
       </div>
       <div className="view overlay">
-        <a href={props.link} target="_blank">
+        <a
+          href={props.link}
+          id={`card-link-${props.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
+            id={`card-image-${props.id}`}
             className="card-img-top rounded-0"
             src={props.image}
             alt={props.name}
@@ -58,7 +64,12 @@ function RecipeCard(props) {
         {/* Content */}
         <div>
           {/* Title */}
-          <h4 className="card-title font-weight-bold mb-2">{props.name}</h4>
+          <h4
+            className="card-title font-weight-bold mb-2"
+            id={`card-title-${props.id}`}
+          >
+            {props.name}
+          </h4>
         </div>
       </div>
       {/* Card Content */}
