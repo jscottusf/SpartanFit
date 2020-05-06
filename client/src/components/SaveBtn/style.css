@@ -1,0 +1,25 @@
+.icon {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+.icon i {
+  padding: 0;
+  color: #17a2b8;
+  font-size: 30px;
+  text-decoration: none;
+  z-index: 4;
+}
+
+.icon i:hover {
+  color: red;
+  transition: 1s;
+}
+
+.icon i:active {
+  color: red;
+  transition: 1s;
+}

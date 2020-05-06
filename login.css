@@ -22,11 +22,6 @@ body {
   padding-bottom: 100px;
 }
 
-.login-container img {
-  width: 50px;
-  background-color: transparent;
-}
-
 .grid-container {
   margin: 0 50px;
   display: grid;

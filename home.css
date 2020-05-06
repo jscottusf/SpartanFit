@@ -17,11 +17,11 @@ body {
 .main-wrapper {
   margin: auto;
   text-align: right;
+  color: black;
 }
 
 .grid-container {
   text-align: left;
-  color: black;
   margin: 10px;
   display: grid;
   grid-template-columns: 700px 1fr;
