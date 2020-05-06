@@ -45,9 +45,19 @@ class Recipes extends Component {
     }
   };
 
+  // Post recipes to MongoDB
+  saveRecipe = (recipe) => {
+    API.postMeal(recipe).then((err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Save successful.");
+    });
+  };
+
   // Search for recipes using Edamam API
   searchRecipes = (query) => {
-    API.getRecipes(query).then((results) => {
+    API.getMeals(query).then((results) => {
       console.log(results);
       this.setState({
         results: results.data.hits,
