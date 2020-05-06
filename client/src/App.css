@@ -1,3 +1,117 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+.login {
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('./images/gymwall.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.home {
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('./images/home.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.recipes {
+  position: relative;
+  min-height: 100%;
+  min-width: 100%;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('./images/home.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.register {
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('./images/spartan.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.newsfeed,
+.snapshot,
+.workouts,
+.food {
+  color: #292e33;
+  margin: 10px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  margin-bottom: 2px;
+  text-align: left;
+}
+
+.register-wrapper {
+  width: 1010px;
+  margin: auto;
+  text-align: right;
+}
+
+.register-container {
+  text-align: left;
+  color: black;
+  padding-bottom: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  padding: 20px;
+}
+
+.main-container {
+  background: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  color: black;
+  margin: 10px;
+  padding: 20px;
+}
+
+.recipe-search {
+  width: 600px;
+}
+
 #submit-form-btn {
   background-color: rgba(57, 58, 55, 0.15);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px; /* Set the fixed height of the footer here */
+  line-height: 30px; /* Vertically center the text there */
+  text-align: center;
 }
