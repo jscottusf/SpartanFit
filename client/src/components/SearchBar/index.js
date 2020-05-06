@@ -1,27 +1,18 @@
 import React from 'react';
 import './style.css';
 
-function SearchBar(props) {
-  return (
-    <form className="input-group mb-3 search searchbar">
-      <input
-        type="text"
-        className="form-control"
-        placeholder="search by author or book title"
-        onChange={props.handleInputChange}
-        value={props.search}
-      />
-      <div className="input-group-append">
-        <button
-          className="btn btn-info"
-          type="submit"
-          onClick={props.handleFormSubmit}
-        >
-          Find
-        </button>
-      </div>
-    </form>
-  );
+export function InputGroup({ children }) {
+  return <div className="input-group mb-3">{children}</div>;
 }
 
-export default SearchBar;
+export function Input(props) {
+  return <input {...props} className="form-control" />;
+}
+
+export function SearchBtn(props) {
+  return (
+    <button {...props} className="btn btn-outline-info" type="button">
+      Search
+    </button>
+  );
+}

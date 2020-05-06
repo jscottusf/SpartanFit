@@ -27,7 +27,7 @@ function LoginForm() {
         Login
       </button>
       <p>
-        Don't have an account?
+        Don't have an account?{' '}
         <a className="text-info" href="/register">
           Register
         </a>

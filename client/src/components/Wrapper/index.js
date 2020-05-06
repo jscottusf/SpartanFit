@@ -1,6 +1,7 @@
 import React from 'react';
+import './style.css';
 
-function Wrapper() {
+function Wrapper(props) {
   return <div className="wrapper" {...props} />;
 }
 

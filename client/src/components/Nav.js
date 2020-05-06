@@ -4,7 +4,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="/home">
-        SpartanFit
+        Spartan<span className="text-info">Fit</span>
       </a>
       <button
         className="navbar-toggler"
