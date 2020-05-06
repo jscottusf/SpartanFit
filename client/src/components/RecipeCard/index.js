@@ -35,6 +35,13 @@ function RecipeCard(props) {
             data-placement="top"
             title="I like it"
           ></i>
+          <i
+            className="fas fa-plus text-muted float-right p-1 my-1 mr-3"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Add to My Recipes"
+            onClick={() => console.log("Adding recipe to favorites...")}
+          ></i>
         </div>
       </div>
       <div className="view overlay">
