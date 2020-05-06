@@ -6,26 +6,7 @@ function RecipeCard(props) {
     <div className="card promoting-card">
       {/* Card content */}
       {/* Card Image */}
-      <div className="view overlay">
-        <img
-          className="card-img-top rounded-0"
-          src={props.image}
-          alt={props.name}
-        />
-        <a href={props.link}>
-          <div className="mask rgba-white-slight"></div>
-        </a>
-      </div>
-      <div className="card-body d-flex flex-row">
-        {/* Content */}
-        <div>
-          {/* Title */}
-          <h4 className="card-title font-weight-bold mb-2">{props.name}</h4>
-        </div>
-      </div>
-
-      {/* Card Content */}
-      <div className="card-body">
+      <div className="card-body" style={{ height: "3%" }}>
         <div className="collapse-content">
           {/* Text */}
           <p className="card-text collapse" id="collapseContent">
@@ -56,6 +37,24 @@ function RecipeCard(props) {
           ></i>
         </div>
       </div>
+      <div className="view overlay">
+        <img
+          className="card-img-top rounded-0"
+          src={props.image}
+          alt={props.name}
+        />
+        <a href={props.link}>
+          <div className="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div className="card-body d-flex flex-row">
+        {/* Content */}
+        <div>
+          {/* Title */}
+          <h4 className="card-title font-weight-bold mb-2">{props.name}</h4>
+        </div>
+      </div>
+      {/* Card Content */}
     </div>
   );
 }
