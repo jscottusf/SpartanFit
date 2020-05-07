@@ -26,9 +26,12 @@ export default {
   makeUser: function (postData) {
     return axios.post("/api/users", postData);
   },
-  getRecipes: function (query) {
+  getMeals: function (query) {
     return axios.get(
       `https://api.edamam.com/search?q=${query}&app_id=${app.id}&app_key=${app.key}`
     );
+  },
+  postMeal: function (postData) {
+    return axios.post("/api/meal", postData);
   },
 };

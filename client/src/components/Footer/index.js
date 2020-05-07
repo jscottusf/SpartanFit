@@ -1,10 +1,10 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 
 function Footer() {
   return (
-    <footer class="footer bg-white">
-      <div class="container text-dark">
+    <footer className="footer bg-white">
+      <div className="container text-dark">
         <span>SpartanFit © 2020 </span>
       </div>
     </footer>

@@ -1,0 +1,8 @@
+i:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
+
+.card {
+  color: black;
+}
