@@ -3,7 +3,7 @@ import app from "./config";
 
 export default {
   getPosts: function () {
-    return axios.get("/api/posts");
+    return axios.get("/api/posts/");
   },
   getPost: function (id) {
     return axios.get("/api/posts/" + id);
@@ -12,10 +12,10 @@ export default {
     return axios.delete("/api/posts/" + id);
   },
   makePost: function (postData) {
-    return axios.post("/api/posts", postData);
+    return axios.post("/api/posts/", postData);
   },
   getUsers: function () {
-    return axios.get("/api/users");
+    return axios.get("/api/users/");
   },
   getUser: function (id) {
     return axios.get("/api/users/" + id);
@@ -24,14 +24,17 @@ export default {
     return axios.delete("/api/users/" + id);
   },
   makeUser: function (postData) {
-    return axios.post("/api/users", postData);
+    return axios.post("/api/users/", postData);
   },
   getMeals: function (query) {
     return axios.get(
       `https://api.edamam.com/search?q=${query}&app_id=${app.id}&app_key=${app.key}`
     );
   },
+  getSavedMeals: function (query) {
+    return axios.get("/api/meals/");
+  },
   postMeal: function (postData) {
-    return axios.post("/api/meal", postData);
+    return axios.post("/api/meals/", postData);
   },
 };

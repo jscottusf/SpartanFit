@@ -28,13 +28,13 @@ class Recipes extends Component {
 
   // When recipe card favorite button clicked, create object and insert into MongoDB.
   handleFavoriteClick = (id) => {
-    console.log(id);
     let savedRecipe = {
       title: document.getElementById("card-title-" + id).textContent,
       image: document.getElementById("card-image-" + id).getAttribute("src"),
       link: document.getElementById("card-link-" + id).getAttribute("href"),
     };
     console.log(savedRecipe);
+    this.saveRecipe(savedRecipe);
   };
 
   // When search form submitted, search for recipes
