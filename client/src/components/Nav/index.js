@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 //import { Link } from 'react-router-dom';
 //import './style.css';
 
 function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/home">
         Spartan<span className="text-info">Fit</span>
       </a>
       <button
@@ -23,22 +23,22 @@ function Nav() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/home">
               Home <span className="sr-only">(current)</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/profile">
               Profile
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/workouts">
               Workouts
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/recipes">
               Recipes
             </a>
           </li>
@@ -55,14 +55,14 @@ function Nav() {
               Settings
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/home">
                 Action
               </a>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/home">
                 Another action
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/home">
                 Something else here
               </a>
             </div>

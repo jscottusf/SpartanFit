@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 //import Jumbotron from '../components/Jumbotron';
-import Wrapper from '../components/Wrapper';
-import { Container } from '../components/Grid';
-import Grid from '../components/GridContainer';
-import { Form, Input, SubmitBtn } from '../components/RegisterForm';
-import Footer from '../components/Footer';
-import GridContainer from '../components/GridContainer';
+import Wrapper from "../components/Wrapper";
+import { Container } from "../components/Grid";
+// import Grid from '../components/GridContainer';
+import { Form, Input, SubmitBtn } from "../components/RegisterForm";
+import Footer from "../components/Footer";
+import GridContainer from "../components/GridContainer";
 
 class Register extends Component {
   state = {
-    search: '',
+    search: "",
     books: [],
-    error: '',
+    error: "",
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -33,7 +33,7 @@ class Register extends Component {
               <div className="register-container">
                 <h1>Register</h1>
                 <Form>
-                  <GridContainer style={{ 'grid-template-columns': '1fr 1fr' }}>
+                  <GridContainer style={{ "grid-template-columns": "1fr 1fr" }}>
                     <Input
                       for="firstName"
                       label="First Name: "
@@ -73,7 +73,7 @@ class Register extends Component {
                   <SubmitBtn />
                 </Form>
                 <p>
-                  Already registered?{' '}
+                  Already registered?{" "}
                   <a class="text-info" href="/login">
                     Login
                   </a>
