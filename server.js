@@ -15,13 +15,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-app.get('/api/home', function (req, res) {
-  res.send('Welcome!');
-});
-app.get('/api/secret', function (req, res) {
-  res.send('The password is potato');
-});
-
 // Define API routes
 app.use(routes);
 
