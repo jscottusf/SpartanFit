@@ -13,7 +13,7 @@ import "./workouts.css";
 class Workouts extends Component {
   state = {
     data: [],
-    title: "",
+    workoutName: "",
     description: "",
     modalForm: "",
   };
@@ -26,10 +26,17 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   selectForm = (form) => {
     switch (form) {
       case "add-workout":
-        return <AddWorkout />;
+        return <AddWorkout handleInputChange={this.handleInputChange} />;
       case "add-entry":
         return <AddEntry />;
       case "view-entries":
