@@ -5,12 +5,12 @@ html {
 
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
-  background-image: url('./client/public/images/home.jpg');
+  background-image: url("../client/src/images/home.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: white;
 }
 
