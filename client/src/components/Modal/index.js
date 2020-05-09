@@ -2,11 +2,6 @@ import React from "react";
 import "./style.css";
 
 function Modal(props) {
-  console.log(props.show);
-  let showOrHide = props.show
-    ? "modal display-block d-flex flex-column z-index: 2"
-    : "modal hidden-modal display-none d-flex flex-column";
-
   return (
     <div
       className={

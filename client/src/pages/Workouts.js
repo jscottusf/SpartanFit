@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import Nav from "../components/Nav";
+import Modal from "../components/Modal";
 import Wrapper from "../components/Wrapper";
 import Footer from "../components/Footer";
 import WorkoutCard from "../components/WorkoutCard";
@@ -11,6 +12,28 @@ class Workouts extends Component {
     data: [],
     title: "",
     description: "",
+    show: false,
+    modalForm: "",
+  };
+
+  addEntry = () => {
+    this.setState({ modalForm: "add-entry" });
+  };
+
+  addWorkout = () => {
+    this.setState({ modalForm: "add-workout" });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  viewEntries = () => {
+    this.setState({ modalForm: "view-entries" });
   };
 
   render() {
@@ -18,6 +41,10 @@ class Workouts extends Component {
       <div>
         <div className="workouts">
           <Nav />
+          <Modal show={this.state.show} close={this.hideModal}>
+            This is a test of the modal alert system, please remain calm and
+            indoors while the modal response team is dispatched.
+          </Modal>
           <Wrapper>
             <div className="main-container">
               <div className="row">
@@ -26,6 +53,10 @@ class Workouts extends Component {
                   <button
                     className="btn bg-dark text-light mb-2"
                     id="add-workout"
+                    onClick={() => {
+                      this.addWorkout();
+                      this.showModal();
+                    }}
                   >
                     Add something New
                   </button>
