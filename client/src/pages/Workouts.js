@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import API from "../utils/API";
 import Nav from "../components/Nav";
 import Modal from "../components/Modal";
+import AddEntry from "../components/WorkoutForms/AddEntry";
+import AddWorkout from "../components/WorkoutForms/AddWorkout";
+import ViewEntries from "../components/WorkoutForms/ViewEntries";
 import Wrapper from "../components/Wrapper";
 import Footer from "../components/Footer";
 import WorkoutCard from "../components/WorkoutCard";
@@ -12,7 +15,6 @@ class Workouts extends Component {
     data: [],
     title: "",
     description: "",
-    show: false,
     modalForm: "",
   };
 
@@ -24,12 +26,17 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
-  hideModal = () => {
-    this.setState({ show: false });
-  };
-
-  showModal = () => {
-    this.setState({ show: true });
+  selectForm = (form) => {
+    switch (form) {
+      case "add-workout":
+        return <AddWorkout />;
+      case "add-entry":
+        return <AddEntry />;
+      case "view entries":
+        return <ViewEntries />;
+      default:
+        return null;
+    }
   };
 
   viewEntries = () => {
@@ -42,8 +49,7 @@ class Workouts extends Component {
         <div className="workouts">
           <Nav />
           <Modal show={this.state.show} close={this.hideModal}>
-            This is a test of the modal alert system, please remain calm and
-            indoors while the modal response team is dispatched.
+            {this.selectForm(this.state.modalForm)}
           </Modal>
           <Wrapper>
             <div className="main-container">
@@ -53,9 +59,10 @@ class Workouts extends Component {
                   <button
                     className="btn bg-dark text-light mb-2"
                     id="add-workout"
+                    data-toggle="modal"
+                    data-target="#form-modal"
                     onClick={() => {
                       this.addWorkout();
-                      this.showModal();
                     }}
                   >
                     Add something New
