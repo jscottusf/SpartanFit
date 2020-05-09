@@ -6,6 +6,7 @@ import NotFound from "./components/NotFound";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Workouts from "./pages/Workouts";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/recipes" component={Recipes} />
+            <Route exact path="/workouts" component={Workouts} />
             <Route component={NotFound} />
           </Switch>
         </div>
