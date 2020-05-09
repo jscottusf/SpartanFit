@@ -14,7 +14,8 @@ class Workouts extends Component {
   state = {
     data: [],
     workoutName: "",
-    description: "",
+    workoutDescription: "",
+    workoutType: "",
     modalForm: "",
   };
 
@@ -38,9 +39,9 @@ class Workouts extends Component {
       case "add-workout":
         return <AddWorkout handleInputChange={this.handleInputChange} />;
       case "add-entry":
-        return <AddEntry />;
+        return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
-        return <ViewEntries />;
+        return <ViewEntries handleInputChange={this.handleInputChange} />;
       default:
         return null;
     }

@@ -5,3 +5,5 @@ function ViewEntries() {
 }
 
 export default ViewEntries;
+
+// onChange={props.handleInputChange}
