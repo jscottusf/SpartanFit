@@ -3,7 +3,7 @@ import "./style.css";
 
 function Modal(props) {
   return (
-    <div id="form-modal" className="modal fade" role="dialog" tabindex="-1">
+    <div id="form-modal" className="modal fade" role="dialog" tabIndex="-1">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">Heading</div>

@@ -32,7 +32,7 @@ class Workouts extends Component {
         return <AddWorkout />;
       case "add-entry":
         return <AddEntry />;
-      case "view entries":
+      case "view-entries":
         return <ViewEntries />;
       default:
         return null;
@@ -80,6 +80,8 @@ class Workouts extends Component {
                       { type: "Frequency", date: "2", value: "26" },
                       { type: "Frequency", date: "3", value: "37" },
                     ]}
+                    addEntry={this.addEntry}
+                    viewEntries={this.viewEntries}
                   />
                 </div>
               </div>
