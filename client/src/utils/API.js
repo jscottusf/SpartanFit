@@ -40,13 +40,13 @@ export default {
   getWorkouts: function () {
     return axios.get("/api/workouts/");
   },
-  postWorkout: function () {
-    return axios.post("/api/workouts/");
+  postWorkout: function (postData) {
+    return axios.post("/api/workouts/", postData);
   },
   getData: function () {
     return axios.get("/api/data/");
   },
-  postData: function () {
-    return axios.post("/api/data/");
+  postData: function (postData) {
+    return axios.post("/api/data/", postData);
   },
 };

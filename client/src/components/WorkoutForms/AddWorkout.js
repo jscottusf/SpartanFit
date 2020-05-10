@@ -7,7 +7,7 @@ function AddWorkout(props) {
         <label for="workoutName">Workout Name</label>
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           id="workoutName"
           name="workoutName"
           placeholder="Bicep Curls..."
@@ -17,7 +17,7 @@ function AddWorkout(props) {
       <div className="form-group">
         <label for="workoutDescription">Description (Optional)</label>
         <textarea
-          class="form-control"
+          className="form-control"
           id="workoutDescription"
           name="workoutDescription"
           placeholder="Bicep Curls..."
@@ -25,29 +25,29 @@ function AddWorkout(props) {
           onChange={props.handleInputChange}
         ></textarea>
         <div className="my-2">Type of Program</div>
-        <div class="form-check text-left">
+        <div className="form-check text-left">
           <input
-            class="form-check-input"
+            className="form-check-input"
             type="radio"
             name="workoutType"
             id="workoutTypeFrequency"
             value="frequency"
             onChange={props.handleInputChange}
           />
-          <label class="form-check-label" for="workoutTypeFrequency">
+          <label className="form-check-label" for="workoutTypeFrequency">
             Frequency
           </label>
         </div>
-        <div class="form-check text-left">
+        <div className="form-check text-left">
           <input
-            class="form-check-input"
+            className="form-check-input"
             type="radio"
             name="workoutType"
             id="workoutTypeDuration"
             value="duration"
             onChange={props.handleInputChange}
           />
-          <label class="form-check-label" for="workoutTypeDuration">
+          <label className="form-check-label" for="workoutTypeDuration">
             Duration
           </label>
         </div>
