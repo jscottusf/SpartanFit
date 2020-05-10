@@ -13,6 +13,8 @@ import "./workouts.css";
 class Workouts extends Component {
   state = {
     data: [],
+    dataDate: "",
+    dataValue: "",
     workoutName: "",
     workoutDescription: "",
     workoutType: "",
@@ -34,17 +36,63 @@ class Workouts extends Component {
     });
   };
 
+  //Submits form for both workouts and data entry
+  handleFormSubmit = () => {
+    switch (this.state.modalForm) {
+      case "add-workout":
+        return this.submitWorkouts();
+      case "add-entry":
+        return this.submitData();
+      default:
+        return null;
+   }
+  };
+
+//Chooses contents of modal based on state
   selectForm = (form) => {
     switch (form) {
       case "add-workout":
-        return <AddWorkout handleInputChange={this.handleInputChange} />;
+        return <AddWorkout handleInputChange={this.handleInputChange}/>;
       case "add-entry":
-        return <AddEntry handleInputChange={this.handleInputChange} />;
+        return <AddEntry handleInputChange={this.handleInputChange}/>;
       case "view-entries":
         return <ViewEntries handleInputChange={this.handleInputChange} />;
       default:
         return null;
     }
+  };
+
+  //Submits data entries to API
+  submitData = () => {
+    if (this.state.dataValue && this.state.dataDate) {
+      let newData = {
+        value = this.state.dataValue,
+        date = this.state.dataDate
+      }
+      API.postData(newData).then((err, res) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log("Success?")
+      });
+    } else { return false;}
+  }
+
+  //Submits workouts to API
+  submitWorkouts = () => {
+    if (this.state.workoutName && this.state.workoutType) {
+      let newWorkout = {
+        name = this.state.workoutName,
+        type = this.state.workoutType,
+        description = this.state.description
+      };
+      API.postWorkout(newWorkout).then((err, res) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Success?");
+      });
+    } else { return false;}
   };
 
   viewEntries = () => {
@@ -56,7 +104,7 @@ class Workouts extends Component {
       <div>
         <div className="workouts">
           <Nav />
-          <Modal show={this.state.show} close={this.hideModal}>
+          <Modal show={this.state.show} close={this.hideModal} submit={this.handleFormSubmit}>
             {this.selectForm(this.state.modalForm)}
           </Modal>
           <Wrapper>

@@ -12,6 +12,13 @@ function Modal(props) {
             <button className="btn bg-dark text-light" data-dismiss="modal">
               Close
             </button>
+            <button
+              className="btn bg-dark text-light"
+              onClick={props.submit}
+              data-dismiss="modal"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>
