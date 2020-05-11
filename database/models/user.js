@@ -33,8 +33,8 @@ const userSchema = new Schema({
   },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
+  city: { type: String },
+  state: { type: String },
   createdAt: { type: Date, default: Date.now },
   interests: { type: String },
   bio: { type: String },
@@ -53,11 +53,8 @@ userSchema.methods = {
 // Define hooks for pre-saving
 userSchema.pre('save', function (next) {
   if (!this.password) {
-    console.log('models/user.js =======NO PASSWORD PROVIDED=======');
     next();
   } else {
-    console.log('models/user.js hashPassword in pre save');
-
     this.password = this.hashPassword(this.password);
     next();
   }

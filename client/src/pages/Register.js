@@ -1,83 +1,132 @@
-import React, { Component } from "react";
-//import Jumbotron from '../components/Jumbotron';
-import Wrapper from "../components/Wrapper";
-import { Container } from "../components/Grid";
-// import Grid from '../components/GridContainer';
-import { Form, Input, SubmitBtn } from "../components/RegisterForm";
-import Footer from "../components/Footer";
-import GridContainer from "../components/GridContainer";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import Wrapper from '../components/Wrapper';
+import { Container } from '../components/Grid';
+import { Form, Input } from '../components/RegisterForm';
+import GridContainer from '../components/GridContainer';
+import Menu from '../components/Menu';
+import API from '../utils/API';
 
 class Register extends Component {
-  state = {
-    search: "",
-    books: [],
-    error: "",
-  };
-
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
+  constructor() {
+    super();
+    this.state = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      email: '',
+      redirectTo: null,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
     this.setState({
-      [name]: value,
+      [event.target.name]: event.target.value,
     });
-  };
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    API.registerUser({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      username: this.state.username,
+      password: this.state.password,
+      email: this.state.email,
+    })
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({
+            redirectTo: '/login',
+          });
+        } else {
+          console.log('username already taken');
+        }
+      })
+      .catch(error => {
+        console.log('signup error: ');
+        console.log(error);
+      });
+  }
 
   render() {
-    return (
-      <div className="register">
-        <div className="workouts">
+    if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />;
+    } else {
+      return (
+        <div className="register-page">
           <Wrapper>
+            <Menu />
             <Container fluid>
               <div className="register-wrapper">
                 <h1>
-                  Spartan<span class="text-info">Fit</span>
+                  Spartan<span className="text-info">Fit</span>
                 </h1>
                 <div className="register-container">
                   <h1>Register</h1>
                   <Form>
                     <GridContainer
-                      style={{ "grid-template-columns": "1fr 1fr" }}
+                      style={{ 'grid-template-columns': '1fr 1fr' }}
                     >
                       <Input
-                        for="firstName"
+                        htmlFor="firstName"
                         label="First Name: "
                         name="firstName"
                         id="firstName"
                         type="text"
+                        value={this.state.firstName}
+                        onChange={this.handleChange}
                       />
                       <Input
-                        for="lastName"
+                        htmlFor="lastName"
                         label="Last Name: "
                         name="lastName"
                         id="lastName"
                         type="text"
+                        value={this.state.lastName}
+                        onChange={this.handleChange}
                       />
                       <Input
-                        for="userName"
-                        label="User Name: "
-                        name="userName"
-                        id="userName"
+                        htmlFor="username"
+                        label="Username: "
+                        name="username"
+                        id="username"
                         type="text"
+                        value={this.state.username}
+                        onChange={this.handleChange}
                       />
                       <Input
-                        for="Password"
+                        htmlFor="Password"
                         label="Password: "
-                        name="Password"
+                        name="password"
                         id="Password"
                         type="password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
                       />
                       <Input
-                        for="Email"
+                        htmlFor="Email"
                         label="Email: "
-                        name="Email"
+                        name="email"
                         id="Email"
-                        type="text"
+                        type="email"
+                        value={this.state.email}
+                        onChange={this.handleChange}
                       />
                     </GridContainer>
-                    <SubmitBtn />
+                    <button
+                      type="submit"
+                      onClick={this.handleSubmit}
+                      className="btn btn-info"
+                    >
+                      Register
+                    </button>
                   </Form>
                   <p>
-                    Already registered?{" "}
-                    <a class="text-info" href="/login">
+                    Already registered?{' '}
+                    <a className="text-info" href="/login">
                       Login
                     </a>
                   </p>
@@ -85,10 +134,9 @@ class Register extends Component {
               </div>
             </Container>
           </Wrapper>
-          <Footer />
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

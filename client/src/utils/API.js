@@ -1,30 +1,39 @@
-import axios from "axios";
-import app from "./config";
+import axios from 'axios';
+import app from './config';
 
 export default {
   getPosts: function () {
-    return axios.get("/api/posts/");
+    return axios.get('/api/posts/');
   },
   getPost: function (id) {
-    return axios.get("/api/posts/" + id);
+    return axios.get('/api/posts/' + id);
   },
   deletePost: function (id) {
-    return axios.delete("/api/posts/" + id);
+    return axios.delete('/api/posts/' + id);
   },
   makePost: function (postData) {
-    return axios.post("/api/posts/", postData);
+    return axios.post('/api/posts/', postData);
   },
   getUsers: function () {
-    return axios.get("/api/users/");
+    return axios.get('/api/users/');
   },
   getUser: function (id) {
-    return axios.get("/api/users/" + id);
+    return axios.get('/api/users/' + id);
+  },
+  registerUser: function (postData) {
+    return axios.post('/api/users/', postData);
+  },
+  login: function (postData) {
+    return axios.post('/login', postData);
+  },
+  checkLogin: function () {
+    return axios.get('/user');
+  },
+  logout: function () {
+    return axios.post('/logout');
   },
   deleteUser: function (id) {
-    return axios.delete("/api/users/" + id);
-  },
-  makeUser: function (postData) {
-    return axios.post("/api/users/", postData);
+    return axios.delete('/api/users/' + id);
   },
   getMeals: function (query) {
     return axios.get(
@@ -32,9 +41,9 @@ export default {
     );
   },
   getSavedMeals: function (query) {
-    return axios.get("/api/meals/");
+    return axios.get('/api/meals/');
   },
   postMeal: function (postData) {
-    return axios.post("/api/meals/", postData);
+    return axios.post('/api/meals/', postData);
   },
 };

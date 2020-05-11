@@ -1,0 +1,27 @@
+.links {
+  position: absolute;
+  top: 8px;
+  right: 100px;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+.links .login-link,
+.links .register-link,
+.links .home-link {
+  padding: 0 5px;
+  color: white;
+  text-decoration: none;
+}
+
+.links .login-link:hover,
+.links .register-link:hover,
+.links .home-link:hover {
+  color: #17a2b8;
+  transition: 0.5s;
+}
+
+.links .active {
+  color: #25e0fd;
+}

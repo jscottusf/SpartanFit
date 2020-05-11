@@ -1,68 +1,107 @@
 import React, { Component } from 'react';
-//import Jumbotron from '../components/Jumbotron';
 import Wrapper from '../components/Wrapper';
 import { Col, Row, Container } from '../components/Grid';
 import Card from '../components/Card';
-import Nav from '../components/Nav';
-import Footer from '../components/Footer';
-//import API from '../../utils/API';
+import API from '../utils/API';
+import Menu from '../components/Menu';
 
 class Home extends Component {
-  state = {
-    search: '',
-    books: [],
-    error: '',
-  };
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+      username: null,
+      redirectTo: null,
+    };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
+  getUser() {
+    API.checkLogin().then(response => {
+      if (response.data.user) {
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username,
+        });
+      } else {
+        this.setState({
+          loggedIn: false,
+          username: null,
+        });
+      }
     });
-  };
+  }
 
   render() {
-    return (
-      <div className="home">
-        <Nav />
-        <Wrapper>
-          <Container fluid>
-            <Row>
-              <Col size="md-8">
-                <div className="newsfeed">
-                  <h1>Activity</h1>
-                  <hr></hr>
-                </div>
-              </Col>
-              <Col size="md-4">
-                <div className="snapshot">
-                  <Card
-                    title="Title goes here"
-                    stuff="stuff goes here"
-                    link="https://www.google.com"
-                  />
-                </div>
-                <div className="workouts">
-                  <Card
-                    title="Title goes here"
-                    stuff="stuff goes here"
-                    link="https://www.google.com"
-                  />
-                </div>
-                <div className="food">
-                  <Card
-                    title="Title goes here"
-                    stuff="stuff goes here"
-                    link="https://www.google.com"
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </Wrapper>
-        <Footer />
-      </div>
-    );
+    if (this.state.loggedIn) {
+      return (
+        <div className="home">
+          <Wrapper>
+            <Container fluid>
+              <Row>
+                <Col size="md-8">
+                  <div className="newsfeed-card">
+                    <h1>Activity</h1>
+                    <hr></hr>
+                  </div>
+                </Col>
+                <Col size="md-4">
+                  <div className="snapshot-card">
+                    <Card
+                      title="Title goes here"
+                      stuff="stuff goes here"
+                      link="https://www.google.com"
+                    />
+                  </div>
+                  <div className="workouts-card">
+                    <Card
+                      title="Title goes here"
+                      stuff="stuff goes here"
+                      link="https://www.google.com"
+                    />
+                  </div>
+                  <div className="food-card">
+                    <Card
+                      title="Title goes here"
+                      stuff="stuff goes here"
+                      link="https://www.google.com"
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </Wrapper>
+        </div>
+      );
+    } else {
+      return (
+        <div className="register-page">
+          <Wrapper>
+            <Menu />
+            <div className="register-wrapper">
+              <h1>
+                Spartan<span class="text-info">Fit</span>
+              </h1>
+              <div className="register-container">
+                <h1>This is SpartanFit</h1>
+                <p>lorem...</p>
+              </div>
+            </div>
+          </Wrapper>
+        </div>
+      );
+    }
   }
 }
 
