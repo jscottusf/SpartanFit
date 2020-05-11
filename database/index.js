@@ -8,13 +8,9 @@ const uri = 'mongodb://localhost/spartanfit';
 
 mongoose.connect(process.env.MONGODB_URI || uri).then(
   () => {
-    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-
     console.log('Connected to Mongo');
   },
   err => {
-    /** handle initial connection error */
-
     console.log('error connecting to Mongo: ');
     console.log(err);
   }

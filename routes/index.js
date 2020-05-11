@@ -7,7 +7,7 @@ const passport = require('../passport');
 router.use('/api', apiRoutes);
 
 //user authentication routes
-router.get('/', (req, res, next) => {
+router.get('/user', (req, res, next) => {
   if (req.user) {
     res.json({ user: req.user });
   } else {
@@ -33,7 +33,7 @@ router.post(
 router.post('/logout', (req, res) => {
   if (req.user) {
     req.logout();
-    res.send({ msg: 'logging out' });
+    res.redirect('/');
   } else {
     res.send({ msg: 'no user to log out' });
   }

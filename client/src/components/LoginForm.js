@@ -1,15 +1,17 @@
 import React from 'react';
 
-function LoginForm() {
+function LoginForm(props) {
   return (
     <form id="login" action="/login" method="POST">
       <div className="form-group">
-        <label for="email">Email:</label>
+        <label for="email">Username:</label>
         <input
-          type="email"
+          type="text"
           className="form-control"
           name="username"
           id="username"
+          value={props.username}
+          onChange={props.handleChange}
           required
         />
       </div>
@@ -20,10 +22,16 @@ function LoginForm() {
           className="form-control"
           name="password"
           id="password"
+          value={props.password}
+          onChange={props.handleChange}
           required
         />
       </div>
-      <button type="submit" className="btn btn-info">
+      <button
+        type="submit"
+        onClick={props.handleSubmit}
+        className="btn btn-info"
+      >
         Login
       </button>
       <p>

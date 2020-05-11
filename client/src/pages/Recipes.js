@@ -1,25 +1,24 @@
-import React, { Component } from "react";
-import RecipeCard from "../components/RecipeCard";
-import API from "../utils/API";
-import Nav from "../components/Nav";
-import Wrapper from "../components/Wrapper";
-import { InputGroup, Input, SearchBtn } from "../components/SearchBar";
-import GridContainer from "../components/GridContainer";
-import Footer from "../components/Footer";
+import React, { Component } from 'react';
+import RecipeCard from '../components/RecipeCard';
+import API from '../utils/API';
+import Wrapper from '../components/Wrapper';
+import { InputGroup, Input, SearchBtn } from '../components/SearchBar';
+import GridContainer from '../components/GridContainer';
+import Footer from '../components/Footer';
 
 class Recipes extends Component {
   state = {
     results: [],
-    query: "",
+    query: '',
   };
 
   // Upon initial render, populate recipe cards with default search "vegan"
   componentDidMount = () => {
-    this.searchRecipes("vegan");
+    this.searchRecipes('vegan');
   };
 
   // Handles changes in input of form
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -27,18 +26,18 @@ class Recipes extends Component {
   };
 
   // When recipe card favorite button clicked, create object and insert into MongoDB.
-  handleFavoriteClick = (id) => {
+  handleFavoriteClick = id => {
     let savedRecipe = {
-      title: document.getElementById("card-title-" + id).textContent,
-      image: document.getElementById("card-image-" + id).getAttribute("src"),
-      link: document.getElementById("card-link-" + id).getAttribute("href"),
+      title: document.getElementById('card-title-' + id).textContent,
+      image: document.getElementById('card-image-' + id).getAttribute('src'),
+      link: document.getElementById('card-link-' + id).getAttribute('href'),
     };
     console.log(savedRecipe);
     this.saveRecipe(savedRecipe);
   };
 
   // When search form submitted, search for recipes
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.query) {
       this.searchRecipes(this.state.query);
@@ -46,18 +45,18 @@ class Recipes extends Component {
   };
 
   // Post recipes to MongoDB
-  saveRecipe = (recipe) => {
+  saveRecipe = recipe => {
     API.postMeal(recipe).then((err, res) => {
       if (err) {
         console.log(err);
       }
-      console.log("Save successful.");
+      console.log('Save successful.');
     });
   };
 
   // Search for recipes using Edamam API
-  searchRecipes = (query) => {
-    API.getMeals(query).then((results) => {
+  searchRecipes = query => {
+    API.getMeals(query).then(results => {
       console.log(results);
       this.setState({
         results: results.data.hits,
@@ -69,7 +68,6 @@ class Recipes extends Component {
     return (
       <div>
         <div className="recipes">
-          <Nav />
           <Wrapper>
             <div className="main-container">
               <div className="recipe-search">
@@ -91,7 +89,7 @@ class Recipes extends Component {
                   />
                 </InputGroup>
               </div>
-              <GridContainer style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+              <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
                 {/* Generate recipe cards for each result */}
                 {this.state.results.map((recipe, index) => (
                   <RecipeCard

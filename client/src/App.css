@@ -1,11 +1,4 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
+html {
   position: relative;
   min-height: 100%;
 }
@@ -13,25 +6,14 @@ body {
 body {
   font-family: 'Roboto', sans-serif;
   color: white;
-}
-
-.login {
-  position: fixed;
-  min-height: 100%;
-  min-width: 100%;
-  margin-bottom: 60px; /* Margin bottom by footer height */
-  background-image: url('./images/gymwall.jpg');
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  margin-bottom: 30px;
 }
 
 .home {
-  position: fixed;
-  min-height: 100%;
+  position: relative;
+  min-height: 100vh;
   min-width: 100%;
-  margin-bottom: 60px; /* Margin bottom by footer height */
+
   background-image: url('./images/home.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -41,9 +23,10 @@ body {
 
 .recipes {
   position: relative;
-  min-height: 100%;
+  margin-top: 0;
+  padding-top: 0;
+  min-height: 100vh;
   min-width: 100%;
-  margin-bottom: 60px; /* Margin bottom by footer height */
   background-image: url('./images/home.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -51,11 +34,10 @@ body {
   background-size: cover;
 }
 
-.register {
-  position: fixed;
-  min-height: 100%;
+.register-page {
+  position: relative;
+  min-height: 100vh;
   min-width: 100%;
-  margin-bottom: 60px; /* Margin bottom by footer height */
   background-image: url('./images/spartan.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -63,10 +45,20 @@ body {
   background-size: cover;
 }
 
-.newsfeed,
-.snapshot,
-.workouts,
-.food {
+.workouts {
+  position: relative;
+  min-height: 100vh;
+  min-width: 100%;
+  margin: 0px 0px 60px 0px;
+  padding: 0px;
+  background-image: url('./images/home.jpg');
+  background-size: cover;
+}
+
+.newsfeed-card,
+.snapshot-card,
+.workouts-card,
+.food-card {
   color: #292e33;
   margin: 10px;
   padding: 5px;
@@ -79,7 +71,7 @@ body {
 .register-wrapper {
   width: 1010px;
   margin: auto;
-  text-align: right;
+  text-align: left;
 }
 
 .register-container {
@@ -95,7 +87,6 @@ body {
   background: rgba(255, 255, 255, 0.5);
   text-align: left;
   color: black;
-  margin: 10px;
   padding: 20px;
 }
 
@@ -111,7 +102,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 30px; /* Set the fixed height of the footer here */
+  height: 10px; /* Set the fixed height of the footer here */
   line-height: 30px; /* Vertically center the text there */
   text-align: center;
 }
