@@ -14,7 +14,7 @@ function Menu() {
             : 'home-link'
         }
       >
-        Home
+        About
       </Link>
       <Link
         to="/login"

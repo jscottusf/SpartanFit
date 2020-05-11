@@ -94,17 +94,17 @@ class Nav extends Component {
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
+              <div
                 className="nav-link dropdown-toggle"
-                href="#"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style={{ cursor: 'pointer' }}
               >
                 Settings
-              </a>
+              </div>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link to="#" className="dropdown-item" onClick={this.logout}>
                   <span className="text-secondary">logout</span>
