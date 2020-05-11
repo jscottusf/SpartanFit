@@ -5,6 +5,12 @@ const workoutSchema = new Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   description: String,
+  data: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Data",
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 

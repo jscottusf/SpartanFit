@@ -13,7 +13,17 @@ module.exports = {
   },
   create: function (req, res) {
     db.Data.create(req.body)
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => {
+        return db.Workout.findOneAndUpdate(
+          { _id: req.params.id },
+          { $push: { data: dbModel._id } },
+          { new: true }
+        )
+          .then(function (dbWorkout) {
+            res.json(dbWorkout);
+          })
+          .catch((err) => res.status(422).json(err));
+      })
       .catch((err) => res.status(422).json(err));
   },
   update: function (req, res) {
