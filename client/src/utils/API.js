@@ -46,7 +46,7 @@ export default {
   getData: function () {
     return axios.get("/api/data/");
   },
-  postData: function (postData) {
-    return axios.post("/api/data/", postData);
+  postData: function (id, postData) {
+    return axios.post("/api/data/" + id, postData);
   },
 };

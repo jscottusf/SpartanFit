@@ -5,7 +5,7 @@ import { PromiseProvider } from "mongoose";
 // Card will house information about individual exercises.
 function WorkoutCard(props) {
   return (
-    <div className="workout-well card my-4 w-100">
+    <div className="workout-well card my-5 w-100">
       {/* Card header */}
       <div className="card-header">
         <div className="row">
@@ -61,7 +61,7 @@ function WorkoutCard(props) {
               </div>
             ) : (
               //   If no data passed, tell user.
-              <h3>"No data yet!" </h3>
+              <h3>No data yet!</h3>
             )}
           </div>
         </div>

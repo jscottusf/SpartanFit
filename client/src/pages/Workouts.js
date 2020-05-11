@@ -12,17 +12,22 @@ import "./workouts.css";
 
 class Workouts extends Component {
   state = {
-    data: [],
+    workouts: [],
     dataDate: "",
     dataValue: "",
     workoutName: "",
     workoutDescription: "",
     workoutType: "",
     modalForm: "",
+    entryID: "",
   };
 
-  addEntry = () => {
-    this.setState({ modalForm: "add-entry" });
+  componentDidMount = () => {
+    this.loadWorkouts();
+  };
+
+  addEntry = (id) => {
+    this.setState({ modalForm: "add-entry", entryID: id });
   };
 
   addWorkout = () => {
@@ -42,10 +47,20 @@ class Workouts extends Component {
       case "add-workout":
         return this.submitWorkouts();
       case "add-entry":
-        return this.submitData();
+        return this.submitData(this.state.entryID);
       default:
         return null;
     }
+  };
+
+  loadWorkouts = () => {
+    API.getWorkouts().then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res.data);
+      this.setState({ workouts: res.data });
+    });
   };
 
   //Chooses contents of modal based on state
@@ -69,7 +84,9 @@ class Workouts extends Component {
         value: this.state.dataValue,
         date: this.state.dataDate,
       };
-      API.postData(newData).then((err, res) => {
+      // Modify to put params
+      //Grab id from state to put in params
+      API.postData(this.state.entryID, newData).then((err, res) => {
         if (err) {
           console.log(err);
         }
@@ -145,9 +162,21 @@ class Workouts extends Component {
                       { type: "Frequency", date: "2", value: "26" },
                       { type: "Frequency", date: "3", value: "37" },
                     ]}
-                    addEntry={this.addEntry}
+                    // Add entry by ID of card
+                    addEntry={() => this.addEntry("test")}
                     viewEntries={this.viewEntries}
                   />
+                  {this.state.workouts.map((data) => (
+                    <WorkoutCard
+                      name={data.name}
+                      type={data.type}
+                      description={data.description}
+                      key={data._id}
+                      id={data._id}
+                      addEntry={() => this.addEntry(data._id)}
+                      viewEntries={this.viewEntries}
+                    />
+                  ))}
                 </div>
               </div>
             </div>

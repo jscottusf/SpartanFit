@@ -4,10 +4,10 @@ function AddEntry(props) {
   return (
     <form className="text-center">
       <div className="form-group">
-        <label for="dataData">Date (MM/DD/YYYY)</label>
+        <label htmlFor="dataData">Date (MM/DD/YYYY)</label>
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           id="dataDate"
           name="dataDate"
           placeholder="01/01/20..."
@@ -15,9 +15,9 @@ function AddEntry(props) {
         />
       </div>
       <div className="form-group">
-        <label for="dataValue">Value</label>
+        <label htmlFor="dataValue">Value</label>
         <input
-          class="form-control"
+          className="form-control"
           id="dataValue"
           name="dataValue"
           placeholder="1, 5, 20..."
