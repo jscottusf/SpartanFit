@@ -181,7 +181,9 @@ class Workouts extends Component {
               </div>
               <div className="row mt-5" id="workouts-card-container">
                 <div className="col-md-10 mx-auto text-center">
-                  <WorkoutCard
+                  {/* 
+                  Example card - not generated from MongoDB 
+                    <WorkoutCard
                     name="Bicep Curls"
                     description="Lifting weights, alternating arms."
                     data={[
@@ -192,13 +194,14 @@ class Workouts extends Component {
                     // Add entry by ID of card
                     addEntry={() => this.addEntry("test")}
                     viewEntries={this.viewEntries}
-                  />
+                  /> */}
                   {/* Generate cards based on Workout data in state */}
                   {this.state.workouts.map((data) => (
                     <WorkoutCard
                       name={data.name}
                       type={data.type}
                       description={data.description}
+                      data={data.data}
                       key={data._id}
                       id={data._id}
                       // Saves id to state to prepare for post
