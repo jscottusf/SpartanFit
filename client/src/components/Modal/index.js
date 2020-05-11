@@ -1,27 +1,28 @@
 import React from "react";
 import "./style.css";
 
+// Modal to hold forms for submission.
 function Modal(props) {
-  console.log(props.show);
-  let showOrHide = props.show
-    ? "modal display-block d-flex flex-column z-index: 2"
-    : "modal hidden-modal display-none d-flex flex-column";
-
   return (
-    <div
-      className={
-        props.show
-          ? "modal display-block d-flex flex-column z-index: 2"
-          : "modal hidden-modal display-none d-flex flex-column"
-      }
-    >
-      <div className="modal-main">{props.children}</div>
-      <button
-        className="btn bg-dark text-light align-self-end"
-        onClick={props.close}
-      >
-        Close
-      </button>
+    <div id="form-modal" className="modal fade" role="dialog" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">Heading</div>
+          <div className="modal-body">{props.children}</div>
+          <div className="modal-footer">
+            <button className="btn bg-dark text-light" data-dismiss="modal">
+              Close
+            </button>
+            <button
+              className="btn bg-dark text-light"
+              onClick={props.submit}
+              data-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

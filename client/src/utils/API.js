@@ -31,10 +31,22 @@ export default {
       `https://api.edamam.com/search?q=${query}&app_id=${app.id}&app_key=${app.key}`
     );
   },
-  getSavedMeals: function (query) {
+  getSavedMeals: function () {
     return axios.get("/api/meals/");
   },
   postMeal: function (postData) {
     return axios.post("/api/meals/", postData);
+  },
+  getWorkouts: function () {
+    return axios.get("/api/workouts/");
+  },
+  postWorkout: function (postData) {
+    return axios.post("/api/workouts/", postData);
+  },
+  getData: function () {
+    return axios.get("/api/data/");
+  },
+  postData: function (postData) {
+    return axios.post("/api/data/", postData);
   },
 };

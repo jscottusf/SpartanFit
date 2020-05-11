@@ -43,17 +43,19 @@ function WorkoutCard(props) {
               <div>
                 <h5>Your last 3 entries</h5>
                 <table className="mx-auto text-center table data-table">
-                  <tr>
-                    <th>Day</th>
-                    <th>{props.data.type || "Frequency"}</th>
-                  </tr>
-                  {props.data.map((data) => {
-                    return (
-                      <tr>
-                        <td>{data.date}</td> <td>{data.value}</td>{" "}
-                      </tr>
-                    );
-                  })}
+                  <tbody>
+                    <tr>
+                      <th>Day</th>
+                      <th>{props.data.type || "Frequency"}</th>
+                    </tr>
+                    {props.data.map((data) => {
+                      return (
+                        <tr>
+                          <td>{data.date}</td> <td>{data.value}</td>{" "}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                 </table>
                 <hr className="w-100" />
               </div>
@@ -67,10 +69,20 @@ function WorkoutCard(props) {
       {/* Card footer */}
       <div className="card-footer d-flex flex-column">
         <div className="card-btn-holder align-self-end">
-          <button className="btn bg-dark text-light view-entries-btn">
+          <button
+            className="btn bg-dark text-light view-entries-btn"
+            onClick={props.viewEntries}
+            data-toggle="modal"
+            data-target="#form-modal"
+          >
             View all entries
           </button>
-          <button className="btn bg-dark text-light ml-3 add-entry-btn">
+          <button
+            className="btn bg-dark text-light ml-3 add-entry-btn"
+            onClick={props.addEntry}
+            data-toggle="modal"
+            data-target="#form-modal"
+          >
             Add entry
           </button>
         </div>
