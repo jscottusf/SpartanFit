@@ -46,7 +46,7 @@ function WorkoutCard(props) {
                   <tbody>
                     <tr>
                       <th>Day</th>
-                      <th>{props.data.type || "Frequency"}</th>
+                      <th>{props.type || "Frequency"}</th>
                     </tr>
                     {props.data.map((data) => {
                       return (

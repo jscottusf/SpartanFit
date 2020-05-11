@@ -40,6 +40,9 @@ export default {
   getWorkouts: function () {
     return axios.get("/api/workouts/");
   },
+  getWorkoutByID: function (id) {
+    return axios.get("/api/workouts/" + id);
+  },
   postWorkout: function (postData) {
     return axios.post("/api/workouts/", postData);
   },

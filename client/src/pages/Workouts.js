@@ -20,6 +20,7 @@ class Workouts extends Component {
     workoutType: "",
     modalForm: "",
     entryID: "",
+    retrievedEntries: [],
   };
 
   componentDidMount = () => {
@@ -32,6 +33,21 @@ class Workouts extends Component {
 
   addWorkout = () => {
     this.setState({ modalForm: "add-workout" });
+  };
+
+  gatherEntries = (id) => {
+    let workoutData;
+    API.getWorkoutByID(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res.data);
+      workoutData = res.data;
+      console.log(workoutData);
+    });
+    //Does not work because of async, shows as undefined.
+    console.log(workoutData);
+    return <ViewEntries handleInputChange={this.handleInputChange} />;
   };
 
   handleInputChange = (event) => {
@@ -53,6 +69,16 @@ class Workouts extends Component {
     }
   };
 
+  loadOneWorkout = (id) => {
+    API.getWorkoutByID(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res);
+      this.setState({ retrievedEntries: res.data.data });
+    });
+  };
+
   loadWorkouts = () => {
     API.getWorkouts().then((res, err) => {
       if (err) {
@@ -64,14 +90,14 @@ class Workouts extends Component {
   };
 
   //Chooses contents of modal based on state
-  selectForm = (form) => {
+  selectForm = (form, id) => {
     switch (form) {
       case "add-workout":
         return <AddWorkout handleInputChange={this.handleInputChange} />;
       case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
-        return <ViewEntries handleInputChange={this.handleInputChange} />;
+        return <ViewEntries data={this.state.retrievedEntries} />;
       default:
         return null;
     }
@@ -117,8 +143,9 @@ class Workouts extends Component {
     }
   };
 
-  viewEntries = () => {
-    this.setState({ modalForm: "view-entries" });
+  viewEntries = (id) => {
+    this.setState({ modalForm: "view-entries", entryID: id });
+    this.loadOneWorkout(id);
   };
 
   render() {
@@ -131,7 +158,7 @@ class Workouts extends Component {
             close={this.hideModal}
             submit={this.handleFormSubmit}
           >
-            {this.selectForm(this.state.modalForm)}
+            {this.selectForm(this.state.modalForm, this.state.entryID)}
           </Modal>
           <Wrapper>
             <div className="main-container">
@@ -166,6 +193,7 @@ class Workouts extends Component {
                     addEntry={() => this.addEntry("test")}
                     viewEntries={this.viewEntries}
                   />
+                  {/* Generate cards based on Workout data in state */}
                   {this.state.workouts.map((data) => (
                     <WorkoutCard
                       name={data.name}
@@ -173,8 +201,9 @@ class Workouts extends Component {
                       description={data.description}
                       key={data._id}
                       id={data._id}
+                      // Saves id to state to prepare for post
                       addEntry={() => this.addEntry(data._id)}
-                      viewEntries={this.viewEntries}
+                      viewEntries={() => this.viewEntries(data._id)}
                     />
                   ))}
                 </div>
