@@ -3,7 +3,6 @@ import React from "react";
 function ViewEntries(props) {
   return props.data ? (
     <div>
-      <h5>Your entries</h5>
       <table className="mx-auto text-center table data-table">
         <tbody>
           <tr>
