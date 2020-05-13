@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Workouts from './pages/Workouts';
+import Profile from './pages/Profile';
 import Nav from './components/Nav';
 import API from './utils/API';
 
@@ -16,6 +17,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      id: null,
       redirectTo: null,
     };
 
@@ -35,14 +37,17 @@ class App extends Component {
   getUser() {
     API.checkLogin().then(response => {
       if (response.data.user) {
+        console.log(response.data.user);
         this.setState({
-          loggedIn: true,
           username: response.data.user.username,
+          id: response.data.user._id,
+          loggedIn: true,
         });
       } else {
         this.setState({
           loggedIn: false,
           username: null,
+          id: null,
         });
       }
     });
@@ -53,11 +58,28 @@ class App extends Component {
       return (
         <div className="App">
           <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-          {/* {this.state.loggedIn && (
-            <p className="text-dark">Welcome, {this.state.username}!</p>
-          )} */}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Home} />
+          {this.state.loggedIn && (
+            <div>
+              <p className="text-dark">Welcome, {this.state.id}!</p>
+
+              <p className="text-dark">Welcome, {this.state.username}!</p>
+            </div>
+          )}
+          <Route
+            exact
+            path="/"
+            render={() => <Home loggedIn={this.state.loggedIn} />}
+          />
+          <Route
+            exact
+            path="/home"
+            render={() => <Home loggedIn={this.state.loggedIn} />}
+          />
+          <Route
+            exact
+            path="/Profile"
+            render={() => <Profile id={this.state.id} />}
+          />
           <Route exact path="/recipes" component={Recipes} />
           <Route exact path="/workouts" component={Workouts} />
           <Footer />
