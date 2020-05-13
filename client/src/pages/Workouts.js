@@ -11,13 +11,13 @@ import './workouts.css';
 class Workouts extends Component {
   state = {
     workouts: [],
-    dataDate: "",
-    dataValue: "",
-    workoutName: "",
-    workoutDescription: "",
-    workoutType: "",
-    modalForm: "",
-    entryID: "",
+    dataDate: '',
+    dataValue: '',
+    workoutName: '',
+    workoutDescription: '',
+    workoutType: '',
+    modalForm: '',
+    entryID: '',
     retrievedEntries: [],
   };
 
@@ -25,8 +25,8 @@ class Workouts extends Component {
     this.loadWorkouts();
   };
 
-  addEntry = (id) => {
-    this.setState({ modalForm: "add-entry", entryID: id });
+  addEntry = id => {
+    this.setState({ modalForm: 'add-entry', entryID: id });
   };
 
   addWorkout = () => {
@@ -45,14 +45,14 @@ class Workouts extends Component {
     switch (this.state.modalForm) {
       case 'add-workout':
         return this.submitWorkouts();
-      case "add-entry":
+      case 'add-entry':
         return this.submitData(this.state.entryID);
       default:
         return null;
     }
   };
 
-  loadOneWorkout = (id) => {
+  loadOneWorkout = id => {
     API.getWorkoutByID(id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -80,7 +80,7 @@ class Workouts extends Component {
         return <AddWorkout handleInputChange={this.handleInputChange} />;
       case 'add-entry':
         return <AddEntry handleInputChange={this.handleInputChange} />;
-      case "view-entries":
+      case 'view-entries':
         return <ViewEntries data={this.state.retrievedEntries} />;
       default:
         return null;
@@ -127,8 +127,8 @@ class Workouts extends Component {
     }
   };
 
-  viewEntries = (id) => {
-    this.setState({ modalForm: "view-entries", entryID: id });
+  viewEntries = id => {
+    this.setState({ modalForm: 'view-entries', entryID: id });
     this.loadOneWorkout(id);
   };
 
@@ -136,7 +136,6 @@ class Workouts extends Component {
     return (
       <div>
         <div className="workouts">
-          <Nav />
           <Modal
             show={this.state.show}
             close={this.hideModal}
@@ -180,7 +179,7 @@ class Workouts extends Component {
                     viewEntries={this.viewEntries}
                   /> */}
                   {/* Generate cards based on Workout data in state */}
-                  {this.state.workouts.map((data) => (
+                  {this.state.workouts.map(data => (
                     <WorkoutCard
                       name={data.name}
                       type={data.type}
@@ -196,8 +195,7 @@ class Workouts extends Component {
                 </div>
               </div>
             </div>
-        </Wrapper>
-        <Footer />
+          </Wrapper>
         </div>
       </div>
     );

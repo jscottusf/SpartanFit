@@ -38,6 +38,7 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   interests: { type: String },
   bio: { type: String },
+  image: String,
 });
 
 // Define schema methods

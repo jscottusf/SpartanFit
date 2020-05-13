@@ -20,6 +20,9 @@ export default {
   getUser: function (id) {
     return axios.get('/api/users/' + id);
   },
+  postUser: function (id, postData) {
+    return axios.post('/api/users/' + id, postData);
+  },
   registerUser: function (postData) {
     return axios.post('/api/users/', postData);
   },
