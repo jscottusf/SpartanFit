@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import API from '../utils/API';
-import Modal from '../components/Modal';
-import AddEntry from '../components/WorkoutForms/AddEntry';
-import AddWorkout from '../components/WorkoutForms/AddWorkout';
-import ViewEntries from '../components/WorkoutForms/ViewEntries';
-import Wrapper from '../components/Wrapper';
-import WorkoutCard from '../components/WorkoutCard';
-import './workouts.css';
+import React, { Component } from "react";
+import API from "../utils/API";
+import Modal from "../components/Modal";
+import AddEntry from "../components/WorkoutForms/AddEntry";
+import AddWorkout from "../components/WorkoutForms/AddWorkout";
+import ViewEntries from "../components/WorkoutForms/ViewEntries";
+import Nav from "../components/Nav";
+import Wrapper from "../components/Wrapper";
+import WorkoutCard from "../components/WorkoutCard";
+import "./workouts.css";
 
 class Workouts extends Component {
   state = {
@@ -30,10 +31,10 @@ class Workouts extends Component {
   };
 
   addWorkout = () => {
-    this.setState({ modalForm: 'add-workout' });
+    this.setState({ modalForm: "add-workout" });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -43,7 +44,7 @@ class Workouts extends Component {
   //Submits form for both workouts and data entry
   handleFormSubmit = () => {
     switch (this.state.modalForm) {
-      case 'add-workout':
+      case "add-workout":
         return this.submitWorkouts();
       case "add-entry":
         return this.submitData(this.state.entryID);
@@ -74,11 +75,11 @@ class Workouts extends Component {
 
   //Chooses contents of modal based on state
 
-  selectForm = form => {
+  selectForm = (form) => {
     switch (form) {
-      case 'add-workout':
+      case "add-workout":
         return <AddWorkout handleInputChange={this.handleInputChange} />;
-      case 'add-entry':
+      case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
         return <ViewEntries data={this.state.retrievedEntries} />;
@@ -100,7 +101,7 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
-        console.log('Success?');
+        console.log("Success?");
       });
     } else {
       return false;
@@ -120,7 +121,7 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
-        console.log('Success?');
+        console.log("Success?");
       });
     } else {
       return false;
@@ -136,11 +137,11 @@ class Workouts extends Component {
     return (
       <div>
         <div className="workouts">
-          <Nav />
           <Modal
             show={this.state.show}
             close={this.hideModal}
             submit={this.handleFormSubmit}
+            status={this.state.modalForm}
           >
             {this.selectForm(this.state.modalForm, this.state.entryID)}
           </Modal>
@@ -196,8 +197,7 @@ class Workouts extends Component {
                 </div>
               </div>
             </div>
-        </Wrapper>
-        <Footer />
+          </Wrapper>
         </div>
       </div>
     );
