@@ -10,7 +10,7 @@ import "./workouts.css";
 
 class Workouts extends Component {
   state = {
-    userId: null,
+    id: null,
     workouts: [],
     dataDate: "",
     dataValue: "",
@@ -23,7 +23,7 @@ class Workouts extends Component {
   };
 
   componentDidMount = () => {
-    this.setState({ userId: this.props.user });
+    this.setState({ id: this.props.id });
     this.loadWorkouts();
   };
 
@@ -65,7 +65,7 @@ class Workouts extends Component {
   };
 
   loadWorkouts = () => {
-    API.getWorkoutsByUser(this.props.user).then((res, err) => {
+    API.getWorkoutsByUser(this.props.id).then((res, err) => {
       if (err) {
         console.log(err);
       }
@@ -117,7 +117,7 @@ class Workouts extends Component {
         description: this.state.workoutDescription,
       };
       console.log(newWorkout);
-      API.postWorkout(newWorkout).then((err, res) => {
+      API.postWorkout(this.props.id, newWorkout).then((err, res) => {
         if (err) {
           console.log(err);
         }
