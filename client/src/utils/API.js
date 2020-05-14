@@ -21,7 +21,7 @@ export default {
     return axios.get("/api/users/" + id);
   },
   postUser: function (id, postData) {
-    return axios.post('/api/users/' + id, postData);
+    return axios.post("/api/users/" + id, postData);
   },
   registerUser: function (postData) {
     return axios.post("/api/users/", postData);
@@ -43,11 +43,11 @@ export default {
       `https://api.edamam.com/search?q=${query}&app_id=${app.id}&app_key=${app.key}`
     );
   },
-  getSavedMeals: function () {
-    return axios.get("/api/meals/");
+  getMealsByUser: function (userId) {
+    return axios.get(`/api/users/${userId}/meals`);
   },
-  postMeal: function (postData) {
-    return axios.post("/api/meals/", postData);
+  postMeal: function (id, postData) {
+    return axios.post("/api/meals/" + id, postData);
   },
   getWorkouts: function () {
     return axios.get("/api/workouts/");

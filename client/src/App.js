@@ -80,7 +80,11 @@ class App extends Component {
             path="/Profile"
             render={() => <Profile id={this.state.id} />}
           />
-          <Route exact path="/recipes" component={Recipes} />
+          <Route
+            exact
+            path="/recipes"
+            render={() => <Recipes id={this.state.id} />}
+          />
           <Route
             exact
             path="/workouts"
