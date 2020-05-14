@@ -9,6 +9,7 @@ router
   .route("/:id")
   .get(workoutController.findById)
   .put(workoutController.update)
-  .delete(workoutController.remove);
+  .delete(workoutController.remove)
+  .post(workoutController.create);
 
 module.exports = router;

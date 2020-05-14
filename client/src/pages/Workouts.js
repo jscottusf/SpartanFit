@@ -4,13 +4,13 @@ import Modal from "../components/Modal";
 import AddEntry from "../components/WorkoutForms/AddEntry";
 import AddWorkout from "../components/WorkoutForms/AddWorkout";
 import ViewEntries from "../components/WorkoutForms/ViewEntries";
-import Nav from "../components/Nav";
 import Wrapper from "../components/Wrapper";
 import WorkoutCard from "../components/WorkoutCard";
 import "./workouts.css";
 
 class Workouts extends Component {
   state = {
+    id: null,
     workouts: [],
     dataDate: '',
     dataValue: '',
@@ -23,6 +23,7 @@ class Workouts extends Component {
   };
 
   componentDidMount = () => {
+    this.setState({ id: this.props.id });
     this.loadWorkouts();
   };
 
@@ -64,12 +65,12 @@ class Workouts extends Component {
   };
 
   loadWorkouts = () => {
-    API.getWorkouts().then((res, err) => {
+    API.getWorkoutsByUser(this.props.id).then((res, err) => {
       if (err) {
         console.log(err);
       }
       console.log(res.data);
-      this.setState({ workouts: res.data });
+      this.setState({ workouts: res.data.workout });
     });
   };
 
@@ -101,7 +102,6 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
-        console.log("Success?");
       });
     } else {
       return false;
@@ -117,11 +117,10 @@ class Workouts extends Component {
         description: this.state.workoutDescription,
       };
       console.log(newWorkout);
-      API.postWorkout(newWorkout).then((err, res) => {
+      API.postWorkout(this.props.id, newWorkout).then((err, res) => {
         if (err) {
           console.log(err);
         }
-        console.log("Success?");
       });
     } else {
       return false;

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import './App.css';
-import Recipes from './pages/Recipes';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Workouts from './pages/Workouts';
-import Profile from './pages/Profile';
-import Nav from './components/Nav';
-import API from './utils/API';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import "./App.css";
+import Recipes from "./pages/Recipes";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Workouts from "./pages/Workouts";
+import Profile from "./pages/Profile";
+import Nav from "./components/Nav";
+import API from "./utils/API";
 
 class App extends Component {
   constructor() {
@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   getUser() {
-    API.checkLogin().then(response => {
+    API.checkLogin().then((response) => {
       if (response.data.user) {
         console.log(response.data.user);
         this.setState({
@@ -80,8 +80,17 @@ class App extends Component {
             path="/Profile"
             render={() => <Profile id={this.state.id} />}
           />
-          <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/workouts" component={Workouts} />
+          <Route
+            exact
+            path="/recipes"
+            render={() => <Recipes id={this.state.id} />}
+          />
+          <Route
+            exact
+            path="/workouts"
+            currentUser={this.state.username}
+            render={() => <Workouts id={this.state.id} />}
+          />
           <Footer />
         </div>
       );

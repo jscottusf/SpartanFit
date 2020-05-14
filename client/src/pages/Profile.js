@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import API from '../utils/API';
+import React, { Component } from "react";
+import API from "../utils/API";
 
 class Profile extends Component {
   state = {
     selectedFile: null,
   };
 
-  fileSelectedHandler = event => {
+  fileSelectedHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
