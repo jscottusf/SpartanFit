@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import API from '../utils/API';
 import Menu from '../components/Menu';
@@ -61,6 +62,7 @@ class Login extends Component {
                 Spartan<span class="text-info">Fit</span>
               </h1>
               <div className="register-container">
+                <h4>Login</h4>
                 <LoginForm
                   username={this.state.username}
                   password={this.state.password}

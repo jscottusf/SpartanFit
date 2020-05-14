@@ -8,43 +8,13 @@ import Menu from '../components/Menu';
 class Home extends Component {
   constructor() {
     super();
-    this.state = {
-      loggedIn: false,
-      username: null,
-      redirectTo: null,
-    };
-
-    this.getUser = this.getUser.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.updateUser = this.updateUser.bind(this);
-  }
-
-  componentDidMount() {
-    this.getUser();
-  }
-
-  updateUser(userObject) {
-    this.setState(userObject);
-  }
-
-  getUser() {
-    API.checkLogin().then(response => {
-      if (response.data.user) {
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username,
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-          username: null,
-        });
-      }
-    });
   }
 
   render() {
-    if (this.state.loggedIn) {
+    const loggedIn = this.props.loggedIn;
+    console.log(loggedIn);
+    console.log(this.props);
+    if (loggedIn) {
       return (
         <div className="home">
           <Wrapper>
