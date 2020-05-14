@@ -44,10 +44,10 @@ const userSchema = new Schema({
       ref: "Workout",
     },
   ],
-  recipe: [
+  meal: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Recipe",
+      ref: "Meal",
     },
   ],
 });
