@@ -50,6 +50,7 @@ const userSchema = new Schema({
       ref: "Meal",
     },
   ],
+  image: String,
 });
 
 // Define schema methods

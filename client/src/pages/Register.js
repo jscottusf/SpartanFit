@@ -65,7 +65,7 @@ class Register extends Component {
                   Spartan<span className="text-info">Fit</span>
                 </h1>
                 <div className="register-container">
-                  <h1>Register</h1>
+                  <h4>Register</h4>
                   <Form>
                     <GridContainer
                       style={{ 'grid-template-columns': '1fr 1fr' }}
