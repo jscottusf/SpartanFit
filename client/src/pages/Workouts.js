@@ -4,7 +4,6 @@ import Modal from "../components/Modal";
 import AddEntry from "../components/WorkoutForms/AddEntry";
 import AddWorkout from "../components/WorkoutForms/AddWorkout";
 import ViewEntries from "../components/WorkoutForms/ViewEntries";
-import Nav from "../components/Nav";
 import Wrapper from "../components/Wrapper";
 import WorkoutCard from "../components/WorkoutCard";
 import "./workouts.css";
@@ -101,7 +100,6 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
-        console.log("Success?");
       });
     } else {
       return false;
@@ -121,7 +119,6 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
-        console.log("Success?");
       });
     } else {
       return false;
