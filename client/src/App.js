@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import './App.css';
-import Recipes from './pages/Recipes';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Workouts from './pages/Workouts';
-import Nav from './components/Nav';
-import API from './utils/API';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import "./App.css";
+import Recipes from "./pages/Recipes";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Workouts from "./pages/Workouts";
+import Nav from "./components/Nav";
+import API from "./utils/API";
 
 class App extends Component {
   constructor() {
@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      userId: null,
       redirectTo: null,
     };
 
@@ -33,11 +34,12 @@ class App extends Component {
   }
 
   getUser() {
-    API.checkLogin().then(response => {
+    API.checkLogin().then((response) => {
       if (response.data.user) {
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
+          userId: response.data.user._id,
         });
       } else {
         this.setState({
@@ -59,7 +61,12 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/workouts" component={Workouts} />
+          <Route
+            exact
+            path="/workouts"
+            currentUser={this.state.username}
+            render={() => <Workouts user={this.state.userId} />}
+          />
           <Footer />
         </div>
       );
