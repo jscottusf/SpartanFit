@@ -13,12 +13,23 @@ body {
   position: relative;
   min-height: 100vh;
   min-width: 100%;
-
   background-image: url('./images/home.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.profile {
+  position: relative;
+  min-height: 100vh;
+  min-width: 100%;
+  background-image: url('./images/home.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding: 10px;
 }
 
 .recipes {

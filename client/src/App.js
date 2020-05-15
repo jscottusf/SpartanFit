@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import "./App.css";
-import Recipes from "./pages/Recipes";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Workouts from "./pages/Workouts";
-import Profile from "./pages/Profile";
-import Nav from "./components/Nav";
-import API from "./utils/API";
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import './App.css';
+import Recipes from './pages/Recipes';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Workouts from './pages/Workouts';
+import Profile from './pages/Profile/index';
+import Nav from './components/Nav';
+import API from './utils/API';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       loggedIn: false,
-      username: null,
+      username: '',
       id: null,
       redirectTo: null,
     };
@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   getUser() {
-    API.checkLogin().then((response) => {
+    API.checkLogin().then(response => {
       if (response.data.user) {
         console.log(response.data.user);
         this.setState({
@@ -58,13 +58,6 @@ class App extends Component {
       return (
         <div className="App">
           <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-          {this.state.loggedIn && (
-            <div>
-              <p className="text-dark">Welcome, {this.state.id}!</p>
-
-              <p className="text-dark">Welcome, {this.state.username}!</p>
-            </div>
-          )}
           <Route
             exact
             path="/"

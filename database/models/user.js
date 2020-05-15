@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 mongoose.promise = Promise;
 
-const validateEmail = (email) => {
+const validateEmail = email => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
 };
@@ -14,11 +14,11 @@ const userSchema = new Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    required: "Email address is required",
-    validate: [validateEmail, "Please fill a valid email address"],
+    required: 'Email address is required',
+    validate: [validateEmail, 'Please fill a valid email address'],
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
+      'Please fill a valid email address',
     ],
   },
   password: { type: String, required: true },
@@ -28,7 +28,7 @@ const userSchema = new Schema({
     required: true,
     index: {
       unique: true,
-      collation: { locale: "en", strength: 2 },
+      collation: { locale: 'en', strength: 2 },
     },
   },
   firstName: { type: String, required: true },
@@ -41,16 +41,18 @@ const userSchema = new Schema({
   workout: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Workout",
+      ref: 'Workout',
     },
   ],
   meal: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Meal",
+      ref: 'Meal',
     },
   ],
-  image: String,
+  image: Number,
+  currentWeight: Number,
+  goalWeight: Number,
 });
 
 // Define schema methods
@@ -58,13 +60,13 @@ userSchema.methods = {
   checkPassword: function (inputPassword) {
     return bcrypt.compareSync(inputPassword, this.password);
   },
-  hashPassword: (plainTextPassword) => {
+  hashPassword: plainTextPassword => {
     return bcrypt.hashSync(plainTextPassword, 10);
   },
 };
 
 // Define hooks for pre-saving
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
   if (!this.password) {
     next();
   } else {
@@ -73,5 +75,5 @@ userSchema.pre("save", function (next) {
   }
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;
