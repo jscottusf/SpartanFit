@@ -58,13 +58,13 @@ class App extends Component {
       return (
         <div className="App">
           <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-          {this.state.loggedIn && (
+          {/* {this.state.loggedIn && (
             <div>
               <p className="text-dark">Welcome, {this.state.id}!</p>
 
               <p className="text-dark">Welcome, {this.state.username}!</p>
             </div>
-          )}
+          )} */}
           <Route
             exact
             path="/"
