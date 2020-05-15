@@ -194,13 +194,13 @@ class Workouts extends Component {
                       chart={
                         <Line
                           data={{
-                            labels: ["January", "February", "March", "April"],
+                            labels: data.data.map((entry) => entry.date),
                             datasets: [
                               {
                                 label: "Workout Progress",
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
-                                data: [0, 10, 5, 2],
+                                data: data.data.map((entry) => entry.value),
                               },
                             ],
                           }}
