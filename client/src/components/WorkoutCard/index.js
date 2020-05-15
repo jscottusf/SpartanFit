@@ -28,13 +28,14 @@ function WorkoutCard(props) {
             {/* Houses chart for behavior. */}
             {/* TODO: Use Chart.js to generate chart based on based data. */}
             {/* Currently, uses demo chart file. */}
-            <img
+            {/* <img
               alt="chart"
               src={`${process.env.PUBLIC_URL}/demo-chart.png`}
               height="175px"
               width="175px"
               className="chart-img"
-            />
+            /> */}
+            {props.chart}
           </div>
           <div className="col-md-9">
             {/* If data has been passed for this program as a prop, generate table */}
