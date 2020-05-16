@@ -32,14 +32,13 @@ class Login extends Component {
     })
       .then(response => {
         if (response.status === 200) {
-          // update App.js state
-          // update the state to redirect to home
+          //update App.js state
+          //update the state to redirect to home
           this.setState({
             redirectTo: '/home',
           });
           this.props.updateUser({
             loggedIn: true,
-            username: response.data.username,
           });
         }
       })

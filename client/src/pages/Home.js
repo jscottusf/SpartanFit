@@ -8,7 +8,14 @@ import Menu from '../components/Menu';
 class Home extends Component {
   constructor() {
     super();
+    this.state = {
+      id: null,
+    };
   }
+
+  componentDidMount = () => {
+    this.setState({ id: this.props.id });
+  };
 
   render() {
     const loggedIn = this.props.loggedIn;

@@ -5,6 +5,7 @@ mongoose.Promise = global.Promise;
 //your local database url
 const uri = 'mongodb://localhost/spartanfit';
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.MONGODB_URI || uri).then(
   () => {
     console.log('Connected to Mongo');
