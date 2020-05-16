@@ -40,15 +40,6 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
-  convertDate = (object) => {
-    let convertedObject = object.forEach((entry) => {
-      console.log(entry);
-      entry.date = format(new Date(entry.date), "MM-dd-yy");
-    });
-    console.log(convertedObject);
-    return convertedObject;
-  };
-
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -141,6 +132,13 @@ class Workouts extends Component {
     }
   };
 
+  trimData = (data, property) => {
+    console.log(data);
+    let trimmed = data.slice(0, 3);
+    console.log(trimmed);
+    return trimmed.map((entry) => entry[property]);
+  };
+
   viewEntries = (id) => {
     this.setState({ modalForm: "view-entries", entryID: id });
     this.loadOneWorkout(id);
@@ -185,7 +183,7 @@ class Workouts extends Component {
                       name={data.name}
                       type={data.type}
                       description={data.description}
-                      data={data.data}
+                      data={data.data.slice(0, 3)}
                       key={data._id}
                       id={data._id}
                       // Saves id to state to prepare for post
@@ -194,16 +192,20 @@ class Workouts extends Component {
                       chart={
                         <Line
                           data={{
-                            labels: data.data.map((entry) =>
-                              format(new Date(entry.date), "MM-dd-yy")
-                            ),
+                            labels: data.data
+                              .slice(0, 3)
+                              .map((entry) =>
+                                format(new Date(entry.date), "MM-dd")
+                              ),
                             //format(date, "MM-dd-yy")
                             datasets: [
                               {
                                 label: "Workout Progress",
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
-                                data: data.data.map((entry) => entry.value),
+                                data: data.data
+                                  .slice(0, 3)
+                                  .map((entry) => entry.value),
                               },
                             ],
                           }}
