@@ -6,6 +6,7 @@ import AddWorkout from "../components/WorkoutForms/AddWorkout";
 import ViewEntries from "../components/WorkoutForms/ViewEntries";
 import Wrapper from "../components/Wrapper";
 import WorkoutCard from "../components/WorkoutCard";
+import { format } from "date-fns";
 import { Line } from "react-chartjs-2";
 import "./workouts.css";
 
@@ -24,6 +25,10 @@ class Workouts extends Component {
   };
 
   componentDidMount = () => {
+    //Testing for date-fns - REMOVE LATER
+    let date = new Date();
+    console.log(date);
+    console.log(`The date is: ${format(date, "MM-dd-yy")}`);
     this.loadWorkouts();
   };
 
@@ -33,6 +38,15 @@ class Workouts extends Component {
 
   addWorkout = () => {
     this.setState({ modalForm: "add-workout" });
+  };
+
+  convertDate = (object) => {
+    let convertedObject = object.forEach((entry) => {
+      console.log(entry);
+      entry.date = format(new Date(entry.date), "MM-dd-yy");
+    });
+    console.log(convertedObject);
+    return convertedObject;
   };
 
   handleInputChange = (event) => {
@@ -165,20 +179,6 @@ class Workouts extends Component {
               </div>
               <div className="row mt-5" id="workouts-card-container">
                 <div className="col-md-10 mx-auto text-center">
-                  {/* 
-                  Example card - not generated from MongoDB 
-                    <WorkoutCard
-                    name="Bicep Curls"
-                    description="Lifting weights, alternating arms."
-                    data={[
-                      { type: "Frequency", date: "1", value: "20" },
-                      { type: "Frequency", date: "2", value: "26" },
-                      { type: "Frequency", date: "3", value: "37" },
-                    ]}
-                    // Add entry by ID of card
-                    addEntry={() => this.addEntry("test")}
-                    viewEntries={this.viewEntries}
-                  /> */}
                   {/* Generate cards based on Workout data in state */}
                   {this.state.workouts.map((data) => (
                     <WorkoutCard
@@ -194,7 +194,10 @@ class Workouts extends Component {
                       chart={
                         <Line
                           data={{
-                            labels: data.data.map((entry) => entry.date),
+                            labels: data.data.map((entry) =>
+                              format(new Date(entry.date), "MM-dd-yy")
+                            ),
+                            //format(date, "MM-dd-yy")
                             datasets: [
                               {
                                 label: "Workout Progress",

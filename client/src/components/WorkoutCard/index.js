@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { format } from "date-fns";
 import { PromiseProvider } from "mongoose";
 
 // Card will house information about individual exercises.
@@ -25,16 +26,7 @@ function WorkoutCard(props) {
       <div className="card-body">
         <div className="row">
           <div className="col-md-3">
-            {/* Houses chart for behavior. */}
-            {/* TODO: Use Chart.js to generate chart based on based data. */}
-            {/* Currently, uses demo chart file. */}
-            {/* <img
-              alt="chart"
-              src={`${process.env.PUBLIC_URL}/demo-chart.png`}
-              height="175px"
-              width="175px"
-              className="chart-img"
-            /> */}
+            {/* Houses chart for workout progress. */}
             {props.chart}
           </div>
           <div className="col-md-9">
@@ -52,7 +44,8 @@ function WorkoutCard(props) {
                     {props.data.map((data) => {
                       return (
                         <tr>
-                          <td>{data.date}</td> <td>{data.value}</td>{" "}
+                          <td>{format(new Date(data.date), "MM-dd-yy")}</td>{" "}
+                          <td>{data.value}</td>{" "}
                         </tr>
                       );
                     })}

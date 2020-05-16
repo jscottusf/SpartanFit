@@ -1,4 +1,5 @@
 import React from "react";
+import { format } from "date-fns";
 
 function ViewEntries(props) {
   return props.data ? (
@@ -12,7 +13,8 @@ function ViewEntries(props) {
           {props.data.map((data) => {
             return (
               <tr>
-                <td>{data.date}</td> <td>{data.value}</td>{" "}
+                <td>{format(new Date(data.date), "MM-dd-yy")}</td>{" "}
+                <td>{data.value}</td>{" "}
               </tr>
             );
           })}
