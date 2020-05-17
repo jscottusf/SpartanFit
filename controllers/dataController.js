@@ -33,8 +33,15 @@ module.exports = {
   },
   remove: function (req, res) {
     db.Data.findById({ _id: req.params.id })
-      .then((dbModel) => dbModel.remove())
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => {
+        dbModel.remove();
+        return db.Workout.findOneAndUpdate(
+          { data: req.params.id },
+          { $pull: { data: req.params.id } }
+        ).then(function (dbWorkout) {
+          res.json(dbWorkout);
+        });
+      })
       .catch((err) => res.status(422).json(err));
   },
 };

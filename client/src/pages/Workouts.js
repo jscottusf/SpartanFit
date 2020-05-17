@@ -41,6 +41,10 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
+  handleDeleteEntry = (id) => {
+    console.log(`Deleting entry with ID: ${id}`);
+  };
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -89,7 +93,12 @@ class Workouts extends Component {
       case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
-        return <ViewEntries data={this.state.retrievedEntries} />;
+        return (
+          <ViewEntries
+            delete={this.handleDeleteEntry}
+            data={this.state.retrievedEntries}
+          />
+        );
       case "view-chart":
         return <ViewChart data={this.state.retrievedEntries} />;
       default:
