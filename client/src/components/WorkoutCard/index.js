@@ -75,6 +75,14 @@ function WorkoutCard(props) {
             <div className="card-btn-holder align-self-end">
               <button
                 className="btn bg-dark text-light view-entries-btn"
+                onClick={props.viewChart}
+                data-toggle="modal"
+                data-target="#form-modal"
+              >
+                View full chart
+              </button>
+              <button
+                className="btn bg-dark text-light ml-3 view-entries-btn"
                 onClick={props.viewEntries}
                 data-toggle="modal"
                 data-target="#form-modal"

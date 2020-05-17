@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import Modal from "../components/Modal";
-import AddEntry from "../components/WorkoutForms/AddEntry";
-import AddWorkout from "../components/WorkoutForms/AddWorkout";
-import ViewEntries from "../components/WorkoutForms/ViewEntries";
+import AddEntry from "../components/WorkoutModalBodies/AddEntry";
+import AddWorkout from "../components/WorkoutModalBodies/AddWorkout";
+import ViewEntries from "../components/WorkoutModalBodies/ViewEntries";
+import ViewChart from "../components/WorkoutModalBodies/ViewChart";
 import Wrapper from "../components/Wrapper";
 import WorkoutCard from "../components/WorkoutCard";
 import { format } from "date-fns";
@@ -89,6 +90,8 @@ class Workouts extends Component {
         return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
         return <ViewEntries data={this.state.retrievedEntries} />;
+      case "view-chart":
+        return <ViewChart data={this.state.retrievedEntries} />;
       default:
         return null;
     }
@@ -139,8 +142,9 @@ class Workouts extends Component {
     return trimmed.map((entry) => entry[property]);
   };
 
-  viewEntries = (id) => {
-    this.setState({ modalForm: "view-entries", entryID: id });
+  //Look at one workout's data in-depth as either 'entries' in a table or a 'chart'
+  viewInfo = (id, format) => {
+    this.setState({ modalForm: `view-${format}`, entryID: id });
     this.loadOneWorkout(id);
   };
 
@@ -152,6 +156,7 @@ class Workouts extends Component {
             show={this.state.show}
             close={this.hideModal}
             submit={this.handleFormSubmit}
+            //Changes body of modal based on state. Allows for modal reuse.
             status={this.state.modalForm}
           >
             {this.selectForm(this.state.modalForm, this.state.entryID)}
@@ -183,15 +188,19 @@ class Workouts extends Component {
                       name={data.name}
                       type={data.type}
                       description={data.description}
+                      //Only display up to 3 data points on the card itself.
                       data={data.data.slice(0, 3)}
                       key={data._id}
                       id={data._id}
                       // Saves id to state to prepare for post
                       addEntry={() => this.addEntry(data._id)}
-                      viewEntries={() => this.viewEntries(data._id)}
+                      viewEntries={() => this.viewInfo(data._id, "entries")}
+                      viewChart={() => this.viewInfo(data._id, "chart")}
+                      //Creates Line graph using Chart.js
                       chart={
                         <Line
                           data={{
+                            //Dates of data on the X-axis of the chart.
                             labels: data.data
                               .slice(0, 3)
                               .map((entry) =>
@@ -203,6 +212,7 @@ class Workouts extends Component {
                                 label: "Workout Progress",
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
+                                //Values of data on the Y-axis of the chart.
                                 data: data.data
                                   .slice(0, 3)
                                   .map((entry) => entry.value),

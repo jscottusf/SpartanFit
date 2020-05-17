@@ -27,5 +27,3 @@ function ViewEntries(props) {
 }
 
 export default ViewEntries;
-
-// onChange={props.handleInputChange}
