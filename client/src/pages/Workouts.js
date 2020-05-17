@@ -231,6 +231,7 @@ class Workouts extends Component {
                             //Dates of data on the X-axis of the chart.
                             labels: data.data
                               .slice(0, 3)
+                              .reverse()
                               .map((entry) =>
                                 format(new Date(entry.date), "MM-dd")
                               ),
@@ -244,6 +245,7 @@ class Workouts extends Component {
                                 //Values of data on the Y-axis of the chart.
                                 data: data.data
                                   .slice(0, 3)
+                                  .reverse()
                                   .map((entry) => entry.value),
                               },
                             ],
