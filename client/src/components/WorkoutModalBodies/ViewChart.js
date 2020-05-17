@@ -22,6 +22,20 @@ function ViewChart(props) {
             },
           ],
         }}
+        options={{
+          legend: {
+            labels: {
+              fontColor: "black",
+              fontSize: 16,
+              fontStyle: "bold",
+            },
+          },
+          scales: {
+            xAxes: {
+              fontStyle: "bold",
+            },
+          },
+        }}
       />
     </div>
   ) : (
@@ -30,3 +44,32 @@ function ViewChart(props) {
 }
 
 export default ViewChart;
+
+/*
+                          options={{
+                            legend: {
+                              labels: {
+                                fontColor: "rgba (0, 0, 0, 0.9)",
+                                fontSize: 16,
+                                fontStyle: "bold",
+                              },
+                            },
+                            scales: {
+                              xAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                    fontStyle: "bold",
+                                  },
+                                },
+                              ],
+                              yAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                  },
+                                },
+                              ],
+                            },
+                          }}
+*/

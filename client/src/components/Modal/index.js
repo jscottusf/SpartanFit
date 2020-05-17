@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-// Modal to hold forms for submission.
+// Modal to display data or hold forms for submission.
 function Modal(props) {
   return (
     <div id="form-modal" className="modal fade" role="dialog" tabIndex="-1">
@@ -9,6 +9,7 @@ function Modal(props) {
         <div className="modal-content">
           <div className="modal-header text-center">
             <h4>
+              {/* Pick title for Modal. Might convert to Switch statement later. */}
               {props.status === "add-entry" ? "Add an Entry" : ""}
               {props.status === "add-workout" ? "Add a workout" : ""}
               {props.status === "view-entries" ? "View entries" : ""}
@@ -19,6 +20,7 @@ function Modal(props) {
             <button className="btn bg-dark text-light" data-dismiss="modal">
               Close
             </button>
+            {/* Only show submit button if status fills body with a form */}
             {props.status === "add-workout" || props.status === "add-entry" ? (
               <button
                 className="btn bg-dark text-light"

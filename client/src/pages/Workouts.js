@@ -226,6 +226,7 @@ class Workouts extends Component {
                       //Creates Line graph using Chart.js
                       chart={
                         <Line
+                          className="chart"
                           data={{
                             //Dates of data on the X-axis of the chart.
                             labels: data.data
@@ -237,6 +238,7 @@ class Workouts extends Component {
                             datasets: [
                               {
                                 label: "Workout Progress",
+                                scaleStepWidth: 2,
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
                                 //Values of data on the Y-axis of the chart.
@@ -245,6 +247,32 @@ class Workouts extends Component {
                                   .map((entry) => entry.value),
                               },
                             ],
+                          }}
+                          options={{
+                            legend: {
+                              labels: {
+                                fontColor: "rgba (0, 0, 0, 0.9)",
+                                fontSize: 16,
+                                fontStyle: "bold",
+                              },
+                            },
+                            scales: {
+                              xAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                    fontStyle: "bold",
+                                  },
+                                },
+                              ],
+                              yAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                  },
+                                },
+                              ],
+                            },
                           }}
                         />
                       }
