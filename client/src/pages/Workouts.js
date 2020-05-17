@@ -229,13 +229,14 @@ class Workouts extends Component {
                           className="chart"
                           data={{
                             //Dates of data on the X-axis of the chart.
+                            //Only 3 data points shown for chart clarity.
+                            //Data points are reversed to flow in the proper direction
                             labels: data.data
                               .slice(0, 3)
                               .reverse()
                               .map((entry) =>
                                 format(new Date(entry.date), "MM-dd")
                               ),
-                            //format(date, "MM-dd-yy")
                             datasets: [
                               {
                                 label: "Workout Progress",
