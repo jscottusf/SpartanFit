@@ -13,7 +13,6 @@ import "./workouts.css";
 
 class Workouts extends Component {
   state = {
-    id: null,
     workouts: [],
     dataDate: "",
     dataValue: "",
@@ -26,13 +25,10 @@ class Workouts extends Component {
   };
 
   componentDidMount = () => {
-    //Testing for date-fns - REMOVE LATER
-    let date = new Date();
-    console.log(date);
-    console.log(`The date is: ${format(date, "MM-dd-yy")}`);
     this.loadWorkouts();
   };
 
+  //Changes modal body to be the add-entry form for inputting data.
   addEntry = (id) => {
     this.setState({ modalForm: "add-entry", entryID: id });
   };
@@ -41,8 +37,16 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
+  //Deletes data when button is clicked.
   handleDeleteEntry = (id) => {
     console.log(`Deleting entry with ID: ${id}`);
+    API.deleteData(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadWorkouts();
+      this.loadOneWorkout(this.state.entryID);
+    });
   };
 
   handleInputChange = (event) => {
@@ -64,6 +68,7 @@ class Workouts extends Component {
     }
   };
 
+  //Grabs just one workout's information, used for grabbing more data to put in modals
   loadOneWorkout = (id) => {
     API.getWorkoutByID(id).then((res, err) => {
       if (err) {
@@ -74,6 +79,7 @@ class Workouts extends Component {
     });
   };
 
+  //Gets all workotus for the user
   loadWorkouts = () => {
     API.getWorkoutsByUser(this.props.id).then((res, err) => {
       if (err) {
@@ -85,7 +91,6 @@ class Workouts extends Component {
   };
 
   //Chooses contents of modal based on state
-
   selectForm = (form) => {
     switch (form) {
       case "add-workout":
@@ -119,6 +124,7 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
+        this.loadWorkouts();
       });
     } else {
       return false;
@@ -138,6 +144,7 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
+        this.loadWorkouts();
       });
     } else {
       return false;
