@@ -49,6 +49,16 @@ class Workouts extends Component {
     });
   };
 
+  //Deletes workout and associated data when button is clicked.
+  handleDeleteWorkout = (id) => {
+    API.deleteWorkout(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadWorkouts();
+    });
+  };
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -209,6 +219,7 @@ class Workouts extends Component {
                       key={data._id}
                       id={data._id}
                       // Saves id to state to prepare for post
+                      delete={() => this.handleDeleteWorkout(data._id)}
                       addEntry={() => this.addEntry(data._id)}
                       viewEntries={() => this.viewInfo(data._id, "entries")}
                       viewChart={() => this.viewInfo(data._id, "chart")}

@@ -65,6 +65,9 @@ export default {
   postWorkout: function (id, postData) {
     return axios.post("/api/workouts/" + id, postData);
   },
+  deleteWorkout: function (id) {
+    return axios.delete("/api/workouts/" + id);
+  },
   getData: function () {
     return axios.get("/api/data/");
   },

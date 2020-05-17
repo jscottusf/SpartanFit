@@ -19,7 +19,7 @@ function Modal(props) {
             <button className="btn bg-dark text-light" data-dismiss="modal">
               Close
             </button>
-            {props.status === "add-entry" ? (
+            {props.status === "add-workout" || props.status === "add-entry" ? (
               <button
                 className="btn bg-dark text-light"
                 onClick={props.submit}

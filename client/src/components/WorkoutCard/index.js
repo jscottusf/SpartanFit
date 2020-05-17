@@ -71,32 +71,44 @@ function WorkoutCard(props) {
             </div>
           </div>
           {/* Card footer */}
-          <div className="card-footer d-flex flex-column">
-            <div className="card-btn-holder align-self-end">
-              <button
-                className="btn bg-dark text-light view-entries-btn"
-                onClick={props.viewChart}
-                data-toggle="modal"
-                data-target="#form-modal"
-              >
-                View full chart
-              </button>
-              <button
-                className="btn bg-dark text-light ml-3 view-entries-btn"
-                onClick={props.viewEntries}
-                data-toggle="modal"
-                data-target="#form-modal"
-              >
-                View all entries
-              </button>
-              <button
-                className="btn bg-dark text-light ml-3 add-entry-btn"
-                onClick={props.addEntry}
-                data-toggle="modal"
-                data-target="#form-modal"
-              >
-                Add entry
-              </button>
+          <div className="card-footer">
+            <div className="row">
+              <div className="col-md-5 d-flex flex-column">
+                <button
+                  className="btn bg-danger text-light d-flex align-self-start delete-workout-btn"
+                  onClick={props.delete}
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="col-md-7 d-flex flex-column">
+                <div className="card-btn-holder d-flex align-self-end">
+                  <button
+                    className="btn bg-dark text-light view-entries-btn"
+                    onClick={props.viewChart}
+                    data-toggle="modal"
+                    data-target="#form-modal"
+                  >
+                    View full chart
+                  </button>
+                  <button
+                    className="btn bg-dark text-light ml-3 view-entries-btn"
+                    onClick={props.viewEntries}
+                    data-toggle="modal"
+                    data-target="#form-modal"
+                  >
+                    View all entries
+                  </button>
+                  <button
+                    className="btn bg-dark text-light ml-3 add-entry-btn"
+                    onClick={props.addEntry}
+                    data-toggle="modal"
+                    data-target="#form-modal"
+                  >
+                    Add entry
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
