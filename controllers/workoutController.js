@@ -35,7 +35,10 @@ module.exports = {
   },
   remove: function (req, res) {
     db.Workout.findById({ _id: req.params.id })
-      .then((dbModel) => dbModel.remove())
+      .then((dbModel) => {
+        dbModel.remove();
+        return db.Data.remove({ _id: { $in: dbModel.data } });
+      })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

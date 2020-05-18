@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import Modal from "../components/Modal";
-import AddEntry from "../components/WorkoutForms/AddEntry";
-import AddWorkout from "../components/WorkoutForms/AddWorkout";
-import ViewEntries from "../components/WorkoutForms/ViewEntries";
+import AddEntry from "../components/WorkoutModalBodies/AddEntry";
+import AddWorkout from "../components/WorkoutModalBodies/AddWorkout";
+import ViewEntries from "../components/WorkoutModalBodies/ViewEntries";
+import ViewChart from "../components/WorkoutModalBodies/ViewChart";
 import Wrapper from "../components/Wrapper";
 import WorkoutCard from "../components/WorkoutCard";
+import { format } from "date-fns";
 import { Line } from "react-chartjs-2";
 import "./workouts.css";
 
 class Workouts extends Component {
   state = {
-    id: null,
     workouts: [],
     dataDate: "",
     dataValue: "",
@@ -27,12 +28,35 @@ class Workouts extends Component {
     this.loadWorkouts();
   };
 
+  //Changes modal body to be the add-entry form for inputting data.
   addEntry = (id) => {
     this.setState({ modalForm: "add-entry", entryID: id });
   };
 
   addWorkout = () => {
     this.setState({ modalForm: "add-workout" });
+  };
+
+  //Deletes data when button is clicked.
+  handleDeleteEntry = (id) => {
+    console.log(`Deleting entry with ID: ${id}`);
+    API.deleteData(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadWorkouts();
+      this.loadOneWorkout(this.state.entryID);
+    });
+  };
+
+  //Deletes workout and associated data when button is clicked.
+  handleDeleteWorkout = (id) => {
+    API.deleteWorkout(id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadWorkouts();
+    });
   };
 
   handleInputChange = (event) => {
@@ -54,6 +78,7 @@ class Workouts extends Component {
     }
   };
 
+  //Grabs just one workout's information, used for grabbing more data to put in modals
   loadOneWorkout = (id) => {
     API.getWorkoutByID(id).then((res, err) => {
       if (err) {
@@ -64,6 +89,7 @@ class Workouts extends Component {
     });
   };
 
+  //Gets all workotus for the user
   loadWorkouts = () => {
     API.getWorkoutsByUser(this.props.id).then((res, err) => {
       if (err) {
@@ -75,7 +101,6 @@ class Workouts extends Component {
   };
 
   //Chooses contents of modal based on state
-
   selectForm = (form) => {
     switch (form) {
       case "add-workout":
@@ -83,7 +108,14 @@ class Workouts extends Component {
       case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
       case "view-entries":
-        return <ViewEntries data={this.state.retrievedEntries} />;
+        return (
+          <ViewEntries
+            delete={this.handleDeleteEntry}
+            data={this.state.retrievedEntries}
+          />
+        );
+      case "view-chart":
+        return <ViewChart data={this.state.retrievedEntries} />;
       default:
         return null;
     }
@@ -102,6 +134,7 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
+        this.loadWorkouts();
       });
     } else {
       return false;
@@ -121,14 +154,23 @@ class Workouts extends Component {
         if (err) {
           console.log(err);
         }
+        this.loadWorkouts();
       });
     } else {
       return false;
     }
   };
 
-  viewEntries = (id) => {
-    this.setState({ modalForm: "view-entries", entryID: id });
+  trimData = (data, property) => {
+    console.log(data);
+    let trimmed = data.slice(0, 3);
+    console.log(trimmed);
+    return trimmed.map((entry) => entry[property]);
+  };
+
+  //Look at one workout's data in-depth as either 'entries' in a table or a 'chart'
+  viewInfo = (id, format) => {
+    this.setState({ modalForm: `view-${format}`, entryID: id });
     this.loadOneWorkout(id);
   };
 
@@ -140,6 +182,7 @@ class Workouts extends Component {
             show={this.state.show}
             close={this.hideModal}
             submit={this.handleFormSubmit}
+            //Changes body of modal based on state. Allows for modal reuse.
             status={this.state.modalForm}
           >
             {this.selectForm(this.state.modalForm, this.state.entryID)}
@@ -165,44 +208,74 @@ class Workouts extends Component {
               </div>
               <div className="row mt-5" id="workouts-card-container">
                 <div className="col-md-10 mx-auto text-center">
-                  {/* 
-                  Example card - not generated from MongoDB 
-                    <WorkoutCard
-                    name="Bicep Curls"
-                    description="Lifting weights, alternating arms."
-                    data={[
-                      { type: "Frequency", date: "1", value: "20" },
-                      { type: "Frequency", date: "2", value: "26" },
-                      { type: "Frequency", date: "3", value: "37" },
-                    ]}
-                    // Add entry by ID of card
-                    addEntry={() => this.addEntry("test")}
-                    viewEntries={this.viewEntries}
-                  /> */}
                   {/* Generate cards based on Workout data in state */}
                   {this.state.workouts.map((data) => (
                     <WorkoutCard
                       name={data.name}
                       type={data.type}
                       description={data.description}
-                      data={data.data}
+                      //Only display up to 3 data points on the card itself.
+                      data={data.data.slice(0, 3)}
                       key={data._id}
                       id={data._id}
                       // Saves id to state to prepare for post
+                      delete={() => this.handleDeleteWorkout(data._id)}
                       addEntry={() => this.addEntry(data._id)}
-                      viewEntries={() => this.viewEntries(data._id)}
+                      viewEntries={() => this.viewInfo(data._id, "entries")}
+                      viewChart={() => this.viewInfo(data._id, "chart")}
+                      //Creates Line graph using Chart.js
                       chart={
                         <Line
+                          className="chart"
                           data={{
-                            labels: data.data.map((entry) => entry.date),
+                            //Dates of data on the X-axis of the chart.
+                            //Only 3 data points shown for chart clarity.
+                            //Data points are reversed to flow in the proper direction
+                            labels: data.data
+                              .slice(0, 3)
+                              .reverse()
+                              .map((entry) =>
+                                format(new Date(entry.date), "MM-dd")
+                              ),
                             datasets: [
                               {
                                 label: "Workout Progress",
+                                scaleStepWidth: 2,
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
-                                data: data.data.map((entry) => entry.value),
+                                //Values of data on the Y-axis of the chart.
+                                data: data.data
+                                  .slice(0, 3)
+                                  .reverse()
+                                  .map((entry) => entry.value),
                               },
                             ],
+                          }}
+                          options={{
+                            legend: {
+                              labels: {
+                                fontColor: "rgba (0, 0, 0, 0.9)",
+                                fontSize: 16,
+                                fontStyle: "bold",
+                              },
+                            },
+                            scales: {
+                              xAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                    fontStyle: "bold",
+                                  },
+                                },
+                              ],
+                              yAxes: [
+                                {
+                                  ticks: {
+                                    fontColor: "rgba(0, 0, 0, 0.8)",
+                                  },
+                                },
+                              ],
+                            },
                           }}
                         />
                       }

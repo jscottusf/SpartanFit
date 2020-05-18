@@ -19,7 +19,11 @@ module.exports = {
   },
   findUserWorkouts: function (req, res) {
     db.User.findById(req.params.id)
-      .populate({ path: "workout", populate: { path: "data" } })
+      .populate({
+        path: "workout",
+        options: { sort: "date" },
+        populate: { path: "data", options: { sort: "-date" } },
+      })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
