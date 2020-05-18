@@ -26,6 +26,10 @@ class Recipes extends Component {
     });
   };
 
+  deleteUserRecipe = (id) => {
+    console.log(`Deleting recipe with id: ${id}`);
+  };
+
   render() {
     return (
       <div>
@@ -41,11 +45,12 @@ class Recipes extends Component {
                 {/* Generate recipe cards for each result */}
                 {this.state.results.map((recipe, index) => (
                   <RecipeCard
-                    key={index}
-                    id={index}
+                    key={recipe._id}
+                    id={recipe._id}
                     image={recipe.image}
                     name={recipe.title}
                     link={recipe.link}
+                    delete={this.deleteUserRecipe}
                   />
                 ))}
               </GridContainer>

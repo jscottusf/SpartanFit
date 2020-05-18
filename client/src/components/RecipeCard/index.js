@@ -7,38 +7,42 @@ function RecipeCard(props) {
       {/* Card content */}
       {/* Card Image */}
       <div className="card-body" style={{ height: "3%" }}>
-        <div className="collapse-content">
-          {/* Text in collapsible element*/}
-          <p className="card-text collapse" id="collapseContent"></p>
-          {/*Button*/}
-          {/* <a
-            className="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed"
-            data-toggle="collapse"
-            href="#collapseContent"
-            aria-expanded="false"
-            aria-controls="collapseContent"
-          ></a> */}
+        {props.favorite ? (
           <i
-            className="fas fa-share-alt text-muted float-right p-1 my-1"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Share this post"
-          ></i>
-          <i
-            className="fas fa-heart text-muted float-right p-1 my-1 mr-3"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="I like it"
-          ></i>
-          <i
-            className="fas fa-plus text-muted float-right p-1 my-1 mr-3"
+            className="fas fa-plus text-muted float-right p-1 my-1"
             data-toggle="tooltip"
             data-placement="top"
             title="Add to My Recipes"
             //   When this icon is clicked, save to MongoDB
             onClick={() => props.favorite(props.id)}
           ></i>
-        </div>
+        ) : (
+          <i
+            className="fas fa-times float-right p-1 my-1"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Remove from My Recipes"
+            //   When this icon is clicked, delete from MongoDB
+            onClick={() => props.delete(props.id)}
+          ></i>
+        )}
+        {props.favorite ? (
+          <i
+            className="fas fa-heart text-muted float-right p-1 my-1 mr-2"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="I like it"
+          ></i>
+        ) : (
+          ""
+        )}
+
+        <i
+          className="fas fa-share-alt text-muted float-right p-1 my-1 mr-2"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Share this post"
+        ></i>
       </div>
       <div className="view overlay">
         <a
