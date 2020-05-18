@@ -21,13 +21,17 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      res.data.meal.map((recipe) => console.log(recipe.image));
       this.setState({ results: res.data.meal });
     });
   };
 
   deleteUserRecipe = (id) => {
-    console.log(`Deleting recipe with id: ${id}`);
+    API.deleteMeal(id).then((err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadUserRecipes();
+    });
   };
 
   render() {

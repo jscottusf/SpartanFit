@@ -7,6 +7,7 @@ function RecipeCard(props) {
       {/* Card content */}
       {/* Card Image */}
       <div className="card-body" style={{ height: "3%" }}>
+        {/* If card is called from Search page, add favorite icon. Else, add delete icon. */}
         {props.favorite ? (
           <i
             className="fas fa-plus text-muted float-right p-1 my-1"
@@ -36,7 +37,6 @@ function RecipeCard(props) {
         ) : (
           ""
         )}
-
         <i
           className="fas fa-share-alt text-muted float-right p-1 my-1 mr-2"
           data-toggle="tooltip"

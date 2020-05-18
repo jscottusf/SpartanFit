@@ -54,7 +54,6 @@ class Recipes extends Component {
         console.log(err);
       }
       console.log("Load successful");
-      res.data.meal.map((recipe) => console.log(recipe.image));
       this.setState({ results: res.data.meal });
     });
   };

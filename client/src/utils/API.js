@@ -21,9 +21,6 @@ export default {
     console.log("/api/users/" + id);
     return axios.get("/api/users/" + id);
   },
-  // postUser: function (id, postData) {
-  //   return axios.post('/api/users/' + id, postData);
-  // },
   putUser: function (id, putData) {
     return axios.put("/api/users/" + id, putData);
   },
@@ -52,6 +49,9 @@ export default {
   },
   postMeal: function (id, postData) {
     return axios.post("/api/meals/" + id, postData);
+  },
+  deleteMeal: function (id) {
+    return axios.delete("/api/meals/" + id);
   },
   getWorkouts: function () {
     return axios.get("/api/workouts/");
