@@ -56,7 +56,7 @@ class NavMenu extends Component {
                         : 'home-link'
                     }
                   >
-                    Home <span className="sr-only">(current)</span>
+                    home
                   </Link>
                   <Link
                     to="/profile"
@@ -66,7 +66,7 @@ class NavMenu extends Component {
                         : 'profile-link'
                     }
                   >
-                    Profile
+                    profile
                   </Link>
                   <Link
                     to="/workouts"
@@ -76,9 +76,8 @@ class NavMenu extends Component {
                         : 'workouts-link'
                     }
                   >
-                    Workouts
+                    workouts
                   </Link>
-
                   <div
                     className={
                       window.location.pathname === '/recipes' ||
@@ -98,7 +97,7 @@ class NavMenu extends Component {
                       aria-expanded="false"
                       style={{ cursor: 'pointer' }}
                     >
-                      Recipes
+                      recipes
                     </div>
                     <div
                       className="dropdown-menu"
@@ -112,6 +111,16 @@ class NavMenu extends Component {
                       </Link>
                     </div>
                   </div>
+                  <Link
+                    to="/social"
+                    className={
+                      window.location.pathname === '/social'
+                        ? 'workouts-link active'
+                        : 'workouts-link'
+                    }
+                  >
+                    social
+                  </Link>
                   <Link className="logout-link" to="/" onClick={this.logout}>
                     logout
                   </Link>
