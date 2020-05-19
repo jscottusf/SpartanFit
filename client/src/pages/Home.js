@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import Wrapper from '../components/Wrapper';
 import { Col, Row, Container } from '../components/Grid';
-import Card from '../components/Card';
+import { Link } from 'react-router-dom';
+import {
+  CardDiv,
+  CardImage,
+  CardBody,
+  CardTitle,
+  CardText,
+} from '../components/BootstrapCard';
 import API from '../utils/API';
 import Menu from '../components/Menu';
+import GridContainer from '../components/GridContainer';
+import workoutCard from '../images/workoutCard.jpg';
+import foodCard from '../images/foodCard.jpg';
 
 class Home extends Component {
   constructor(props) {
@@ -23,41 +33,35 @@ class Home extends Component {
       return (
         <Container>
           <div className="home">
-            <Wrapper>
-              <Container fluid>
-                <Row>
-                  <Col size="md-8">
-                    <div className="newsfeed-card">
-                      <h1>Activity</h1>
-                      <hr></hr>
-                    </div>
-                  </Col>
-                  <Col size="md-4">
-                    <div className="snapshot-card">
-                      <Card
-                        title="Title goes here"
-                        stuff="stuff goes here"
-                        link="https://www.google.com"
-                      />
-                    </div>
-                    <div className="workouts-card">
-                      <Card
-                        title="Title goes here"
-                        stuff="stuff goes here"
-                        link="https://www.google.com"
-                      />
-                    </div>
-                    <div className="food-card">
-                      <Card
-                        title="Title goes here"
-                        stuff="stuff goes here"
-                        link="https://www.google.com"
-                      />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Wrapper>
+            <GridContainer style={{ 'grid-template-columns': '1fr 1fr' }}>
+              <CardDiv>
+                <CardImage image={workoutCard} />
+                <CardBody>
+                  <CardTitle>Workouts</CardTitle>
+                  <CardText>
+                    Build your own custome workout list. Keep track of your
+                    activity to measure your progess over times
+                  </CardText>
+                  <Link to="/workouts" className="btn btn-primary">
+                    Workouts
+                  </Link>
+                </CardBody>
+              </CardDiv>
+              <CardDiv>
+                <CardImage image={foodCard} />
+                <CardBody>
+                  <CardTitle>Recipes</CardTitle>
+                  <CardText>
+                    Low Card? Gluten Free? Vegan? Find the{' '}
+                    <span className="text-info">perfect</span> meal for your
+                    dietary needs
+                  </CardText>
+                  <Link to="/recipes" className="btn btn-primary">
+                    Recipes
+                  </Link>
+                </CardBody>
+              </CardDiv>
+            </GridContainer>
           </div>
         </Container>
       );
