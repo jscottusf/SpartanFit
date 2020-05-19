@@ -57,7 +57,6 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      console.log("Load successful");
       this.setState({ results: res.data.meal });
     });
   };
