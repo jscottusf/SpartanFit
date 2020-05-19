@@ -4,6 +4,7 @@ import SaveBtn from '../../components/SaveBtn';
 import { Col, Row, Container } from '../../components/Grid';
 import { Input, TextArea, State } from '../../components/Form';
 import './style.css';
+import Alert from '../../components/Alert';
 
 class Profile extends Component {
   constructor(props) {
@@ -23,6 +24,9 @@ class Profile extends Component {
       currentWeight: null,
       goalWeight: null,
       editProfile: false,
+      show: false,
+      variant: undefined,
+      message: '',
     };
   }
 
@@ -71,32 +75,54 @@ class Profile extends Component {
         currentWeight: this.state.currentWeight,
         goalWeight: this.state.goalWeight,
         slug: this.state.username.toLowerCase(),
-      });
-      this.setState({ editProfile: false });
+      })
+        .then(res => {
+          if (res.status === 200) {
+            const show = true;
+            const message = 'Profile updated successfully';
+            const variant = 'success';
+            this.setState({
+              show: show,
+              message: message,
+              variant: variant,
+              editProfile: false,
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          const show = true;
+          const message = 'Username and/or email already taken';
+          const variant = 'danger';
+          this.setState({
+            show: show,
+            message: message,
+            variant: variant,
+            editProfile: false,
+          });
+          this.loadUserData();
+        });
     } else {
       this.setState({ editProfile: true });
     }
   };
 
   handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
-    // Updating the input's state
     this.setState({
       [name]: value,
     });
   };
 
-  // fileSelectedHandler = event => {
-  //   this.setState({ selectedFile: event.target.files[0] });
-  // };
-
-  // fileUploadHandler = () => {};
-
   render() {
     return (
       <Container>
+        <Alert
+          show={this.state.show}
+          message={this.state.message}
+          variant={this.state.variant}
+        />
         <div className="profile">
           <Row>
             <Col size="md-10">

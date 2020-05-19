@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Alert from '../components/Alert';
 import Wrapper from '../components/Wrapper';
 import { Container } from '../components/Grid';
 import { Form, Input } from '../components/RegisterForm';
@@ -18,6 +19,9 @@ class Register extends Component {
       confirmPassword: '',
       email: '',
       redirectTo: null,
+      show: false,
+      variant: undefined,
+      message: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -47,8 +51,11 @@ class Register extends Component {
         }
       })
       .catch(error => {
-        console.log('signup error: ');
         console.log(error);
+        const show = true;
+        const message = 'Username or email already taken';
+        const variant = 'danger';
+        this.setState({ show: show, message: message, variant: variant });
       });
   }
 
@@ -65,6 +72,11 @@ class Register extends Component {
                 <h1>
                   Spartan<span className="text-info">Fit</span>
                 </h1>
+                <Alert
+                  show={this.state.show}
+                  message={this.state.message}
+                  variant={this.state.variant}
+                />
                 <div className="register-container">
                   <h4>Register</h4>
                   <Form>
