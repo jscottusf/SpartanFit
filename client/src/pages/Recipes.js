@@ -4,7 +4,6 @@ import API from '../utils/API';
 import Wrapper from '../components/Wrapper';
 import { InputGroup, Input, SearchBtn } from '../components/SearchBar';
 import GridContainer from '../components/GridContainer';
-import Footer from '../components/Footer';
 import { Col, Row, Container } from '../components/Grid';
 
 class Recipes extends Component {
@@ -12,6 +11,7 @@ class Recipes extends Component {
     id: null,
     results: [],
     query: '',
+    saved: [],
   };
 
   // Upon initial render, populate recipe cards with default search "vegan"
@@ -37,7 +37,9 @@ class Recipes extends Component {
       image: document.getElementById('card-image-' + id).getAttribute('src'),
       link: document.getElementById('card-link-' + id).getAttribute('href'),
     };
-    console.log(savedRecipe);
+    if (!this.state.saved.includes(id)) {
+      this.setState({ saved: this.state.saved.concat([id]) });
+    }
     this.saveRecipe(savedRecipe);
   };
 
@@ -47,6 +49,7 @@ class Recipes extends Component {
     if (this.state.query) {
       this.searchRecipes(this.state.query);
     }
+    this.setState({ saved: [] });
   };
 
   loadUserRecipes = () => {
@@ -54,7 +57,6 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      console.log('Load successful');
       this.setState({ results: res.data.meal });
     });
   };
@@ -87,7 +89,6 @@ class Recipes extends Component {
             <Wrapper>
               <div className="main-container">
                 <div className="recipe-search">
-                  <h5>Recipe Search</h5>
                   <InputGroup>
                     <Input
                       type="text"
@@ -114,16 +115,16 @@ class Recipes extends Component {
                     <RecipeCard
                       key={index}
                       id={index}
-                      image={recipe.image ? recipe.image : recipe.recipe.image}
-                      name={recipe.title || recipe.recipe.label}
-                      link={recipe.link || recipe.recipe.link}
+                      image={recipe.recipe.image}
+                      name={recipe.recipe.label}
+                      link={recipe.recipe.link}
                       favorite={this.handleFavoriteClick}
+                      saved={this.state.saved.includes(index) ? true : false}
                     />
                   ))}
                 </GridContainer>
               </div>
             </Wrapper>
-            <Footer />
           </div>
         </div>
       </Container>

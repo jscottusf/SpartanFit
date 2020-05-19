@@ -9,6 +9,7 @@ class Recipes extends Component {
   state = {
     id: null,
     results: [],
+    saved: [],
   };
 
   // Upon initial render, populate recipe cards from user's favorites

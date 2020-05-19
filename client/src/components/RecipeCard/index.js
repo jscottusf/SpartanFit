@@ -7,6 +7,12 @@ function RecipeCard(props) {
       {/* Card content */}
       {/* Card Image */}
       <div className="card-body" style={{ height: "3%" }}>
+        {/* If card is saved, tell user. */}
+        {props.saved ? (
+          <span className="float-left fadeIn">Recipe saved!</span>
+        ) : (
+          ""
+        )}
         {/* If card is called from Search page, add favorite icon. Else, add delete icon. */}
         {props.favorite ? (
           <i
