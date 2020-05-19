@@ -82,8 +82,12 @@ class Home extends Component {
               <CardDiv>
                 <CardImage image={profileCard} />
                 <CardBody>
-                  <CardTitle>SpartanFit</CardTitle>
-                  <CardText>View and Edit your Public Profile</CardText>
+                  <CardTitle>SpartanFit Profile</CardTitle>
+                  <CardText>
+                    View and Edit your Public Profile. Share your interests,
+                    create a bio, edit your username. What are your fitness
+                    goals?
+                  </CardText>
                   <Link to="/profile" className="btn btn-dark">
                     SpartanFit Profile
                   </Link>
