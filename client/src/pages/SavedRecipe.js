@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import RecipeCard from "../components/RecipeCard";
-import API from "../utils/API";
-import Wrapper from "../components/Wrapper";
-import GridContainer from "../components/GridContainer";
+import React, { Component } from 'react';
+import RecipeCard from '../components/RecipeCard';
+import API from '../utils/API';
+import Wrapper from '../components/Wrapper';
+import GridContainer from '../components/GridContainer';
+import { Col, Row, Container } from '../components/Grid';
 
 class Recipes extends Component {
   state = {
@@ -26,7 +27,7 @@ class Recipes extends Component {
     });
   };
 
-  deleteUserRecipe = (id) => {
+  deleteUserRecipe = id => {
     API.deleteMeal(id).then((err, res) => {
       if (err) {
         console.log(err);
@@ -37,32 +38,33 @@ class Recipes extends Component {
 
   render() {
     return (
-      <div>
-        <div className="recipes">
-          <div className="text-center mb-5 pt-5">
+      <Container>
+        <div>
+          <div className="recipes">
             <h1>
               <strong>Your Favorites</strong>
             </h1>
+
+            <Wrapper>
+              <div className="main-container mb-5">
+                <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+                  {/* Generate recipe cards for each result */}
+                  {this.state.results.map((recipe, index) => (
+                    <RecipeCard
+                      key={recipe._id}
+                      id={recipe._id}
+                      image={recipe.image}
+                      name={recipe.title}
+                      link={recipe.link}
+                      delete={this.deleteUserRecipe}
+                    />
+                  ))}
+                </GridContainer>
+              </div>
+            </Wrapper>
           </div>
-          <Wrapper>
-            <div className="main-container mb-5">
-              <GridContainer style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
-                {/* Generate recipe cards for each result */}
-                {this.state.results.map((recipe, index) => (
-                  <RecipeCard
-                    key={recipe._id}
-                    id={recipe._id}
-                    image={recipe.image}
-                    name={recipe.title}
-                    link={recipe.link}
-                    delete={this.deleteUserRecipe}
-                  />
-                ))}
-              </GridContainer>
-            </div>
-          </Wrapper>
         </div>
-      </div>
+      </Container>
     );
   }
 }

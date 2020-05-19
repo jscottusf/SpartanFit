@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import Wrapper from "../components/Wrapper";
-import { Col, Row, Container } from "../components/Grid";
-import Card from "../components/Card";
-import API from "../utils/API";
-import Menu from "../components/Menu";
+import React, { Component } from 'react';
+import Wrapper from '../components/Wrapper';
+import { Col, Row, Container } from '../components/Grid';
+import Card from '../components/Card';
+import API from '../utils/API';
+import Menu from '../components/Menu';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: null,
     };
@@ -19,47 +19,47 @@ class Home extends Component {
 
   render() {
     const loggedIn = this.props.loggedIn;
-    console.log(loggedIn);
-    console.log(this.props);
     if (loggedIn) {
       return (
-        <div className="home">
-          <Wrapper>
-            <Container fluid>
-              <Row>
-                <Col size="md-8">
-                  <div className="newsfeed-card">
-                    <h1>Activity</h1>
-                    <hr></hr>
-                  </div>
-                </Col>
-                <Col size="md-4">
-                  <div className="snapshot-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                  <div className="workouts-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                  <div className="food-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Wrapper>
-        </div>
+        <Container>
+          <div className="home">
+            <Wrapper>
+              <Container fluid>
+                <Row>
+                  <Col size="md-8">
+                    <div className="newsfeed-card">
+                      <h1>Activity</h1>
+                      <hr></hr>
+                    </div>
+                  </Col>
+                  <Col size="md-4">
+                    <div className="snapshot-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                    <div className="workouts-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                    <div className="food-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Wrapper>
+          </div>
+        </Container>
       );
     } else {
       return (

@@ -1,18 +1,21 @@
-import React, { Component } from "react";
-import API from "../utils/API";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import API from '../utils/API';
+import { Link } from 'react-router-dom';
 
 class Nav extends Component {
   constructor() {
     super();
+    this.state = {
+      redirectTo: null,
+    };
     this.logout = this.logout.bind(this);
   }
 
   logout(event) {
     event.preventDefault();
-    console.log("logging out");
+    console.log('logging out');
     API.logout()
-      .then((response) => {
+      .then(response => {
         console.log(response.data);
         if (response.status === 200) {
           this.props.updateUser({
@@ -21,8 +24,8 @@ class Nav extends Component {
           });
         }
       })
-      .catch((error) => {
-        console.log("Logout error");
+      .catch(error => {
+        console.log('Logout error');
       });
   }
   render() {
@@ -47,10 +50,10 @@ class Nav extends Component {
             <li className="nav-item">
               <Link
                 className={
-                  window.location.pathname === "/" ||
-                  window.location.pathname === "/home"
-                    ? "nav-link active"
-                    : "nav-link"
+                  window.location.pathname === '/' ||
+                  window.location.pathname === '/home'
+                    ? 'nav-link active'
+                    : 'nav-link'
                 }
                 to="/"
               >
@@ -60,9 +63,9 @@ class Nav extends Component {
             <li className="nav-item">
               <Link
                 className={
-                  window.location.pathname === "/profile"
-                    ? "nav-link active"
-                    : "nav-link"
+                  window.location.pathname === '/profile'
+                    ? 'nav-link active'
+                    : 'nav-link'
                 }
                 to="/profile"
               >
@@ -72,9 +75,9 @@ class Nav extends Component {
             <li className="nav-item">
               <Link
                 className={
-                  window.location.pathname === "/workouts"
-                    ? "nav-link active"
-                    : "nav-link"
+                  window.location.pathname === '/workouts'
+                    ? 'nav-link active'
+                    : 'nav-link'
                 }
                 to="/workouts"
               >
@@ -89,7 +92,7 @@ class Nav extends Component {
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 Recipes
               </div>
@@ -101,16 +104,6 @@ class Nav extends Component {
                   <span className="text-secondary">Search Recipes</span>
                 </Link>
               </div>
-              {/* <Link
-                className={
-                  window.location.pathname === '/recipes'
-                    ? 'nav-link active'
-                    : 'nav-link'
-                }
-                to="/recipes"
-              >
-                Recipes
-              </Link> */}
             </li>
             <li className="nav-item dropdown">
               <div
@@ -120,7 +113,7 @@ class Nav extends Component {
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 Settings
               </div>
