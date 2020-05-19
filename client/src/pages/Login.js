@@ -10,6 +10,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
+      id: '',
       username: '',
       password: '',
       redirectTo: null,
@@ -35,10 +36,12 @@ class Login extends Component {
           //update App.js state
           //update the state to redirect to home
           this.setState({
-            redirectTo: '/home',
+            redirectTo: '/',
           });
           this.props.updateUser({
             loggedIn: true,
+            username: response.data.username,
+            id: response.data.id,
           });
         }
       })

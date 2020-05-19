@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import "./App.css";
-import Recipes from "./pages/Recipes";
-import SavedRecipes from "./pages/SavedRecipe";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Workouts from "./pages/Workouts";
-import Profile from "./pages/Profile/index";
-import Nav from "./components/Nav";
-import API from "./utils/API";
+import React, { Component } from 'react';
+import { Route, Router } from 'react-router-dom';
+import './App.css';
+import Recipes from './pages/Recipes';
+import SavedRecipes from './pages/SavedRecipe';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Workouts from './pages/Workouts';
+import Profile from './pages/Profile/index';
+import API from './utils/API';
+import NavMenu from './components/NavMenu';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loggedIn: false,
-      username: "",
+      username: '',
       id: null,
       redirectTo: null,
     };
@@ -36,9 +36,8 @@ class App extends Component {
   }
 
   getUser() {
-    API.checkLogin().then((response) => {
+    API.checkLogin().then(response => {
       if (response.data.user) {
-        console.log(response.data.user);
         this.setState({
           username: response.data.user.username,
           id: response.data.user._id,
@@ -58,21 +57,37 @@ class App extends Component {
     if (this.state.loggedIn) {
       return (
         <div className="App">
-          <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+          {/* <Nav /> */}
+          <NavMenu
+            updateUser={this.updateUser}
+            loggedIn={this.state.loggedIn}
+          />
           <Route
             exact
             path="/"
-            render={() => <Home loggedIn={this.state.loggedIn} />}
+            render={() => (
+              <Home
+                getUser={this.getUser}
+                loggedIn={this.state.loggedIn}
+                id={this.state.id}
+              />
+            )}
           />
           <Route
             exact
             path="/home"
-            render={() => <Home loggedIn={this.state.loggedIn} />}
+            render={() => (
+              <Home
+                getUser={this.getUser}
+                loggedIn={this.state.loggedIn}
+                id={this.state.id}
+              />
+            )}
           />
           <Route
             exact
             path="/Profile"
-            render={() => <Profile id={this.state.id} />}
+            render={() => <Profile getUser={this.getUser} id={this.state.id} />}
           />
           <Route
             exact

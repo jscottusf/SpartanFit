@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Wrapper from '../components/Wrapper';
 import { Col, Row, Container } from '../components/Grid';
 import Card from '../components/Card';
-import API from '../utils/API';
 import Menu from '../components/Menu';
+//import API from '../utils/API';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: null,
     };
@@ -19,8 +19,6 @@ class Home extends Component {
 
   render() {
     const loggedIn = this.props.loggedIn;
-    console.log(loggedIn);
-    console.log(this.props);
     if (loggedIn) {
       return (
         <div className="home">

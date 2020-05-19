@@ -1,43 +1,42 @@
-import axios from "axios";
-import app from "./config";
+import axios from 'axios';
+import app from './config';
 
 export default {
   getPosts: function () {
-    return axios.get("/api/posts/");
+    return axios.get('/api/posts/');
   },
   getPost: function (id) {
-    return axios.get("/api/posts/" + id);
+    return axios.get('/api/posts/' + id);
   },
   deletePost: function (id) {
-    return axios.delete("/api/posts/" + id);
+    return axios.delete('/api/posts/' + id);
   },
   makePost: function (postData) {
-    return axios.post("/api/posts/", postData);
+    return axios.post('/api/posts/', postData);
   },
   getUsers: function () {
-    return axios.get("/api/users/");
+    return axios.get('/api/users/');
   },
   getUser: function (id) {
-    console.log("/api/users/" + id);
-    return axios.get("/api/users/" + id);
+    return axios.get('/api/users/' + id);
   },
   putUser: function (id, putData) {
-    return axios.put("/api/users/" + id, putData);
+    return axios.put('/api/users/' + id, putData);
   },
   registerUser: function (postData) {
-    return axios.post("/api/users/", postData);
+    return axios.post('/api/users/', postData);
   },
   login: function (postData) {
-    return axios.post("/login", postData);
+    return axios.post('/login', postData);
   },
   checkLogin: function () {
-    return axios.get("/user");
+    return axios.get('/user');
   },
   logout: function () {
-    return axios.post("/logout");
+    return axios.post('/logout');
   },
   deleteUser: function (id) {
-    return axios.delete("/api/users/" + id);
+    return axios.delete('/api/users/' + id);
   },
   getMeals: function (query) {
     return axios.get(
@@ -48,33 +47,33 @@ export default {
     return axios.get(`/api/users/${userId}/meals`);
   },
   postMeal: function (id, postData) {
-    return axios.post("/api/meals/" + id, postData);
+    return axios.post('/api/meals/' + id, postData);
   },
   deleteMeal: function (id) {
-    return axios.delete("/api/meals/" + id);
+    return axios.delete('/api/meals/' + id);
   },
   getWorkouts: function () {
-    return axios.get("/api/workouts/");
+    return axios.get('/api/workouts/');
   },
   getWorkoutsByUser: function (userId) {
     return axios.get(`/api/users/${userId}/workouts`);
   },
   getWorkoutByID: function (id) {
-    return axios.get("/api/workouts/" + id);
+    return axios.get('/api/workouts/' + id);
   },
   postWorkout: function (id, postData) {
-    return axios.post("/api/workouts/" + id, postData);
+    return axios.post('/api/workouts/' + id, postData);
   },
   deleteWorkout: function (id) {
-    return axios.delete("/api/workouts/" + id);
+    return axios.delete('/api/workouts/' + id);
   },
   getData: function () {
-    return axios.get("/api/data/");
+    return axios.get('/api/data/');
   },
   postData: function (id, postData) {
-    return axios.post("/api/data/" + id, postData);
+    return axios.post('/api/data/' + id, postData);
   },
   deleteData: function (id) {
-    return axios.delete("/api/data/" + id);
+    return axios.delete('/api/data/' + id);
   },
 };

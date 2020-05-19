@@ -6,8 +6,8 @@ import { Input, TextArea, State } from '../../components/Form';
 import './style.css';
 
 class Profile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: null,
       user: null,
@@ -27,6 +27,7 @@ class Profile extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getUser();
     this.setState({ id: this.props.id });
     this.loadUserData();
   };
