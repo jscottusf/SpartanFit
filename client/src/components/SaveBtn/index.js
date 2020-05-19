@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function SaveBtn(props) {
   return (
-    <buttun className="btn btn-primary profile-edit-btn" {...props}>
+    <buttun className="btn btn-info profile-edit-btn" {...props}>
       {props.label}
     </buttun>
   );

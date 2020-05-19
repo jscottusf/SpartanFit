@@ -1,18 +1,28 @@
 import React from 'react';
 import './style.css';
 
-export function InputGroup({ children }) {
-  return <div className="input-group mb-3">{children}</div>;
-}
-
-export function Input(props) {
-  return <input {...props} className="form-control" />;
-}
-
-export function SearchBtn(props) {
+function SearchBar(props) {
   return (
-    <button {...props} className="btn btn-outline-info" type="button">
-      Search
-    </button>
+    <form className="input-group mb-3 search searchbar">
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Low carb? Gluten Free? Vegan?"
+        onChange={props.handleInputChange}
+        value={props.value}
+        name="query"
+      />
+      <div className="input-group-append">
+        <button
+          className="btn btn-info"
+          type="submit"
+          onClick={props.handleFormSubmit}
+        >
+          Find Recipes
+        </button>
+      </div>
+    </form>
   );
 }
+
+export default SearchBar;
