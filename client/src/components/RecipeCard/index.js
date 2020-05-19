@@ -1,17 +1,15 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './style.css';
 
 function RecipeCard(props) {
   return (
     <div className="card promoting-card" id={`card-${props.id}`}>
-      {/* Card content */}
-      {/* Card Image */}
-      <div className="card-body" style={{ height: "3%" }}>
+      <div className="card-body" style={{ height: '3%' }}>
         {/* If card is saved, tell user. */}
         {props.saved ? (
           <span className="float-left fadeIn">Recipe saved!</span>
         ) : (
-          ""
+          ''
         )}
         {/* If card is called from Search page, add favorite icon. Else, add delete icon. */}
         {props.favorite ? (
@@ -41,7 +39,7 @@ function RecipeCard(props) {
             title="I like it"
           ></i>
         ) : (
-          ""
+          ''
         )}
         <i
           className="fas fa-share-alt text-muted float-right p-1 my-1 mr-2"
@@ -62,6 +60,7 @@ function RecipeCard(props) {
             className="card-img-top rounded-0"
             src={props.image}
             alt={props.name}
+            style={{ maxHeight: 200, objectFit: 'cover' }}
           />
           <div className="mask rgba-white-slight"></div>
         </a>

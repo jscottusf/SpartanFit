@@ -39,30 +39,23 @@ class Recipes extends Component {
   render() {
     return (
       <Container>
-        <div>
-          <div className="recipes">
-            <h1>
-              <strong>Your Favorites</strong>
-            </h1>
-
-            <Wrapper>
-              <div className="main-container mb-5">
-                <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                  {/* Generate recipe cards for each result */}
-                  {this.state.results.map((recipe, index) => (
-                    <RecipeCard
-                      key={recipe._id}
-                      id={recipe._id}
-                      image={recipe.image}
-                      name={recipe.title}
-                      link={recipe.link}
-                      delete={this.deleteUserRecipe}
-                    />
-                  ))}
-                </GridContainer>
-              </div>
-            </Wrapper>
-          </div>
+        <div className="recipes">
+          <h1>
+            <strong>Your Favorites</strong>
+          </h1>
+          <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+            {/* Generate recipe cards for each result */}
+            {this.state.results.map((recipe, index) => (
+              <RecipeCard
+                key={recipe._id}
+                id={recipe._id}
+                image={recipe.image}
+                name={recipe.title}
+                link={recipe.link}
+                delete={this.deleteUserRecipe}
+              />
+            ))}
+          </GridContainer>
         </div>
       </Container>
     );

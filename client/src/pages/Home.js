@@ -61,8 +61,8 @@ class Home extends Component {
                   <Link to="/recipes" className="btn btn-dark">
                     Recipes
                   </Link>{' '}
-                  <Link to="/recipes" className="btn btn-secondary">
-                    Recipes
+                  <Link to="/savedrecipes" className="btn btn-secondary">
+                    Saved Recipes
                   </Link>
                 </CardBody>
               </CardDiv>
@@ -104,7 +104,7 @@ class Home extends Component {
             <Menu />
             <div className="register-wrapper">
               <h1>
-                Spartan<span class="text-info">Fit</span>
+                Spartan<span className="text-info">Fit</span>
               </h1>
               <div className="register-container">
                 <h1>This is SpartanFit</h1>

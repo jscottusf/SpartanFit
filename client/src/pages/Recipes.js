@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import API from '../utils/API';
-import Wrapper from '../components/Wrapper';
-import { InputGroup, Input, SearchBtn } from '../components/SearchBar';
+import SearchBar from '../components/SearchBar';
 import GridContainer from '../components/GridContainer';
-import { Col, Row, Container } from '../components/Grid';
+import { Container } from '../components/Grid';
 
 class Recipes extends Component {
   state = {
@@ -84,48 +83,26 @@ class Recipes extends Component {
   render() {
     return (
       <Container>
-        <div>
-          <div className="recipes">
-            <Wrapper>
-              <div className="main-container">
-                <div className="recipe-search">
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      value={this.state.query}
-                      name="query"
-                      id="query-input"
-                      className="my-3"
-                      size="30"
-                      onChange={this.handleInputChange}
-                    />
-                    <SearchBtn
-                      onClick={this.handleFormSubmit}
-                      id="submit-form-btn"
-                      form="query-form"
-                    />
-                  </InputGroup>
-                  <button onClick={this.loadUserRecipes} className="btn mb-2">
-                    <u>See My Favorites</u>
-                  </button>
-                </div>
-                <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                  {/* Generate recipe cards for each result */}
-                  {this.state.results.map((recipe, index) => (
-                    <RecipeCard
-                      key={index}
-                      id={index}
-                      image={recipe.recipe.image}
-                      name={recipe.recipe.label}
-                      link={recipe.recipe.link}
-                      favorite={this.handleFavoriteClick}
-                      saved={this.state.saved.includes(index) ? true : false}
-                    />
-                  ))}
-                </GridContainer>
-              </div>
-            </Wrapper>
-          </div>
+        <div className="recipes">
+          <SearchBar
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
+            value={this.state.query}
+          />
+          <GridContainer style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+            {/* Generate recipe cards for each result */}
+            {this.state.results.map((recipe, index) => (
+              <RecipeCard
+                key={index}
+                id={index}
+                image={recipe.recipe.image}
+                name={recipe.recipe.label}
+                link={recipe.recipe.link}
+                favorite={this.handleFavoriteClick}
+                saved={this.state.saved.includes(index) ? true : false}
+              />
+            ))}
+          </GridContainer>
         </div>
       </Container>
     );
