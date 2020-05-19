@@ -25,7 +25,6 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    required: true,
     index: {
       unique: true,
       collation: { locale: 'en', strength: 2 },
@@ -53,6 +52,10 @@ const userSchema = new Schema({
   image: Number,
   currentWeight: Number,
   goalWeight: Number,
+  slug: {
+    type: String,
+    unique: true,
+  },
 });
 
 // Define schema methods

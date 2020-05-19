@@ -79,9 +79,18 @@ class NavMenu extends Component {
                     Workouts
                   </Link>
 
-                  <div className="dropdown recipes-link">
+                  <div
+                    className={
+                      window.location.pathname === '/recipes' ||
+                      window.location.pathname === '/savedrecipes'
+                        ? 'dropdown active'
+                        : 'dropdown recipes-link'
+                    }
+                  >
                     <div
-                      className="dropdown-toggle"
+                      className="dropdown"
+                      //this adds an arrowm not sure which one looks better
+                      //className="dropdown-toggle"
                       id="navbarDropdown"
                       role="button"
                       data-toggle="dropdown"

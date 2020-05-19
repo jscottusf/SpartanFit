@@ -70,6 +70,7 @@ class Profile extends Component {
         interests: this.state.interests,
         currentWeight: this.state.currentWeight,
         goalWeight: this.state.goalWeight,
+        slug: this.state.username.toLowerCase(),
       });
       this.setState({ editProfile: false });
     } else {
