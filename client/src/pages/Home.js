@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Wrapper from '../components/Wrapper';
-import { Col, Row, Container } from '../components/Grid';
+import { Container } from '../components/Grid';
 import { Link } from 'react-router-dom';
 import {
   CardDiv,
@@ -9,13 +8,14 @@ import {
   CardTitle,
   CardText,
 } from '../components/BootstrapCard';
-import API from '../utils/API';
 import Menu from '../components/Menu';
 import GridContainer from '../components/GridContainer';
 import workoutCard from '../images/workoutCard.jpg';
 import foodCard from '../images/foodCard.jpg';
 import profileCard from '../images/profileCard.jpg';
 import socialCard from '../images/socialCard.jpg';
+import spartan from '../images/spartan.jpg';
+import Hero from '../components/Hero';
 
 class Home extends Component {
   constructor(props) {
@@ -99,30 +99,36 @@ class Home extends Component {
       );
     } else {
       return (
-        <div className="register-page">
-          <Wrapper>
+        <div>
+          <Hero backgroundImage={spartan}>
             <Menu />
-            <div className="register-wrapper">
-              <h1>
-                Spartan<span className="text-info">Fit</span>
-              </h1>
-              <div className="register-container">
-                <h1>This is SpartanFit</h1>
-                <p>
-                  SpartanFit is a fitness application which uses data-based
-                  progress monitoring to help you reach your fitness goals.
-                </p>
-                <p>
-                  With our easy-to-use interface, set up and track your progress
-                  on your workouts and set up the perfect diet plan.
-                </p>
-                <p>
-                  Ready to give it a try? <a href="/register">Register</a> or
-                  <a href="/login">login</a> now!
-                </p>
-              </div>
-            </div>
-          </Wrapper>
+            <h3>
+              Spartan<span class="text-info">Fit</span>
+            </h3>
+            <h1>
+              This is Spartan<span className="text-info">Fit</span>
+            </h1>
+            <h2>A fitness community</h2>
+            <p>
+              SpartanFit is a fitness application which uses data-based progress
+              monitoring to help you reach your fitness goals.
+            </p>
+            <p>
+              With our easy-to-use interface, set up and track your progress on
+              your workouts and set up the perfect diet plan.
+            </p>
+            <p>
+              Ready to give it a try?{' '}
+              <Link className="text-info" to="/register">
+                Register
+              </Link>{' '}
+              or{' '}
+              <Link className="text-info" to="/login">
+                login
+              </Link>{' '}
+              now.
+            </p>
+          </Hero>
         </div>
       );
     }

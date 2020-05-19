@@ -61,7 +61,7 @@ class Login extends Component {
             <Menu />
             <div className="register-wrapper">
               <h1>
-                Spartan<span class="text-info">Fit</span>
+                Spartan<span className="text-info">Fit</span>
               </h1>
               <div className="register-container">
                 <h4>Login</h4>

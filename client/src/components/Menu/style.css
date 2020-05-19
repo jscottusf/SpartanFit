@@ -5,6 +5,7 @@
   font-size: 22px;
   font-weight: 600;
   padding: 0 10px;
+  z-index: 10;
 }
 
 .links .login-link,
@@ -13,6 +14,7 @@
   padding: 0 5px;
   color: white;
   text-decoration: none;
+  z-index: 4;
 }
 
 .links .login-link:hover,
@@ -20,8 +22,10 @@
 .links .home-link:hover {
   color: #17a2b8;
   transition: 0.5s;
+  z-index: 4;
 }
 
 .links .active {
   color: #25e0fd;
+  z-index: 4;
 }
