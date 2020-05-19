@@ -21,43 +21,45 @@ class Home extends Component {
     const loggedIn = this.props.loggedIn;
     if (loggedIn) {
       return (
-        <div className="home">
-          <Wrapper>
-            <Container fluid>
-              <Row>
-                <Col size="md-8">
-                  <div className="newsfeed-card">
-                    <h1>Activity</h1>
-                    <hr></hr>
-                  </div>
-                </Col>
-                <Col size="md-4">
-                  <div className="snapshot-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                  <div className="workouts-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                  <div className="food-card">
-                    <Card
-                      title="Title goes here"
-                      stuff="stuff goes here"
-                      link="https://www.google.com"
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Wrapper>
-        </div>
+        <Container>
+          <div className="home">
+            <Wrapper>
+              <Container fluid>
+                <Row>
+                  <Col size="md-8">
+                    <div className="newsfeed-card">
+                      <h1>Activity</h1>
+                      <hr></hr>
+                    </div>
+                  </Col>
+                  <Col size="md-4">
+                    <div className="snapshot-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                    <div className="workouts-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                    <div className="food-card">
+                      <Card
+                        title="Title goes here"
+                        stuff="stuff goes here"
+                        link="https://www.google.com"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </Wrapper>
+          </div>
+        </Container>
       );
     } else {
       return (
