@@ -14,6 +14,8 @@ import Menu from '../components/Menu';
 import GridContainer from '../components/GridContainer';
 import workoutCard from '../images/workoutCard.jpg';
 import foodCard from '../images/foodCard.jpg';
+import profileCard from '../images/profileCard.jpg';
+import socialCard from '../images/socialCard.jpg';
 
 class Home extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class Home extends Component {
                     Build your own custome workout list. Keep track of your
                     activity to measure your progess over times
                   </CardText>
-                  <Link to="/workouts" className="btn btn-primary">
+                  <Link to="/workouts" className="btn btn-dark">
                     Workouts
                   </Link>
                 </CardBody>
@@ -56,8 +58,34 @@ class Home extends Component {
                     <span className="text-info">perfect</span> meal for your
                     dietary needs
                   </CardText>
-                  <Link to="/recipes" className="btn btn-primary">
+                  <Link to="/recipes" className="btn btn-dark">
                     Recipes
+                  </Link>{' '}
+                  <Link to="/recipes" className="btn btn-secondary">
+                    Recipes
+                  </Link>
+                </CardBody>
+              </CardDiv>
+              <CardDiv>
+                <CardImage image={socialCard} />
+                <CardBody>
+                  <CardTitle>SpartanFit Social</CardTitle>
+                  <CardText>
+                    You're not alone. Find people to follow. Share your
+                    progress. The SpartanFit community is a here to support you.
+                  </CardText>
+                  <Link to="/social" className="btn btn-dark">
+                    SpartanFit Social
+                  </Link>{' '}
+                </CardBody>
+              </CardDiv>
+              <CardDiv>
+                <CardImage image={profileCard} />
+                <CardBody>
+                  <CardTitle>SpartanFit</CardTitle>
+                  <CardText>View and Edit your Public Profile</CardText>
+                  <Link to="/profile" className="btn btn-dark">
+                    SpartanFit Profile
                   </Link>
                 </CardBody>
               </CardDiv>

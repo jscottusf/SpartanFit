@@ -6,7 +6,12 @@ export function CardDiv(props) {
 
 export function CardImage(props) {
   return (
-    <img className="card-img-top" src={props.image} alt="Card image cap"></img>
+    <img
+      className="card-img-top"
+      src={props.image}
+      alt="Card image cap"
+      style={{ maxHeight: 300, objectFit: 'cover' }}
+    ></img>
   );
 }
 
