@@ -1,10 +1,14 @@
 const path = require('path');
 const router = require('express').Router();
 const apiRoutes = require('./api');
+const usersRoutes = require('./users');
 const passport = require('../passport');
 
 //API Routes
 router.use('/api', apiRoutes);
+
+//User Routes
+router.use('/users', usersRoutes);
 
 //user authentication routes
 router.get('/user', (req, res, next) => {

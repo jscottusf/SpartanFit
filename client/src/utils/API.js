@@ -20,6 +20,10 @@ export default {
   getUser: function (id) {
     return axios.get('/api/users/' + id);
   },
+  getPublicProfile: function (route) {
+    console.log(route);
+    return axios.get(route);
+  },
   putUser: function (id, putData) {
     return axios.put('/api/users/' + id, putData);
   },

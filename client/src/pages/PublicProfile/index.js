@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 import SaveBtn from '../../components/SaveBtn';
 import { Col, Row, Container } from '../../components/Grid';
@@ -7,12 +6,11 @@ import { Input, TextArea, State } from '../../components/Form';
 import './style.css';
 import Alert from '../../components/Alert';
 
-class Profile extends Component {
+class PublicProfile extends Component {
   constructor(props) {
     super(props);
+    this.route = window.location.pathname;
     this.state = {
-      id: null,
-      user: null,
       username: '',
       firstName: '',
       lastName: '',
@@ -32,89 +30,37 @@ class Profile extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getUser();
-    this.setState({ id: this.props.id });
-    this.loadUserData();
+    this.loadUserdata();
   };
 
-  loadUserData = () => {
-    API.getUser(this.props.id).then((res, err) => {
+  loadUserdata = () => {
+    API.getPublicProfile(this.route).then((res, err) => {
       if (err) {
         console.log(err);
       }
-      console.log(res.data);
       this.setState({
-        user: res.data,
-        id: res.data._id,
-        username: res.data.username,
-        firstName: res.data.firstName,
-        lastName: res.data.lastName,
-        email: res.data.email,
-        city: res.data.city,
-        state: res.data.state,
-        joinDate: res.data.joinDate,
-        bio: res.data.bio,
-        interests: res.data.interests,
-        currentWeight: res.data.currentWeight,
-        goalWeight: res.data.goalWeight,
+        username: res.data[0].username,
+        firstName: res.data[0].firstName,
+        lastName: res.data[0].lastName,
+        email: res.data[0].email,
+        city: res.data[0].city,
+        state: res.data[0].state,
+        joinDate: res.data[0].createdAt,
+        bio: res.data[0].bio,
+        interests: res.data[0].interests,
+        currentWeight: res.data[0].currentWeight,
+        goalWeight: res.data[0].goalWeight,
       });
     });
   };
 
-  handleEditClick = event => {
-    event.preventDefault();
-    if (this.state.editProfile) {
-      API.putUser(this.state.id, {
-        username: this.state.username,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        city: this.state.city,
-        state: this.state.state,
-        bio: this.state.bio,
-        interests: this.state.interests,
-        currentWeight: this.state.currentWeight,
-        goalWeight: this.state.goalWeight,
-        slug: this.state.username.toLowerCase(),
-      })
-        .then(res => {
-          if (res.status === 200) {
-            const show = true;
-            const message = 'Profile updated successfully';
-            const variant = 'success';
-            this.setState({
-              show: show,
-              message: message,
-              variant: variant,
-              editProfile: false,
-            });
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          const show = true;
-          const message = 'Username and/or email already taken';
-          const variant = 'danger';
-          this.setState({
-            show: show,
-            message: message,
-            variant: variant,
-            editProfile: false,
-          });
-          this.loadUserData();
-        });
-    } else {
-      this.setState({ editProfile: true });
-    }
-  };
-
-  handleInputChange = event => {
-    let value = event.target.value;
-    const name = event.target.name;
-    this.setState({
-      [name]: value,
-    });
-  };
+  // handleInputChange = event => {
+  //   let value = event.target.value;
+  //   const name = event.target.name;
+  //   this.setState({
+  //     [name]: value,
+  //   });
+  // };
 
   render() {
     return (
@@ -141,7 +87,7 @@ class Profile extends Component {
                 <Col size="lg-12">
                   <Row>
                     <Col size="md-6">
-                      <label>User Id</label>
+                      <label>Username</label>
                     </Col>
                     <Col size="md-6">
                       {this.state.editProfile ? (
@@ -152,9 +98,7 @@ class Profile extends Component {
                           type="text"
                         />
                       ) : (
-                        <Link to={'/users/' + this.state.username}>
-                          <p>{this.state.username}</p>
-                        </Link>
+                        <p>{this.state.username}</p>
                       )}
                     </Col>
                   </Row>
@@ -318,4 +262,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default PublicProfile;
