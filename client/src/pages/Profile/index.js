@@ -12,6 +12,7 @@ import {
   CardTitle,
   CardText,
 } from '../../components/BootstrapCard';
+import thumb from '../../images/thumb.png';
 
 class Profile extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Profile extends Component {
       variant: undefined,
       message: '',
       imageUrl: '',
+      selectedFile: null,
     };
   }
 
@@ -49,7 +51,6 @@ class Profile extends Component {
       if (err) {
         console.log(err);
       }
-      console.log(res.data);
       this.setState({
         user: res.data,
         id: res.data._id,
@@ -64,7 +65,7 @@ class Profile extends Component {
         interests: res.data.interests,
         currentWeight: res.data.currentWeight,
         goalWeight: res.data.goalWeight,
-        imageUrl: res.data.image[0].profileImg,
+        imageUrl: res.data.image[0] ? res.data.image[0].profileImg : thumb,
       });
     });
   };
@@ -124,6 +125,24 @@ class Profile extends Component {
     });
   };
 
+  fileSelectedHandler = event => {
+    console.log(event.target.files[0]);
+    this.setState({
+      selectedFile: event.target.files[0],
+    });
+  };
+
+  fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append('profileImg', this.state.selectedFile);
+    API.postUserImg(this.state.id, fd)
+      .then(res => {
+        console.log(res);
+        this.loadUserProfile();
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div className="profile-page">
@@ -145,12 +164,23 @@ class Profile extends Component {
                     alt=""
                   />
                 </div>
-                <div class="image-upload">
+                <input
+                  type="file"
+                  // style={{ display: 'none' }}
+                  onChange={this.fileSelectedHandler}
+                  // ref={fileInput => (this.fileInput = fileInput)}
+                />
+                {/* <i
+                  onClick={() => this.fileInput.click()}
+                  className="fas fa-image"
+                ></i> */}
+                <button onClick={this.fileUploadHandler}> Upload </button>
+                {/* <div class="image-upload">
                   <label for="file-input">
                     <i className="fas fa-image"></i>
                   </label>
                   <input id="file-input" type="file" />
-                </div>
+                </div> */}
               </Col>
               <Col size="lg-6">
                 <CardText>
