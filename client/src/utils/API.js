@@ -20,6 +20,10 @@ export default {
   getUser: function (id) {
     return axios.get('/api/users/' + id);
   },
+  getPublicProfile: function (route) {
+    console.log(route);
+    return axios.get(route);
+  },
   putUser: function (id, putData) {
     return axios.put('/api/users/' + id, putData);
   },
@@ -75,5 +79,11 @@ export default {
   },
   deleteData: function (id) {
     return axios.delete('/api/data/' + id);
+  },
+  getUserImg: function (id) {
+    return axios.get('/profileimg/' + id);
+  },
+  postUserImg: function (id, postData) {
+    return axios.post('/profileimg/' + id, postData);
   },
 };

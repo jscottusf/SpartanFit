@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 function SaveBtn(props) {
   return (
-    <buttun className="btn btn-info profile-edit-btn" {...props}>
+    <button className="btn btn-info profile-edit-btn" {...props}>
       {props.label}
-    </buttun>
+    </button>
   );
 }
 

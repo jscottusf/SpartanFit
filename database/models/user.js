@@ -37,6 +37,7 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   interests: { type: String },
   bio: { type: String },
+  image: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
   workout: [
     {
       type: Schema.Types.ObjectId,
@@ -49,7 +50,6 @@ const userSchema = new Schema({
       ref: 'Meal',
     },
   ],
-  image: Number,
   currentWeight: Number,
   goalWeight: Number,
   slug: {

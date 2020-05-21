@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Recipes from './pages/Recipes';
 import SavedRecipes from './pages/SavedRecipe';
@@ -11,6 +11,7 @@ import Workouts from './pages/Workouts';
 import Profile from './pages/Profile/index';
 import API from './utils/API';
 import NavMenu from './components/NavMenu';
+import PublicProfile from './pages/PublicProfile';
 
 class App extends Component {
   constructor(props) {
@@ -57,7 +58,6 @@ class App extends Component {
     if (this.state.loggedIn) {
       return (
         <div className="App">
-          {/* <Nav /> */}
           <NavMenu
             updateUser={this.updateUser}
             loggedIn={this.state.loggedIn}
@@ -86,8 +86,12 @@ class App extends Component {
           />
           <Route
             exact
-            path="/Profile"
+            path="/profile"
             render={() => <Profile getUser={this.getUser} id={this.state.id} />}
+          />
+          <Route
+            path="/users/:slug"
+            render={() => <PublicProfile id={this.state.id} />}
           />
           <Route
             exact

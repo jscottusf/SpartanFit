@@ -1,9 +1,16 @@
-.profile {
-  padding-top: 20px;
-  background-color: white;
-  border-radius: 5px;
+.profile-page {
   position: relative;
+  margin: 10px;
+  padding-bottom: 200px;
 }
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
 .profile-head h5 {
   color: #333;
 }
@@ -14,4 +21,18 @@
   padding: 2%;
   font-weight: 600;
   cursor: pointer;
+}
+
+.profile-img img {
+  height: auto;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.edit-btn {
+  margin-left: 100px;
 }

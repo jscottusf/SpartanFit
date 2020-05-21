@@ -1,0 +1,17 @@
+.profile {
+  padding-top: 20px;
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+}
+.profile-head h5 {
+  color: #333;
+}
+.profile-edit-btn {
+  border: none;
+  border-radius: 1.5rem;
+  width: 70%;
+  padding: 2%;
+  font-weight: 600;
+  cursor: pointer;
+}

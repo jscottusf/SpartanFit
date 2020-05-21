@@ -1,6 +1,7 @@
 module.exports = {
-  Workout: require("./workout"),
-  User: require("./user"),
-  Meal: require("./meal"),
-  Data: require("./data"),
+  Workout: require('./workout'),
+  User: require('./user'),
+  Meal: require('./meal'),
+  Data: require('./data'),
+  Image: require('./images'),
 };
