@@ -1,21 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-//const bodyParser = require('body-parser');
-const dbConnection = require('./database');
 const morgan = require('morgan');
+const dbConnection = require('./database');
 const session = require('express-session');
 const passport = require('./passport');
-const mongoose = require('mongoose');
 const routes = require('./routes');
 const MongoStore = require('connect-mongo')(session);
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-//require routes
-//const user = require('./routes/user');
-
 // Define middleware
 app.use(cors());
+app.use(morgan('dev'));
+app.use(express.static('./uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

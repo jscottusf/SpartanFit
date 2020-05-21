@@ -80,4 +80,10 @@ export default {
   deleteData: function (id) {
     return axios.delete('/api/data/' + id);
   },
+  getUserImg: function (id) {
+    return axios.get('/profileimg/' + id);
+  },
+  postUserImg: function (id, postData) {
+    return axios.post('/profileimg/' + id, postData);
+  },
 };

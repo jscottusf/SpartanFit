@@ -6,6 +6,12 @@ import { Col, Row, Container } from '../../components/Grid';
 import { Input, TextArea, State } from '../../components/Form';
 import './style.css';
 import Alert from '../../components/Alert';
+import {
+  CardDiv,
+  CardBody,
+  CardTitle,
+  CardText,
+} from '../../components/BootstrapCard';
 
 class Profile extends Component {
   constructor(props) {
@@ -28,16 +34,17 @@ class Profile extends Component {
       show: false,
       variant: undefined,
       message: '',
+      imageUrl: '',
     };
   }
 
   componentDidMount = () => {
     this.props.getUser();
     this.setState({ id: this.props.id });
-    this.loadUserData();
+    this.loadUserProfile();
   };
 
-  loadUserData = () => {
+  loadUserProfile = () => {
     API.getUser(this.props.id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -57,6 +64,7 @@ class Profile extends Component {
         interests: res.data.interests,
         currentWeight: res.data.currentWeight,
         goalWeight: res.data.goalWeight,
+        imageUrl: res.data.image[0].profileImg,
       });
     });
   };
@@ -118,202 +126,220 @@ class Profile extends Component {
 
   render() {
     return (
-      <Container>
+      <div className="profile-page">
         <Alert
           show={this.state.show}
           message={this.state.message}
           variant={this.state.variant}
         />
-        <div className="profile">
-          <Row>
-            <Col size="md-10">
-              <Row>
-                <Col size="lg-12">
-                  <div className="profile-head">
-                    <h5>
-                      {this.state.firstName} {this.state.lastName}
-                    </h5>
-                  </div>
-                  <hr></hr>
-                </Col>
-              </Row>
-              <Row>
-                <Col size="lg-12">
+        <CardDiv>
+          <CardBody>
+            <CardTitle>
+              {this.state.firstName} {this.state.lastName}
+            </CardTitle>
+            <Row style={{ padding: 0, margin: 0 }}>
+              <Col size="lg-3">
+                <div className="profile-img">
+                  <img
+                    src={process.env.PUBLIC_URL + this.state.imageUrl}
+                    alt=""
+                  />
+                </div>
+                <div class="image-upload">
+                  <label for="file-input">
+                    <i className="fas fa-image"></i>
+                  </label>
+                  <input id="file-input" type="file" />
+                </div>
+              </Col>
+              <Col size="lg-6">
+                <CardText>
                   <Row>
-                    <Col size="md-6">
-                      <label>User Id</label>
+                    <Col size="lg-5">
+                      <Row>
+                        <Col size="md-3">
+                          <label>ID</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <Input
+                              value={this.state.username}
+                              name="username"
+                              onChange={this.handleInputChange}
+                              type="text"
+                            />
+                          ) : (
+                            <Link to={'/users/' + this.state.username}>
+                              <p>{this.state.username}</p>
+                            </Link>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-3">
+                          <label>Name</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <div>
+                              <Input
+                                value={this.state.firstName}
+                                name="firstName"
+                                onChange={this.handleInputChange}
+                                type="text"
+                              />
+                              <Input
+                                value={this.state.lastName}
+                                name="lastName"
+                                onChange={this.handleInputChange}
+                                type="text"
+                              />
+                            </div>
+                          ) : (
+                            <p>
+                              {this.state.firstName} {this.state.lastName}
+                            </p>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-3">
+                          <label>Email</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <Input
+                              value={this.state.email}
+                              name="email"
+                              onChange={this.handleInputChange}
+                              type="email"
+                            />
+                          ) : (
+                            <p>{this.state.email}</p>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-3">
+                          <label>Location</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <div>
+                              <Input
+                                value={this.state.city}
+                                name="city"
+                                onChange={this.handleInputChange}
+                                type="text"
+                              />
+                              <State
+                                value={this.state.state}
+                                name="state"
+                                onChange={this.handleInputChange}
+                                required
+                                class="form-control form-control"
+                              />
+                            </div>
+                          ) : (
+                            <p>
+                              {this.state.city}, {this.state.state}
+                            </p>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-3">
+                          <label>Weight</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <Input
+                              value={this.state.currentWeight}
+                              name="currentWeight"
+                              onChange={this.handleInputChange}
+                              type="number"
+                            />
+                          ) : (
+                            <p>{this.state.currentWeight}</p>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-3">
+                          <label>Goal</label>
+                        </Col>
+                        <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <Input
+                              value={this.state.goalWeight}
+                              name="goalWeight"
+                              onChange={this.handleInputChange}
+                              type="text"
+                            />
+                          ) : (
+                            <p>{this.state.goalWeight}</p>
+                          )}
+                        </Col>
+                      </Row>
                     </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <Input
-                          value={this.state.username}
-                          name="username"
-                          onChange={this.handleInputChange}
-                          type="text"
-                        />
-                      ) : (
-                        <Link to={'/users/' + this.state.username}>
-                          <p>{this.state.username}</p>
-                        </Link>
-                      )}
+                    <Col size="lg-7">
+                      <Row>
+                        <Col size="md-4">
+                          <label>Interests</label>
+                        </Col>
+                        <Col size="md-8">
+                          {this.state.editProfile ? (
+                            <Input
+                              value={this.state.interests}
+                              name="interests"
+                              onChange={this.handleInputChange}
+                              type="text"
+                            />
+                          ) : (
+                            <p>{this.state.interests}</p>
+                          )}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col size="md-4">
+                          <label>Bio</label>
+                        </Col>
+                        <Col size="md-8">
+                          {this.state.editProfile ? (
+                            <TextArea
+                              value={this.state.bio}
+                              name="bio"
+                              onChange={this.handleInputChange}
+                              type="text"
+                            />
+                          ) : (
+                            <p>{this.state.bio}</p>
+                          )}
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Name</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <div>
-                          <Input
-                            value={this.state.firstName}
-                            name="firstName"
-                            onChange={this.handleInputChange}
-                            type="text"
-                          />
-                          <Input
-                            value={this.state.lastName}
-                            name="lastName"
-                            onChange={this.handleInputChange}
-                            type="text"
-                          />
-                        </div>
-                      ) : (
-                        <p>
-                          {this.state.firstName} {this.state.lastName}
-                        </p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Email</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <Input
-                          value={this.state.email}
-                          name="email"
-                          onChange={this.handleInputChange}
-                          type="email"
-                        />
-                      ) : (
-                        <p>{this.state.email}</p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Location</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <div>
-                          <Input
-                            value={this.state.city}
-                            name="city"
-                            onChange={this.handleInputChange}
-                            type="text"
-                          />
-                          <State
-                            value={this.state.state}
-                            name="state"
-                            onChange={this.handleInputChange}
-                            required
-                            class="form-control form-control"
-                          />
-                        </div>
-                      ) : (
-                        <p>
-                          {this.state.city}, {this.state.state}
-                        </p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Current Weight</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <Input
-                          value={this.state.currentWeight}
-                          name="currentWeight"
-                          onChange={this.handleInputChange}
-                          type="number"
-                        />
-                      ) : (
-                        <p>{this.state.currentWeight}</p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Goal Weight</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <Input
-                          value={this.state.goalWeight}
-                          name="goalWeight"
-                          onChange={this.handleInputChange}
-                          type="text"
-                        />
-                      ) : (
-                        <p>{this.state.goalWeight}</p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Interests</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <Input
-                          value={this.state.interests}
-                          name="interests"
-                          onChange={this.handleInputChange}
-                          type="text"
-                        />
-                      ) : (
-                        <p>{this.state.interests}</p>
-                      )}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col size="md-6">
-                      <label>Bio</label>
-                    </Col>
-                    <Col size="md-6">
-                      {this.state.editProfile ? (
-                        <TextArea
-                          value={this.state.bio}
-                          name="bio"
-                          onChange={this.handleInputChange}
-                          type="text"
-                        />
-                      ) : (
-                        <p>{this.state.bio}</p>
-                      )}
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
-            <Col size="lg-2">
-              {this.state.editProfile ? (
-                <SaveBtn
-                  onClick={this.handleEditClick}
-                  label="Submit Changes"
-                />
-              ) : (
-                <SaveBtn onClick={this.handleEditClick} label="Edit Profile" />
-              )}
-            </Col>
-          </Row>
-        </div>
-      </Container>
+                </CardText>
+              </Col>
+              <Col size="lg-3">
+                <div className="edit-btn">
+                  {this.state.editProfile ? (
+                    <SaveBtn
+                      onClick={this.handleEditClick}
+                      label="Submit Changes"
+                    />
+                  ) : (
+                    <SaveBtn
+                      onClick={this.handleEditClick}
+                      label="Edit Profile"
+                    />
+                  )}
+                </div>
+              </Col>
+            </Row>
+          </CardBody>
+        </CardDiv>
+      </div>
     );
   }
 }

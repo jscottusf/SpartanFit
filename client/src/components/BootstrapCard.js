@@ -26,3 +26,7 @@ export function CardTitle(props) {
 export function CardText(props) {
   return <p className="card-text">{props.children}</p>;
 }
+
+export function CardHeader(props) {
+  return <div className="card-header">{props.children}</div>;
+}
