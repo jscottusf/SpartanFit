@@ -35,11 +35,11 @@ function WorkoutCard(props) {
         >
           <div className="card-body">
             <div className="row">
-              <div className="col-md-4 d-flex flex-column justify-content-center">
+              <div className="col-md-6 d-flex flex-column justify-content-center">
                 {/* Houses chart for workout progress. */}
                 {props.chart}
               </div>
-              <div className="col-md-8">
+              <div className="col-md-6">
                 {/* If data has been passed for this program as a prop, generate table */}
                 {/* displaying last 3 days as a snapshot. */}
                 {props.data ? (

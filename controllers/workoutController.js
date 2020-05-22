@@ -39,6 +39,12 @@ module.exports = {
         dbModel.remove();
         return db.Data.remove({ _id: { $in: dbModel.data } });
       })
+      .then((dbModel) => {
+        return db.User.findOneAndUpdate(
+          { workout: req.params.id },
+          { $pull: { workout: req.params.id } }
+        );
+      })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
