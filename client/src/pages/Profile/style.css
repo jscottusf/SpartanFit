@@ -14,13 +14,29 @@
 .profile-head h5 {
   color: #333;
 }
-.profile-edit-btn {
-  border: none;
-  border-radius: 1.5rem;
-  width: 70%;
-  padding: 2%;
-  font-weight: 600;
+
+.profile-img {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.icon-container {
+  position: relative;
+}
+
+.icons {
+  position: absolute;
+  bottom: -60px;
+  right: 57%;
+  z-index: 2;
+  font-size: 30px;
+}
+
+i {
+  margin: 5px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .profile-img img {
