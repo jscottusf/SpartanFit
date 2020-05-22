@@ -38,7 +38,8 @@ class Workouts extends Component {
     this.setState({ modalForm: "add-workout" });
   };
 
-  getRange = (arr) => {
+  //Used for finding Stepsize for Chart.js from passed data.
+  cleanStepsize = (arr) => {
     console.log(arr);
     if (arr.length > 2) {
       return Math.floor(
@@ -56,17 +57,7 @@ class Workouts extends Component {
       return null;
     }
   };
-  /*
-  getRange = (arr) => {
-    console.log("Let's go!");
-    console.log(value1.value);
-    return Math.floor(
-      (Math.max(value1.value, value2.value, value3.value) -
-        Math.min(value1.value, value2.value, value3.value)) /
-        2
-    );
-  };
-*/
+
   //Deletes data when button is clicked.
   handleDeleteEntry = (id) => {
     console.log(`Deleting entry with ID: ${id}`);
@@ -304,7 +295,7 @@ class Workouts extends Component {
                                     ticks: {
                                       fontColor: "rgba(0, 0, 0, 0.8)",
                                       precision: 0,
-                                      stepSize: this.getRange(data.data),
+                                      stepSize: this.cleanStepsize(data.data),
                                     },
                                   },
                                 ],
