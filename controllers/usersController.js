@@ -9,11 +9,16 @@ module.exports = {
   findById: function (req, res) {
     db.User.findById(req.params.id)
       .populate('image')
+      .populate({
+        path: 'posts',
+        options: { createdAt: -1 },
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findUserbySlug: function (req, res) {
     db.User.find({ slug: req.params.slug })
+      .populate('image')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

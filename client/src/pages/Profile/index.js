@@ -13,7 +13,6 @@ import {
   CardText,
 } from '../../components/BootstrapCard';
 import thumb from '../../images/thumb.png';
-import Tooltip from '../../components/Tooltip';
 
 class Profile extends Component {
   constructor(props) {

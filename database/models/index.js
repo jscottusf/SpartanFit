@@ -4,4 +4,6 @@ module.exports = {
   Meal: require('./meal'),
   Data: require('./data'),
   Image: require('./images'),
+  Post: require('./post'),
+  Comment: require('./comment'),
 };
