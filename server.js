@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -24,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 // Sessions
 app.use(
   session({
-    secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+    secret: process.env.SESSION_SECRET,
     store: new MongoStore({ mongooseConnection: dbConnection }),
     resave: false, //required
     saveUninitialized: false, //required
@@ -41,5 +44,6 @@ app.use(passport.session()); // calls the deserializeUser
 app.use(routes);
 
 app.listen(PORT, () => {
+  console.log(process.env.SESSION_SECRET);
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });

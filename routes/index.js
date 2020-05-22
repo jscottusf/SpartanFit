@@ -5,32 +5,8 @@ const usersRoutes = require('./users');
 const passport = require('../passport');
 const multer = require('multer');
 const imageController = require('../controllers/imagesController');
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './client/public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5,
-  },
-  fileFilter: fileFilter,
-});
+const upload = require('../services/file-upload');
+const singleUpload = upload.single('profileImg');
 
 //API Routes
 router.use('/api', apiRoutes);
@@ -72,8 +48,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-//post an image to user profile
-router.post('/profileimg/:id', upload.single('profileImg'), (req, res) =>
+router.post('/image-upload/:id', singleUpload, (req, res) =>
   imageController.postImage(req, res)
 );
 
@@ -85,3 +60,47 @@ router.use((req, res) => {
 });
 
 module.exports = router;
+
+//below is how you save an image directly to your file directory, but I've switched it to AWS
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './client/public/uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, new Date().toISOString() + file.originalname);
+//   },
+// });
+
+// const fileFilter = (req, file, cb) => {
+//   // reject a file
+//   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//     cb(null, true);
+//   } else {
+//     cb(null, false);
+//   }
+// };
+
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1024 * 1024 * 5,
+//   },
+//   fileFilter: fileFilter,
+// });
+
+//post an image to user profile
+// router.post('/profileimg/:id', upload.single('profileImg'), (req, res) =>
+//   imageController.postImage(req, res)
+// );
+
+// router.post('/image-upload', function (req, res) {
+//   singleUpload(req, res, function (err) {
+//     if (err) {
+//       return res.status(422).send({
+//         errors: [{ title: 'File Upload Error', detail: err.message }],
+//       });
+//     }
+//     return res.json({ imageURL: req.file.location });
+//   });
+// });

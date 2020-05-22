@@ -1,5 +1,4 @@
-import axios from "axios";
-import app from "./config";
+import axios from 'axios';
 const key = process.env.REACT_APP_KEY;
 const id = process.env.REACT_APP_ID;
 
@@ -44,12 +43,6 @@ export default {
   deleteUser: function (id) {
     return axios.delete("/api/users/" + id);
   },
-  /*
-  getMeals: function (query) {
-    return axios.get(
-      `https://api.edamam.com/search?q=${query}&app_id=${app.id}&app_key=${app.key}`
-    );
-  },*/
   getMeals: function (query) {
     return axios.get(
       `https://api.edamam.com/search?q=${query}&app_id=${id}&app_key=${key}`
@@ -92,6 +85,6 @@ export default {
     return axios.get("/profileimg/" + id);
   },
   postUserImg: function (id, postData) {
-    return axios.post("/profileimg/" + id, postData);
+    return axios.post('/image-upload/' + id, postData);
   },
 };
