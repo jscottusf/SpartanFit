@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import API from '../utils/API';
-import Modal from '../components/Modal';
-import AddEntry from '../components/WorkoutModalBodies/AddEntry';
-import AddWorkout from '../components/WorkoutModalBodies/AddWorkout';
-import ViewEntries from '../components/WorkoutModalBodies/ViewEntries';
-import ViewChart from '../components/WorkoutModalBodies/ViewChart';
-import Wrapper from '../components/Wrapper';
-import WorkoutCard from '../components/WorkoutCard';
-import { format } from 'date-fns';
-import { Line } from 'react-chartjs-2';
-import './workouts.css';
-import { Col, Row, Container } from '../components/Grid';
+import React, { Component } from "react";
+import API from "../utils/API";
+import Modal from "../components/Modal";
+import AddEntry from "../components/WorkoutModalBodies/AddEntry";
+import AddWorkout from "../components/WorkoutModalBodies/AddWorkout";
+import ViewEntries from "../components/WorkoutModalBodies/ViewEntries";
+import ViewChart from "../components/WorkoutModalBodies/ViewChart";
+import Wrapper from "../components/Wrapper";
+import WorkoutCard from "../components/WorkoutCard";
+import { format } from "date-fns";
+import { Line } from "react-chartjs-2";
+import "./workouts.css";
+import { Col, Row, Container } from "../components/Grid";
 
 class Workouts extends Component {
   state = {
     workouts: [],
-    dataDate: '',
-    dataValue: '',
-    workoutName: '',
-    workoutDescription: '',
-    workoutType: '',
-    modalForm: '',
-    entryID: '',
+    dataDate: "",
+    dataValue: "",
+    workoutName: "",
+    workoutDescription: "",
+    workoutType: "",
+    modalForm: "",
+    entryID: "",
     retrievedEntries: [],
   };
 
@@ -30,16 +30,16 @@ class Workouts extends Component {
   };
 
   //Changes modal body to be the add-entry form for inputting data.
-  addEntry = id => {
-    this.setState({ modalForm: 'add-entry', entryID: id });
+  addEntry = (id) => {
+    this.setState({ modalForm: "add-entry", entryID: id });
   };
 
   addWorkout = () => {
-    this.setState({ modalForm: 'add-workout' });
+    this.setState({ modalForm: "add-workout" });
   };
 
   //Deletes data when button is clicked.
-  handleDeleteEntry = id => {
+  handleDeleteEntry = (id) => {
     console.log(`Deleting entry with ID: ${id}`);
     API.deleteData(id).then((res, err) => {
       if (err) {
@@ -51,7 +51,7 @@ class Workouts extends Component {
   };
 
   //Deletes workout and associated data when button is clicked.
-  handleDeleteWorkout = id => {
+  handleDeleteWorkout = (id) => {
     API.deleteWorkout(id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -60,7 +60,7 @@ class Workouts extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -70,9 +70,9 @@ class Workouts extends Component {
   //Submits form for both workouts and data entry
   handleFormSubmit = () => {
     switch (this.state.modalForm) {
-      case 'add-workout':
+      case "add-workout":
         return this.submitWorkouts();
-      case 'add-entry':
+      case "add-entry":
         return this.submitData(this.state.entryID);
       default:
         return null;
@@ -80,7 +80,7 @@ class Workouts extends Component {
   };
 
   //Grabs just one workout's information, used for grabbing more data to put in modals
-  loadOneWorkout = id => {
+  loadOneWorkout = (id) => {
     API.getWorkoutByID(id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -102,20 +102,20 @@ class Workouts extends Component {
   };
 
   //Chooses contents of modal based on state
-  selectForm = form => {
+  selectForm = (form) => {
     switch (form) {
-      case 'add-workout':
+      case "add-workout":
         return <AddWorkout handleInputChange={this.handleInputChange} />;
-      case 'add-entry':
+      case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
-      case 'view-entries':
+      case "view-entries":
         return (
           <ViewEntries
             delete={this.handleDeleteEntry}
             data={this.state.retrievedEntries}
           />
         );
-      case 'view-chart':
+      case "view-chart":
         return <ViewChart data={this.state.retrievedEntries} />;
       default:
         return null;
@@ -166,7 +166,7 @@ class Workouts extends Component {
     console.log(data);
     let trimmed = data.slice(0, 3);
     console.log(trimmed);
-    return trimmed.map(entry => entry[property]);
+    return trimmed.map((entry) => entry[property]);
   };
 
   //Look at one workout's data in-depth as either 'entries' in a table or a 'chart'
@@ -211,7 +211,7 @@ class Workouts extends Component {
                 <div className="row mt-5" id="workouts-card-container">
                   <div className="col-md-10 mx-auto text-center">
                     {/* Generate cards based on Workout data in state */}
-                    {this.state.workouts.map(data => (
+                    {this.state.workouts.map((data) => (
                       <WorkoutCard
                         name={data.name}
                         type={data.type}
@@ -223,8 +223,8 @@ class Workouts extends Component {
                         // Saves id to state to prepare for post
                         delete={() => this.handleDeleteWorkout(data._id)}
                         addEntry={() => this.addEntry(data._id)}
-                        viewEntries={() => this.viewInfo(data._id, 'entries')}
-                        viewChart={() => this.viewInfo(data._id, 'chart')}
+                        viewEntries={() => this.viewInfo(data._id, "entries")}
+                        viewChart={() => this.viewInfo(data._id, "chart")}
                         //Creates Line graph using Chart.js
                         chart={
                           <Line
@@ -236,44 +236,45 @@ class Workouts extends Component {
                               labels: data.data
                                 .slice(0, 3)
                                 .reverse()
-                                .map(entry =>
-                                  format(new Date(entry.date), 'MM-dd')
+                                .map((entry) =>
+                                  format(new Date(entry.date), "MM-dd")
                                 ),
                               datasets: [
                                 {
-                                  label: 'Workout Progress',
+                                  label: "Workout Progress",
                                   scaleStepWidth: 2,
-                                  backgroundColor: 'rgb(255, 99, 132)',
-                                  borderColor: 'rgb(255, 99, 132)',
+                                  backgroundColor: "rgb(255, 99, 132)",
+                                  borderColor: "rgb(255, 99, 132)",
                                   //Values of data on the Y-axis of the chart.
                                   data: data.data
                                     .slice(0, 3)
                                     .reverse()
-                                    .map(entry => entry.value),
+                                    .map((entry) => entry.value),
                                 },
                               ],
                             }}
                             options={{
                               legend: {
                                 labels: {
-                                  fontColor: 'rgba (0, 0, 0, 0.9)',
+                                  fontColor: "rgba (0, 0, 0, 0.9)",
                                   fontSize: 16,
-                                  fontStyle: 'bold',
+                                  fontStyle: "bold",
                                 },
                               },
                               scales: {
                                 xAxes: [
                                   {
                                     ticks: {
-                                      fontColor: 'rgba(0, 0, 0, 0.8)',
-                                      fontStyle: 'bold',
+                                      fontColor: "rgba(0, 0, 0, 0.8)",
+                                      fontStyle: "bold",
                                     },
                                   },
                                 ],
                                 yAxes: [
                                   {
                                     ticks: {
-                                      fontColor: 'rgba(0, 0, 0, 0.8)',
+                                      fontColor: "rgba(0, 0, 0, 0.8)",
+                                      stepSize: 4,
                                     },
                                   },
                                 ],
