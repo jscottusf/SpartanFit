@@ -10,6 +10,7 @@ class Recipes extends Component {
     id: null,
     results: [],
     query: "",
+    favorites: [],
     saved: [],
   };
 
@@ -19,6 +20,7 @@ class Recipes extends Component {
       id: this.props.id,
     });
     this.searchRecipes("vegan");
+    this.loadUserRecipes();
   };
 
   // Handles changes in input of form
@@ -56,7 +58,9 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      this.setState({ results: res.data.meal });
+      let userFavorites = [];
+      res.data.meal.forEach((meal) => userFavorites.push(meal.title));
+      this.setState({ favorites: userFavorites });
     });
   };
 
@@ -99,6 +103,11 @@ class Recipes extends Component {
                 name={recipe.recipe.label}
                 link={recipe.recipe.url}
                 favorite={this.handleFavoriteClick}
+                savedMeal={
+                  this.state.favorites.includes(recipe.recipe.label)
+                    ? true
+                    : false
+                }
                 saved={this.state.saved.includes(index) ? true : false}
               />
             ))}
