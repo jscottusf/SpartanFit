@@ -11,7 +11,6 @@ class Recipes extends Component {
     results: [],
     query: "",
     favorites: [],
-    saved: [],
   };
 
   // Upon initial render, populate recipe cards with default search "vegan"
