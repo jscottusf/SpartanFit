@@ -181,13 +181,6 @@ class Workouts extends Component {
     }
   };
 
-  trimData = (data, property) => {
-    console.log(data);
-    let trimmed = data.slice(0, 3);
-    console.log(trimmed);
-    return trimmed.map((entry) => entry[property]);
-  };
-
   //Look at one workout's data in-depth as either 'entries' in a table or a 'chart'
   viewInfo = (id, format) => {
     this.setState({ modalForm: `view-${format}`, entryID: id });

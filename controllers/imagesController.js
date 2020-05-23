@@ -1,4 +1,4 @@
-const db = require('../database/models');
+const db = require("../database/models");
 
 module.exports = {
   postImage: function (req, res) {
@@ -15,7 +15,16 @@ module.exports = {
         );
       })
       .then(function (dbImage) {
-        res.json(dbImage);
+        //Updates posts from the user specified in params
+        //with new pic.
+        db.Post.update(
+          { _id: { $in: dbImage.posts } },
+          { userpic: req.file.location },
+          { multi: true }
+        ).then((dbPosts) => {
+          console.log(dbPosts);
+          res.json(dbPosts);
+        });
       })
       .catch(function (err) {
         res.json(err);
@@ -23,7 +32,7 @@ module.exports = {
   },
   findById: function (req, res) {
     db.Image.findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
 };
