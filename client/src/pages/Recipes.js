@@ -18,6 +18,7 @@ class Recipes extends Component {
     this.setState({
       id: this.props.id,
     });
+    console.log(process.env);
     this.searchRecipes("vegan");
     this.loadUserRecipes();
   };
