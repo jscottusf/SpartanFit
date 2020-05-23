@@ -110,7 +110,7 @@ class Profile extends Component {
             variant: variant,
             editProfile: false,
           });
-          this.loadUserData();
+          this.loadUserProfile();
         });
     } else {
       this.setState({ editProfile: true });
@@ -164,17 +164,26 @@ class Profile extends Component {
                     alt=""
                   />
                 </div>
-                <input
-                  type="file"
-                  // style={{ display: 'none' }}
-                  onChange={this.fileSelectedHandler}
-                  // ref={fileInput => (this.fileInput = fileInput)}
-                />
-                {/* <i
-                  onClick={() => this.fileInput.click()}
-                  className="fas fa-image"
-                ></i> */}
-                <button onClick={this.fileUploadHandler}> Upload </button>
+                <div className="icon-container">
+                  <div className="icons">
+                    <input
+                      type="file"
+                      style={{ display: 'none' }}
+                      onChange={this.fileSelectedHandler}
+                      ref={fileInput => (this.fileInput = fileInput)}
+                    />
+                    <i
+                      onClick={() => this.fileInput.click()}
+                      //className="fas fa-image"
+                      className="fas fa-camera-retro"
+                    ></i>
+                    <i
+                      className="fas fa-upload"
+                      onClick={this.fileUploadHandler}
+                    ></i>
+                  </div>
+                </div>
+
                 {/* <div class="image-upload">
                   <label for="file-input">
                     <i className="fas fa-image"></i>
@@ -354,10 +363,7 @@ class Profile extends Component {
               <Col size="lg-3">
                 <div className="edit-btn">
                   {this.state.editProfile ? (
-                    <SaveBtn
-                      onClick={this.handleEditClick}
-                      label="Submit Changes"
-                    />
+                    <SaveBtn onClick={this.handleEditClick} label="Update" />
                   ) : (
                     <SaveBtn
                       onClick={this.handleEditClick}

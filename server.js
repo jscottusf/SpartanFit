@@ -44,6 +44,5 @@ app.use(passport.session()); // calls the deserializeUser
 app.use(routes);
 
 app.listen(PORT, () => {
-  console.log(process.env.SESSION_SECRET);
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });

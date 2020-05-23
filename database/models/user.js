@@ -50,6 +50,12 @@ const userSchema = new Schema({
       ref: 'Meal',
     },
   ],
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+    },
+  ],
   currentWeight: Number,
   goalWeight: Number,
   slug: {
