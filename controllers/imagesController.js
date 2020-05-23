@@ -22,7 +22,6 @@ module.exports = {
           { userpic: req.file.location },
           { multi: true }
         ).then((dbPosts) => {
-          console.log(dbPosts);
           res.json(dbPosts);
         });
       })
