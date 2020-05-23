@@ -13,6 +13,13 @@ module.exports = {
   },
   create: function (req, res) {
     db.Comment.create(req.body)
+      .then(function (dbComment) {
+        return db.User.findByIdAndUpdate(
+          { _id: req.params.id },
+          { comments: dbComment._id },
+          { new: true }
+        );
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

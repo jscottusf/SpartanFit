@@ -11,7 +11,8 @@ module.exports = {
       .populate('image')
       .populate({
         path: 'posts',
-        options: { createdAt: -1 },
+        options: { sort: '-createdAt' },
+        populate: { path: 'comments' },
       })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

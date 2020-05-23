@@ -18,6 +18,7 @@ class Recipes extends Component {
   componentDidMount = () => {
     this.searchRecipes("vegan");
     this.loadUserRecipes();
+    this.searchRecipes("vegan");
   };
 
   deleteRecipe = (title) => {
