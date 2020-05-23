@@ -18,9 +18,8 @@ class Recipes extends Component {
     this.setState({
       id: this.props.id,
     });
-    console.log(process.env);
-    this.searchRecipes("vegan");
     this.loadUserRecipes();
+    this.searchRecipes("vegan");
   };
 
   // Handles changes in input of form
@@ -128,7 +127,6 @@ class Recipes extends Component {
                     ? true
                     : false
                 }
-                saved={this.state.saved.includes(index) ? true : false}
               />
             ))}
           </GridContainer>
