@@ -10,6 +10,7 @@ class Recipes extends Component {
     id: null,
     results: [],
     query: "",
+    favorites: [],
     saved: [],
   };
 
@@ -19,6 +20,7 @@ class Recipes extends Component {
       id: this.props.id,
     });
     this.searchRecipes("vegan");
+    this.loadUserRecipes();
   };
 
   // Handles changes in input of form
@@ -36,10 +38,30 @@ class Recipes extends Component {
       image: document.getElementById("card-image-" + id).getAttribute("src"),
       link: document.getElementById("card-link-" + id).getAttribute("href"),
     };
-    if (!this.state.saved.includes(id)) {
-      this.setState({ saved: this.state.saved.concat([id]) });
+    if (!this.state.favorites.includes(savedRecipe.title)) {
+      this.setState({
+        favorites: this.state.favorites.concat([savedRecipe.title]),
+      });
+      this.saveRecipe(savedRecipe);
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.remove("text-muted");
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.add("new-favorite-meal");
+    } else {
+      this.setState({
+        favorites: this.state.favorites.filter(
+          (meal) => meal !== savedRecipe.title
+        ),
+      });
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.remove("new-favorite-meal");
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.add("text-muted");
     }
-    this.saveRecipe(savedRecipe);
   };
 
   // When search form submitted, search for recipes
@@ -56,7 +78,9 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      this.setState({ results: res.data.meal });
+      let userFavorites = [];
+      res.data.meal.forEach((meal) => userFavorites.push(meal.title));
+      this.setState({ favorites: userFavorites });
     });
   };
 
@@ -99,6 +123,11 @@ class Recipes extends Component {
                 name={recipe.recipe.label}
                 link={recipe.recipe.url}
                 favorite={this.handleFavoriteClick}
+                savedMeal={
+                  this.state.favorites.includes(recipe.recipe.label)
+                    ? true
+                    : false
+                }
                 saved={this.state.saved.includes(index) ? true : false}
               />
             ))}
