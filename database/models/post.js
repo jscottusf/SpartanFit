@@ -3,10 +3,17 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
   username: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: String,
+  userpic: { type: String, required: true },
   postBody: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  likeCount: { type: Number, default: 0 },
-  commentCount: { type: Number, default: 0 },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
 });
 
 const Post = mongoose.model('Post', postSchema);

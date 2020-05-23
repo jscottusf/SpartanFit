@@ -41,7 +41,7 @@ class Home extends Component {
                 <CardBody>
                   <CardTitle>Workouts</CardTitle>
                   <CardText>
-                    Build your own custome workout list. Keep track of your
+                    Build your own custom workout list. Keep track of your
                     activity to measure your progess over times
                   </CardText>
                   <Link to="/workouts" className="btn btn-dark">
@@ -54,7 +54,7 @@ class Home extends Component {
                 <CardBody>
                   <CardTitle>Recipes</CardTitle>
                   <CardText>
-                    Low Card? Gluten Free? Vegan? Find the{' '}
+                    Low Carb? Gluten Free? Vegan? Find the{' '}
                     <span className="text-info">perfect</span> meal for your
                     dietary needs
                   </CardText>
