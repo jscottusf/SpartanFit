@@ -13,6 +13,8 @@ import {
   CardText,
 } from '../../components/BootstrapCard';
 import thumb from '../../images/thumb.png';
+import { InputBar, BarInput, InputBarBtn } from '../../components/InputBar';
+import PostCard from '../../components/PostCard';
 
 class Profile extends Component {
   constructor(props) {
@@ -37,6 +39,8 @@ class Profile extends Component {
       message: '',
       imageUrl: '',
       selectedFile: null,
+      post: '',
+      posts: [],
     };
   }
 
@@ -66,6 +70,7 @@ class Profile extends Component {
         currentWeight: res.data.currentWeight,
         goalWeight: res.data.goalWeight,
         imageUrl: res.data.image[0] ? res.data.image[0].profileImg : thumb,
+        posts: res.data.posts,
       });
     });
   };
@@ -139,6 +144,26 @@ class Profile extends Component {
       .then(res => {
         console.log(res);
         this.loadUserProfile();
+      })
+      .catch(err => console.log(err));
+  };
+
+  handlePostClick = event => {
+    event.preventDefault();
+    API.makePost(this.state.id, {
+      username: this.state.username,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      userpic: this.state.imageUrl,
+      postBody: this.state.post,
+    })
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({
+            post: '',
+          });
+          this.loadUserProfile();
+        }
       })
       .catch(err => console.log(err));
   };
@@ -373,6 +398,39 @@ class Profile extends Component {
                 </div>
               </Col>
             </Row>
+            <br></br>
+            <h1>Posts</h1>
+            <hr></hr>
+            <InputBar>
+              <BarInput
+                onChange={this.handleInputChange}
+                name="post"
+                value={this.state.post}
+                type="text"
+              />
+              <InputBarBtn onClick={this.handlePostClick} label="Post" />
+            </InputBar>
+            {this.state.posts.length ? (
+              <div>
+                {this.state.posts.map(post => (
+                  <CardDiv>
+                    <PostCard
+                      key={post.id}
+                      id={post.id}
+                      firstName={post.firstName}
+                      lastName={post.lastName}
+                      image={post.userpic}
+                      username={post.username}
+                      postBody={post.postBody}
+                    >
+                      <div>likes and comments here</div>
+                    </PostCard>
+                  </CardDiv>
+                ))}
+              </div>
+            ) : (
+              <h3>No Posts to Display</h3>
+            )}
           </CardBody>
         </CardDiv>
       </div>

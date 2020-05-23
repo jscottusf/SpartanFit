@@ -1,7 +1,7 @@
-.searchbar {
+#searchbar {
   width: 800px;
 }
-.searchbar .form-control {
+#searchbar {
   outline-color: none;
   border: none !important;
   -webkit-box-shadow: none !important;

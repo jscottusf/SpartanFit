@@ -6,6 +6,7 @@ function SearchBar(props) {
     <form className="input-group mb-3 search searchbar">
       <input
         type="text"
+        id="searchbar"
         className="form-control"
         placeholder="Low carb? Gluten Free? Vegan?"
         onChange={props.handleInputChange}
