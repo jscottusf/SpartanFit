@@ -24,6 +24,10 @@ i:hover {
   color: salmon;
 }
 
+.new-favorite-meal {
+  color: red;
+}
+
 .saved-meal {
   color: red;
 }

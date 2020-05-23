@@ -5,7 +5,6 @@ function RecipeCard(props) {
   return (
     <div className="card promoting-card" id={`card-${props.id}`}>
       <div className="card-body" style={{ height: "3%" }}>
-        {props.savedMeal ? <span>Recipe in favorites.</span> : ""}
         {/* If card is saved, tell user. */}
         {props.saved ? (
           <span className="float-left fadeIn">Recipe saved!</span>
@@ -15,11 +14,18 @@ function RecipeCard(props) {
         {/* If card is called from Search page, add favorite icon. Else, add delete icon. */}
         {props.favorite ? (
           <i
-            className="fas fa-plus text-muted float-right p-1 my-1"
+            className={
+              // Icon turns red or gray depending on if the item is saved.
+              props.savedMeal
+                ? "fas fa-heart saved-meal float-right p-1 my-1"
+                : "fas fa-heart text-muted float-right p-1 my-1"
+            }
+            id={`favorite-icon-${props.id}`}
+            data-saved={props.savedMeal ? "true" : "false"}
             data-toggle="tooltip"
             data-placement="top"
-            title="Add to My Recipes"
-            //   When this icon is clicked, save to MongoDB
+            title="Add to my recipes"
+            //When icon is clicked, either insert into MongoDB if not favorited, or delete if favorited.
             onClick={() => props.favorite(props.id)}
           ></i>
         ) : (
@@ -31,20 +37,6 @@ function RecipeCard(props) {
             //   When this icon is clicked, delete from MongoDB
             onClick={() => props.delete(props.id)}
           ></i>
-        )}
-        {props.favorite ? (
-          <i
-            className={
-              props.savedMeal
-                ? "fas fa-heart saved-meal float-right p-1 my-1"
-                : "fas fa-heart text-muted float-right p-1 my-1"
-            }
-            data-toggle="tooltip"
-            data-placement="top"
-            title="I like it"
-          ></i>
-        ) : (
-          ""
         )}
         <i
           className="fas fa-share-alt text-muted float-right p-1 my-1 mr-2"
