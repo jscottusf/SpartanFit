@@ -15,6 +15,9 @@ export default {
   makePost: function (id, postData) {
     return axios.post('/api/posts/' + id, postData);
   },
+  editPost: function (id, postData) {
+    return axios.put('/api/posts/' + id, postData);
+  },
   getUsers: function () {
     return axios.get('/api/users/');
   },

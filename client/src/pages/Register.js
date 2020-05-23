@@ -39,7 +39,7 @@ class Register extends Component {
       username: this.state.username,
       password: this.state.password,
       email: this.state.email,
-      slug: this.state.firstName.toLowerCase(),
+      slug: this.state.username.toLowerCase(),
     })
       .then(response => {
         if (response.status === 200) {
