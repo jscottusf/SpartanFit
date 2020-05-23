@@ -20,6 +20,11 @@ module.exports = {
   findUserbySlug: function (req, res) {
     db.User.find({ slug: req.params.slug })
       .populate('image')
+      .populate({
+        path: 'posts',
+        options: { sort: '-createdAt' },
+        populate: { path: 'comments' },
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

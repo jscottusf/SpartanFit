@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Workouts from './pages/Workouts';
 import Profile from './pages/Profile/index';
+import Post from './pages/Post';
 import API from './utils/API';
 import NavMenu from './components/NavMenu';
 import PublicProfile from './pages/PublicProfile';
@@ -93,6 +94,7 @@ class App extends Component {
             path="/users/:slug"
             render={() => <PublicProfile id={this.state.id} />}
           />
+          <Route path="/posts/:id" render={() => <Post id={this.state.id} />} />
           <Route
             exact
             path="/recipes"

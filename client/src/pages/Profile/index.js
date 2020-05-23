@@ -57,7 +57,7 @@ class Profile extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getUser();
+    //this.props.getUser(); //i don't think this was needed but leaving the reference in case
     this.setState({ id: this.props.id });
     this.loadUserProfile();
   };
