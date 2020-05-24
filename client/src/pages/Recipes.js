@@ -47,6 +47,24 @@ class Recipes extends Component {
     });
   };
 
+  flipIconColor = (id, color) => {
+    if (color === "red") {
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.remove("text-muted");
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.add("new-favorite-meal");
+    } else {
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.remove("new-favorite-meal");
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.add("text-muted");
+    }
+  };
+
   // Handles changes in input of form
   handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -65,18 +83,12 @@ class Recipes extends Component {
     };
     //If card is in staging area already when button is clicked, remove from staging area to prevent multiple-posting.
     if (this.state.stagedRecipes.includes(savedRecipe.title)) {
-      console.log("Removing recipe from staging area.");
       this.setState({
         stagedRecipes: this.state.stagedRecipes.filter(
           (recipe) => recipe !== savedRecipe.title
         ),
       });
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.remove("new-favorite-meal");
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.add("text-muted");
+      this.flipIconColor(id, "gray");
     }
     //If card not currently in favorites, save recipe.
     else if (!this.state.favorites.includes(savedRecipe.title)) {
@@ -85,12 +97,7 @@ class Recipes extends Component {
         stagedRecipes: this.state.stagedRecipes.concat([savedRecipe.title]),
         favorites: this.state.favorites.concat([savedRecipe.title]),
       });
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.remove("text-muted");
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.add("new-favorite-meal");
+      this.flipIconColor(id, "red");
     } else {
       //If recipe already in favorites, delete recipe.
       this.deleteRecipeByTitle(savedRecipe.title);
@@ -99,12 +106,7 @@ class Recipes extends Component {
           (meal) => meal !== savedRecipe.title
         ),
       });
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.remove("new-favorite-meal");
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.add("text-muted");
+      this.flipIconColor(id, "gray");
     }
   };
 
