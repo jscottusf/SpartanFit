@@ -40,7 +40,6 @@ class Workouts extends Component {
 
   //Used for finding Stepsize for Chart.js from passed data.
   cleanStepsize = (arr) => {
-    console.log(arr);
     if (arr.length > 2) {
       return Math.floor(
         (Math.max(arr[0].value, arr[1].value, arr[2].value) -
@@ -182,13 +181,6 @@ class Workouts extends Component {
     }
   };
 
-  trimData = (data, property) => {
-    console.log(data);
-    let trimmed = data.slice(0, 3);
-    console.log(trimmed);
-    return trimmed.map((entry) => entry[property]);
-  };
-
   //Look at one workout's data in-depth as either 'entries' in a table or a 'chart'
   viewInfo = (id, format) => {
     this.setState({ modalForm: `view-${format}`, entryID: id });
@@ -295,6 +287,9 @@ class Workouts extends Component {
                                     ticks: {
                                       fontColor: "rgba(0, 0, 0, 0.8)",
                                       precision: 0,
+                                      //Sends the data to cleanStepsize function to dynamically
+                                      //create an appropriate amount of y-ticks based on range of data.
+                                      //Keeps y-ticks from being clustered together too closely.
                                       stepSize: this.cleanStepsize(data.data),
                                     },
                                   },

@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
+import {} from "dotenv/config";
 const key = process.env.REACT_APP_KEY;
 const id = process.env.REACT_APP_ID;
 
@@ -104,6 +105,6 @@ export default {
     return axios.get('/profileimg/' + id);
   },
   postUserImg: function (id, postData) {
-    return axios.post('/image-upload/' + id, postData);
+    return axios.post("/image-upload/" + id, postData);
   },
 };
