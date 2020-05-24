@@ -6,4 +6,5 @@ module.exports = {
   Image: require('./images'),
   Post: require('./post'),
   Comment: require('./comment'),
+  Like: require('./like'),
 };

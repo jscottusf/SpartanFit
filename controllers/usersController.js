@@ -9,6 +9,7 @@ module.exports = {
   findById: function (req, res) {
     db.User.findById(req.params.id)
       .populate('image')
+      .populate('likes')
       .populate({
         path: 'posts',
         options: { sort: '-createdAt' },

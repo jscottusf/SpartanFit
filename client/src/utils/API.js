@@ -1,9 +1,15 @@
-import axios from "axios";
-import {} from "dotenv/config";
+import axios from 'axios';
+import {} from 'dotenv/config';
 const key = process.env.REACT_APP_KEY;
 const id = process.env.REACT_APP_ID;
 
 export default {
+  likePost: function (id, postLikeData) {
+    return axios.post('/api/likes/' + id, postLikeData);
+  },
+  unlikePost: function (id) {
+    return axios.delete('/api/likes/' + id);
+  },
   getPosts: function () {
     return axios.get('/api/posts/');
   },
@@ -105,6 +111,6 @@ export default {
     return axios.get('/profileimg/' + id);
   },
   postUserImg: function (id, postData) {
-    return axios.post("/image-upload/" + id, postData);
+    return axios.post('/image-upload/' + id, postData);
   },
 };

@@ -242,6 +242,15 @@ class Profile extends Component {
     });
   };
 
+  handleLikeClick = (event, postId) => {
+    event.preventDefault();
+    API.likePost(this.props.id, {
+      postId: postId,
+    })
+      .then(res => this.loadUserProfile())
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div className="profile-page">
@@ -519,7 +528,10 @@ class Profile extends Component {
                       {/* <Link to={'/likes/' + post._id}>
                         Like ({post.likes.length})
                       </Link> */}
-                      <i class="far fa-heart"></i>
+                      <i
+                        class="far fa-heart"
+                        onClick={event => this.handleLikeClick(event, post._id)}
+                      ></i>
                       <Link
                         to={'/posts/' + post._id}
                         style={{ textDecoration: 'none', color: 'black' }}

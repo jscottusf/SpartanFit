@@ -5,6 +5,7 @@ const mealRoutes = require('./meals');
 const dataRoutes = require('./data');
 const postRoutes = require('./posts');
 const commentRoutes = require('./comments');
+const likeRoutes = require('./likes');
 
 router.use('/users', userRoutes);
 router.use('/workouts', workoutRoutes);
@@ -12,5 +13,6 @@ router.use('/meals', mealRoutes);
 router.use('/data', dataRoutes);
 router.use('/posts', postRoutes);
 router.use('/comments', commentRoutes);
+router.use('/likes', likeRoutes);
 
 module.exports = router;
