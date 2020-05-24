@@ -13,6 +13,7 @@ import Post from './pages/Post';
 import API from './utils/API';
 import NavMenu from './components/NavMenu';
 import PublicProfile from './pages/PublicProfile';
+import Social from './pages/Social';
 
 class App extends Component {
   constructor(props) {
@@ -91,6 +92,7 @@ class App extends Component {
             render={() => <Profile getUser={this.getUser} id={this.state.id} />}
           />
           <Route
+            exact
             path="/users/:slug"
             render={() => <PublicProfile id={this.state.id} />}
           />
@@ -111,6 +113,11 @@ class App extends Component {
             currentUser={this.state.username}
             render={() => <Workouts id={this.state.id} />}
           />
+          <Route
+            exact
+            path="/social"
+            render={() => <Social id={this.state.id} />}
+          />
           <Footer />
         </div>
       );
@@ -126,6 +133,7 @@ class App extends Component {
           />
           {/* <Route exact path="/register" component={Register} /> */}
           <Route exact path="/register" render={() => <Register />} />
+
           <Footer />
         </div>
       );

@@ -45,7 +45,7 @@ class NavMenu extends Component {
               <h1 className="topleft">
                 Spartan<span class="text-info">Fit</span>
               </h1>
-              <div className="links">
+              <div className="links" id="icon-links">
                 <Row>
                   <Link
                     to="/"
@@ -56,7 +56,7 @@ class NavMenu extends Component {
                         : 'home-link'
                     }
                   >
-                    home
+                    <i class="fas fa-home"></i>
                   </Link>
                   <Link
                     to="/profile"
@@ -66,7 +66,7 @@ class NavMenu extends Component {
                         : 'profile-link'
                     }
                   >
-                    profile
+                    <i class="far fa-id-card"></i>
                   </Link>
                   <Link
                     to="/workouts"
@@ -76,7 +76,7 @@ class NavMenu extends Component {
                         : 'workouts-link'
                     }
                   >
-                    workouts
+                    <i class="fas fa-dumbbell"></i>
                   </Link>
                   <div
                     className={
@@ -97,7 +97,7 @@ class NavMenu extends Component {
                       aria-expanded="false"
                       style={{ cursor: 'pointer' }}
                     >
-                      recipes
+                      <i class="fas fa-hamburger"></i>
                     </div>
                     <div
                       className="dropdown-menu"
@@ -119,10 +119,10 @@ class NavMenu extends Component {
                         : 'workouts-link'
                     }
                   >
-                    social
+                    <i class="fas fa-users"></i>
                   </Link>
                   <Link className="logout-link" to="/" onClick={this.logout}>
-                    logout
+                    <i class="fas fa-sign-out-alt"></i>
                   </Link>
                 </Row>
               </div>

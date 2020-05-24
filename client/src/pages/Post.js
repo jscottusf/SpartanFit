@@ -165,7 +165,6 @@ class Post extends Component {
                 postBody={this.state.postBody}
               >
                 <Row>
-                  <i class="far fa-heart"></i>
                   <div>
                     <i class="far fa-comments"></i> (
                     {this.state.comments.length})
@@ -175,7 +174,7 @@ class Post extends Component {
             </Row>
             <h4>Comments</h4>
             <hr></hr>
-            <InputBar>
+            <InputBar barName={'postbar'}>
               <BarInput
                 onChange={this.handleInputChange}
                 name="commentBody"
@@ -228,11 +227,6 @@ class Post extends Component {
                           </div>
                         </Dropdown>
                       )}
-
-                      {/* <Link to={'/likes/' + post._id}>
-                        Like ({post.likes.length})
-                      </Link> */}
-                      <i class="far fa-heart"></i>
                     </PostCard>
                   </CardDiv>
                 ))}

@@ -476,7 +476,7 @@ class Profile extends Component {
             <hr></hr>
             <h4>Posts</h4>
             <hr></hr>
-            <InputBar>
+            <InputBar barName={'postbar'}>
               <BarInput
                 onChange={this.handleInputChange}
                 name="post"
