@@ -8,6 +8,7 @@ const commentSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: String,
   userpic: { type: String, required: true },
+  userId: { type: String, required: true },
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
