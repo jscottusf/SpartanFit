@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import API from '../utils/API';
 import PostCard from '../components/PostCard';
 import { CardDiv, CardBody } from '../components/BootstrapCard';
-import { Col, Row, Container } from '../components/Grid';
+import { Row } from '../components/Grid';
+import { TextArea } from '../components/Form';
 import { InputBar, BarInput, InputBarBtn } from '../components/InputBar';
 import thumb from '../images/thumb.png';
+import {
+  FormModal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  SubmitBtn,
+  CloseBtn,
+} from '../components/BootstrapModal';
+import Dropdown from '../components/Dropdown';
 
 class Post extends Component {
   constructor(props) {
@@ -13,6 +23,7 @@ class Post extends Component {
     this.state = {
       id: '',
       postId: '',
+      posterId: '',
       username: '',
       firstName: '',
       lastName: '',
@@ -23,6 +34,8 @@ class Post extends Component {
       comments: [],
       commenterData: null,
       commenterImageUrl: '',
+      editId: '',
+      editComment: '',
     };
   }
 
@@ -40,6 +53,7 @@ class Post extends Component {
       }
       this.setState({
         postId: res.data._id,
+        posterId: res.data.userId,
         username: res.data.username,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
@@ -80,6 +94,7 @@ class Post extends Component {
       firstName: this.state.commenterData.firstName,
       lastName: this.state.commenterData.lastName,
       userpic: this.state.commenterImageUrl,
+      userId: this.state.id,
     })
       .then(res => {
         if (res.status === 200) {
@@ -90,6 +105,42 @@ class Post extends Component {
         }
       })
       .catch(err => console.log(err));
+  };
+
+  handleEditBtn = (event, id, comment) => {
+    event.preventDefault();
+    this.setState({
+      editId: id,
+      editComment: comment,
+    });
+  };
+
+  handleEditSubmit = (event, id) => {
+    event.preventDefault();
+    if (this.state.editComment) {
+      API.editComment(id, {
+        commentBody: this.state.editComment,
+      })
+        .then(res => this.loadPost())
+        .catch(err => console.log(err));
+      const show = true;
+      const message = 'Post updated successfully';
+      const variant = 'success';
+      this.setState({ show: show, message: message, variant: variant });
+    }
+  };
+
+  deletePost = id => {
+    API.deleteComment(id)
+      .then(res => this.loadPost())
+      .catch(err => console.log(err));
+  };
+
+  clearState = () => {
+    this.setState({
+      editId: '',
+      editPost: '',
+    });
   };
 
   render() {
@@ -146,25 +197,38 @@ class Post extends Component {
                       username={comment.username}
                       postBody={comment.commentBody}
                     >
-                      {/* <Dropdown>
-                        <div
-                          className="dropdown-item"
-                          data-toggle="modal"
-                          data-target="#editModal"
-                          onClick={event =>
-                            this.handleEditBtn(event, post._id, post.postBody)
-                          }
-                        >
-                          Edit
-                        </div>
-                        <div
-                          className="dropdown-item"
-                          onClick={() => this.deletePost(post._id)}
-                        >
-                          {' '}
-                          Delete
-                        </div>
-                      </Dropdown> */}
+                      {this.state.id === comment.userId ? (
+                        <Dropdown>
+                          <div
+                            className="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#editModal"
+                            onClick={event =>
+                              this.handleEditBtn(
+                                event,
+                                comment._id,
+                                comment.commentBody
+                              )
+                            }
+                          >
+                            Edit
+                          </div>
+                          <div
+                            className="dropdown-item"
+                            onClick={() => this.deletePost(comment._id)}
+                          >
+                            {' '}
+                            Delete
+                          </div>
+                        </Dropdown>
+                      ) : (
+                        <Dropdown>
+                          <div>
+                            Can't edit or delete other people's comments
+                          </div>
+                        </Dropdown>
+                      )}
+
                       {/* <Link to={'/likes/' + post._id}>
                         Like ({post.likes.length})
                       </Link> */}
@@ -178,6 +242,27 @@ class Post extends Component {
             )}
           </CardBody>
         </CardDiv>
+        <FormModal id={'editModal'} clearState={this.clearState}>
+          <ModalHeader>
+            <h4>Edit Comment</h4>
+          </ModalHeader>
+          <ModalBody>
+            <TextArea
+              value={this.state.editComment}
+              name="editComment"
+              onChange={this.handleInputChange}
+              type="text"
+              rows="10"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <CloseBtn onClick={this.clearState} />
+            <SubmitBtn
+              action={'Submit Changes'}
+              onClick={event => this.handleEditSubmit(event, this.state.editId)}
+            />
+          </ModalFooter>
+        </FormModal>
       </div>
     );
   }

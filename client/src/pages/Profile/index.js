@@ -176,22 +176,34 @@ class Profile extends Component {
 
   handlePostClick = event => {
     event.preventDefault();
-    API.makePost(this.state.id, {
-      username: this.state.slug,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      userpic: this.state.imageUrl,
-      postBody: this.state.post,
-    })
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({
-            post: '',
-          });
-          this.loadUserProfile();
-        }
+    if (this.state.post) {
+      API.makePost(this.state.id, {
+        username: this.state.slug,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        userpic: this.state.imageUrl,
+        postBody: this.state.post,
+        userId: this.state.id,
       })
-      .catch(err => console.log(err));
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              post: '',
+            });
+            const show = true;
+            const message = 'Posted!';
+            const variant = 'success';
+            this.setState({ show: show, message: message, variant: variant });
+            this.loadUserProfile();
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      const show = true;
+      const message = 'Post is empty';
+      const variant = 'danger';
+      this.setState({ show: show, message: message, variant: variant });
+    }
   };
 
   handleEditBtn = (event, id, post) => {
@@ -525,7 +537,7 @@ class Profile extends Component {
         </CardDiv>
         <FormModal id={'editModal'} clearState={this.clearState}>
           <ModalHeader>
-            <h4>Edit Book</h4>
+            <h4>Edit Post</h4>
           </ModalHeader>
           <ModalBody>
             <TextArea

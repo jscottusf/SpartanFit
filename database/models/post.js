@@ -14,6 +14,7 @@ const postSchema = new Schema({
       ref: 'Comment',
     },
   ],
+  userId: { type: String, required: true },
 });
 
 const Post = mongoose.model('Post', postSchema);
