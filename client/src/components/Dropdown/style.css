@@ -1,0 +1,32 @@
+﻿.dropdown {
+  position: static;
+}
+
+.fa-ellipsis-h {
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  z-index: 200;
+}
+
+.fa-ellipsis-h:hover {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  font-weight: 600;
+  color: #1b1b1b;
+}
+
+.dropdown-item:hover {
+  background-color: #e0eefc;
+  color: #51a3ff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .fa-ellipsis-h {
+    top: 2.1rem;
+    right: 2rem;
+  }
+}

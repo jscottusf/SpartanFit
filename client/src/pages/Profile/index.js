@@ -1,20 +1,29 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import SaveBtn from "../../components/SaveBtn";
-import { Col, Row, Container } from "../../components/Grid";
-import { Input, TextArea, State } from "../../components/Form";
-import "./style.css";
-import Alert from "../../components/Alert";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+import SaveBtn from '../../components/SaveBtn';
+import { Col, Row, Container } from '../../components/Grid';
+import { Input, TextArea, State } from '../../components/Form';
+import './style.css';
+import Alert from '../../components/Alert';
 import {
   CardDiv,
   CardBody,
   CardTitle,
   CardText,
-} from "../../components/BootstrapCard";
-import thumb from "../../images/thumb.png";
-import { InputBar, BarInput, InputBarBtn } from "../../components/InputBar";
-import PostCard from "../../components/PostCard";
+} from '../../components/BootstrapCard';
+import thumb from '../../images/thumb.png';
+import { InputBar, BarInput, InputBarBtn } from '../../components/InputBar';
+import PostCard from '../../components/PostCard';
+import {
+  FormModal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  SubmitBtn,
+  CloseBtn,
+} from '../../components/BootstrapModal';
+import Dropdown from '../../components/Dropdown';
 
 class Profile extends Component {
   constructor(props) {
@@ -22,30 +31,33 @@ class Profile extends Component {
     this.state = {
       id: null,
       user: null,
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      city: "",
-      state: "",
-      joinDate: "",
-      bio: "",
-      interests: "",
+      username: '',
+      slug: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      city: '',
+      state: '',
+      joinDate: '',
+      bio: '',
+      interests: '',
       currentWeight: null,
       goalWeight: null,
       editProfile: false,
       show: false,
       variant: undefined,
-      message: "",
-      imageUrl: "",
+      message: '',
+      imageUrl: '',
       selectedFile: null,
-      post: "",
+      post: '',
       posts: [],
+      editId: '',
+      editPost: '',
     };
   }
 
   componentDidMount = () => {
-    this.props.getUser();
+    //this.props.getUser(); //i don't think this was needed but leaving the reference in case
     this.setState({ id: this.props.id });
     this.loadUserProfile();
   };
@@ -59,6 +71,7 @@ class Profile extends Component {
         user: res.data,
         id: res.data._id,
         username: res.data.username,
+        slug: res.data.slug,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
         email: res.data.email,
@@ -71,11 +84,12 @@ class Profile extends Component {
         goalWeight: res.data.goalWeight,
         imageUrl: res.data.image[0] ? res.data.image[0].profileImg : thumb,
         posts: res.data.posts,
+        selectedFile: null,
       });
     });
   };
 
-  handleEditClick = (event) => {
+  handleEditClick = event => {
     event.preventDefault();
     if (this.state.editProfile) {
       API.putUser(this.state.id, {
@@ -91,11 +105,11 @@ class Profile extends Component {
         goalWeight: this.state.goalWeight,
         slug: this.state.username.toLowerCase(),
       })
-        .then((res) => {
+        .then(res => {
           if (res.status === 200) {
             const show = true;
-            const message = "Profile updated successfully";
-            const variant = "success";
+            const message = 'Profile updated successfully';
+            const variant = 'success';
             this.setState({
               show: show,
               message: message,
@@ -104,11 +118,11 @@ class Profile extends Component {
             });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           const show = true;
-          const message = "Username and/or email already taken";
-          const variant = "danger";
+          const message = 'Username and/or email already taken';
+          const variant = 'danger';
           this.setState({
             show: show,
             message: message,
@@ -122,7 +136,7 @@ class Profile extends Component {
     }
   };
 
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
     this.setState({
@@ -130,42 +144,90 @@ class Profile extends Component {
     });
   };
 
-  fileSelectedHandler = (event) => {
+  fileSelectedHandler = event => {
     console.log(event.target.files[0]);
+    const show = true;
+    const message =
+      event.target.files[0].name +
+      ' is ready to upload. Press up arrow button to confirm';
+    const variant = 'primary';
     this.setState({
       selectedFile: event.target.files[0],
+      show: show,
+      message: message,
+      variant: variant,
     });
   };
 
   fileUploadHandler = () => {
     const fd = new FormData();
-    fd.append("profileImg", this.state.selectedFile);
+    fd.append('profileImg', this.state.selectedFile);
     API.postUserImg(this.state.id, fd)
-      .then((res) => {
+      .then(res => {
         console.log(res);
+        const show = true;
+        const message = 'Profile Picture updated successfully';
+        const variant = 'success';
+        this.setState({ show: show, message: message, variant: variant });
         this.loadUserProfile();
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
-  handlePostClick = (event) => {
+  handlePostClick = event => {
     event.preventDefault();
     API.makePost(this.state.id, {
-      username: this.state.username,
+      username: this.state.slug,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       userpic: this.state.imageUrl,
       postBody: this.state.post,
     })
-      .then((res) => {
+      .then(res => {
         if (res.status === 200) {
           this.setState({
-            post: "",
+            post: '',
           });
           this.loadUserProfile();
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
+  };
+
+  handleEditBtn = (event, id, post) => {
+    event.preventDefault();
+    this.setState({
+      editId: id,
+      editPost: post,
+    });
+  };
+
+  handleEditSubmit = (event, id) => {
+    event.preventDefault();
+    if (this.state.editPost) {
+      API.editPost(id, {
+        postBody: this.state.editPost,
+      })
+        .then(res => this.loadUserProfile())
+        .catch(err => console.log(err));
+      const show = true;
+      const message = 'Post updated successfully';
+      const variant = 'success';
+      this.setState({ show: show, message: message, variant: variant });
+    }
+  };
+
+  deletePost = id => {
+    API.deletePost(id)
+      .then(res => this.loadUserProfile())
+      .catch(err => console.log(err));
+  };
+
+  clearState = () => {
+    this.setState({
+      editId: '',
+      editPost: '',
+    });
   };
 
   render() {
@@ -190,30 +252,31 @@ class Profile extends Component {
                   />
                 </div>
                 <div className="icon-container">
-                  <div className="icons">
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      onChange={this.fileSelectedHandler}
-                      ref={(fileInput) => (this.fileInput = fileInput)}
-                    />
-                    <i
-                      onClick={() => this.fileInput.click()}
-                      //className="fas fa-image"
-                      className="fas fa-camera-retro"
-                    ></i>
-                    <i
-                      className="fas fa-upload"
-                      onClick={this.fileUploadHandler}
-                    ></i>
+                  <div className="icons" id="image-icons">
+                    {this.state.selectedFile ? (
+                      <div>
+                        <i
+                          className="fas fa-upload"
+                          onClick={this.fileUploadHandler}
+                        ></i>
+                      </div>
+                    ) : (
+                      <div>
+                        <i
+                          onClick={() => this.fileInput.click()}
+                          //className="fas fa-image"
+                          className="fas fa-camera-retro"
+                        ></i>
+                        <input
+                          type="file"
+                          style={{ display: 'none' }}
+                          onChange={this.fileSelectedHandler}
+                          ref={fileInput => (this.fileInput = fileInput)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
-                {/* <div class="image-upload">
-                  <label for="file-input">
-                    <i className="fas fa-image"></i>
-                  </label>
-                  <input id="file-input" type="file" />
-                </div> */}
               </Col>
               <Col size="lg-6">
                 <CardText>
@@ -232,7 +295,7 @@ class Profile extends Component {
                               type="text"
                             />
                           ) : (
-                            <Link to={"/users/" + this.state.username}>
+                            <Link to={'/users/' + this.state.slug}>
                               <p>{this.state.username}</p>
                             </Link>
                           )}
@@ -397,8 +460,8 @@ class Profile extends Component {
                 </div>
               </Col>
             </Row>
-            <br></br>
-            <h1>Posts</h1>
+            <hr></hr>
+            <h4>Posts</h4>
             <hr></hr>
             <InputBar>
               <BarInput
@@ -411,18 +474,46 @@ class Profile extends Component {
             </InputBar>
             {this.state.posts.length ? (
               <div>
-                {this.state.posts.map((post) => (
+                {this.state.posts.map(post => (
                   <CardDiv>
                     <PostCard
-                      key={post.id}
-                      id={post.id}
+                      key={post._id}
+                      id={post._id}
                       firstName={post.firstName}
                       lastName={post.lastName}
                       image={post.userpic}
                       username={post.username}
                       postBody={post.postBody}
                     >
-                      <div>likes and comments here</div>
+                      <Dropdown>
+                        <div
+                          className="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#editModal"
+                          onClick={event =>
+                            this.handleEditBtn(event, post._id, post.postBody)
+                          }
+                        >
+                          Edit
+                        </div>
+                        <div
+                          className="dropdown-item"
+                          onClick={() => this.deletePost(post._id)}
+                        >
+                          {' '}
+                          Delete
+                        </div>
+                      </Dropdown>
+                      {/* <Link to={'/likes/' + post._id}>
+                        Like ({post.likes.length})
+                      </Link> */}
+                      <i class="far fa-heart"></i>
+                      <Link
+                        to={'/posts/' + post._id}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <i class="far fa-comments"></i> ({post.comments.length})
+                      </Link>
                     </PostCard>
                   </CardDiv>
                 ))}
@@ -432,6 +523,28 @@ class Profile extends Component {
             )}
           </CardBody>
         </CardDiv>
+        <FormModal id={'editModal'} clearState={this.clearState}>
+          <ModalHeader>
+            <h4>Edit Book</h4>
+          </ModalHeader>
+          <ModalBody>
+            <TextArea
+              placeholder="post body"
+              value={this.state.editPost}
+              name="editPost"
+              onChange={this.handleInputChange}
+              type="text"
+              rows="10"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <CloseBtn onClick={this.clearState} />
+            <SubmitBtn
+              action={'Submit Changes'}
+              onClick={event => this.handleEditSubmit(event, this.state.editId)}
+            />
+          </ModalFooter>
+        </FormModal>
       </div>
     );
   }

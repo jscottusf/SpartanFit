@@ -5,8 +5,9 @@ const commentSchema = new Schema({
   username: { type: String, required: true },
   commentBody: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  likeCount: { type: Number, default: 0 },
-  commentCount: { type: Number, default: 0 },
+  firstName: { type: String, required: true },
+  lastName: String,
+  userpic: { type: String, required: true },
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

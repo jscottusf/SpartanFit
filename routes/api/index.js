@@ -4,7 +4,7 @@ const workoutRoutes = require('./workouts');
 const mealRoutes = require('./meals');
 const dataRoutes = require('./data');
 const postRoutes = require('./posts');
-const commentRoutes = require('./posts');
+const commentRoutes = require('./comments');
 
 router.use('/users', userRoutes);
 router.use('/workouts', workoutRoutes);

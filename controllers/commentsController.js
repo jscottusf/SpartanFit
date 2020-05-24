@@ -14,9 +14,10 @@ module.exports = {
   create: function (req, res) {
     db.Comment.create(req.body)
       .then(function (dbComment) {
-        return db.User.findByIdAndUpdate(
+        console.log(req.body);
+        return db.Post.findByIdAndUpdate(
           { _id: req.params.id },
-          { comments: dbComment._id },
+          { $push: { comments: dbComment._id } },
           { new: true }
         );
       })

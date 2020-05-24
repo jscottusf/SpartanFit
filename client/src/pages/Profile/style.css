@@ -25,12 +25,12 @@
   position: relative;
 }
 
-.icons {
+#image-icons {
   position: absolute;
-  bottom: -60px;
-  right: 57%;
+  bottom: -30px;
+  right: 215px;
   z-index: 2;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 i {

@@ -14,6 +14,7 @@ import {
 } from '../../components/BootstrapCard';
 import thumb from '../../images/thumb.png';
 import Btn from '../../components/Btn';
+import PostCard from '../../components/PostCard';
 
 class PublicProfile extends Component {
   constructor(props) {
@@ -36,6 +37,8 @@ class PublicProfile extends Component {
       message: '',
       hover: false,
       following: false,
+      imageUrl: '',
+      posts: [],
     };
   }
 
@@ -65,6 +68,7 @@ class PublicProfile extends Component {
         imageUrl: res.data[0].image[0]
           ? res.data[0].image[0].profileImg
           : thumb,
+        posts: res.data[0].posts,
       });
     });
   };
@@ -207,6 +211,36 @@ class PublicProfile extends Component {
                 </div>
               </Col>
             </Row>
+            <hr></hr>
+            <h4>Posts</h4>
+            <hr></hr>
+            {this.state.posts.length ? (
+              <div>
+                {this.state.posts.map(post => (
+                  <CardDiv>
+                    <PostCard
+                      key={post._id}
+                      id={post._id}
+                      firstName={post.firstName}
+                      lastName={post.lastName}
+                      image={post.userpic}
+                      username={post.username}
+                      postBody={post.postBody}
+                    >
+                      <i class="far fa-heart"></i>
+                      <Link
+                        to={'/posts/' + post._id}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <i class="far fa-comments"></i> ({post.comments.length})
+                      </Link>
+                    </PostCard>
+                  </CardDiv>
+                ))}
+              </div>
+            ) : (
+              <h3>No Posts to Display</h3>
+            )}
           </CardBody>
         </CardDiv>
       </div>

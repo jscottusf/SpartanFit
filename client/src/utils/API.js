@@ -7,14 +7,33 @@ export default {
   getPosts: function () {
     return axios.get('/api/posts/');
   },
-  getPost: function (id) {
-    return axios.get('/api/posts/' + id);
+  getPost: function (route) {
+    return axios.get('/api' + route);
   },
   deletePost: function (id) {
     return axios.delete('/api/posts/' + id);
   },
   makePost: function (id, postData) {
     return axios.post('/api/posts/' + id, postData);
+  },
+  editPost: function (id, postData) {
+    return axios.put('/api/posts/' + id, postData);
+  },
+  getComments: function (id) {
+    return axios.get('/api/comments/' + id);
+  },
+  getComment: function (route) {
+    return axios.get('/api' + route);
+  },
+  deleteComment: function (id) {
+    return axios.delete('/api/comments/' + id);
+  },
+  makeComment: function (id, commentData) {
+    console.log(commentData);
+    return axios.post('/api/comments/' + id, commentData);
+  },
+  editComment: function (id, commentData) {
+    return axios.put('/api/comments/' + id, commentData);
   },
   getUsers: function () {
     return axios.get('/api/users/');
