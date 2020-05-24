@@ -26,7 +26,9 @@ class Recipes extends Component {
 
   deleteRecipeByTitle = (title) => {
     //Get index of title, then use that index to grab ID.
+    console.log("Deleting item by title...");
     let index = this.state.favorites.indexOf(title);
+    console.log(`Index of item is: ${index}`);
     let mealId = this.state.favoriteIDs[index];
     //Use that ID to delete.
     API.deleteMeal(mealId).then((res, err) => {
@@ -47,6 +49,9 @@ class Recipes extends Component {
     });
   };
 
+  /*Flips color of favorite icon
+    Not in use, but saving for possible alternative use.
+
   flipIconColor = (id, color) => {
     if (color === "red") {
       document
@@ -64,6 +69,7 @@ class Recipes extends Component {
         .classList.add("text-muted");
     }
   };
+  */
 
   // Handles changes in input of form
   handleInputChange = (event) => {
@@ -87,8 +93,10 @@ class Recipes extends Component {
         stagedRecipes: this.state.stagedRecipes.filter(
           (recipe) => recipe !== savedRecipe.title
         ),
+        favorites: this.state.favorites.filter(
+          (recipe) => recipe !== savedRecipe.title
+        ),
       });
-      this.flipIconColor(id, "gray");
     }
     //If card not currently in favorites, save recipe.
     else if (!this.state.favorites.includes(savedRecipe.title)) {
@@ -97,7 +105,6 @@ class Recipes extends Component {
         stagedRecipes: this.state.stagedRecipes.concat([savedRecipe.title]),
         favorites: this.state.favorites.concat([savedRecipe.title]),
       });
-      this.flipIconColor(id, "red");
     } else {
       //If recipe already in favorites, delete recipe.
       this.deleteRecipeByTitle(savedRecipe.title);
@@ -106,7 +113,6 @@ class Recipes extends Component {
           (meal) => meal !== savedRecipe.title
         ),
       });
-      this.flipIconColor(id, "gray");
     }
   };
 
