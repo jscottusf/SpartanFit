@@ -12,6 +12,9 @@ class Recipes extends Component {
     query: "",
     favorites: [],
     favoriteIDs: [],
+    /*Recipes go here until they are posted This is in case someone clicks the favorite button 
+    again before the post goes through. */
+    stagedRecipes: [],
   };
 
   // Upon initial render, populate recipe cards with default search "vegan"
@@ -21,7 +24,7 @@ class Recipes extends Component {
     this.searchRecipes("vegan");
   };
 
-  deleteRecipe = (title) => {
+  deleteRecipeByTitle = (title) => {
     //Get index of title, then use that index to grab ID.
     let index = this.state.favorites.indexOf(title);
     let mealId = this.state.favoriteIDs[index];
@@ -31,7 +34,16 @@ class Recipes extends Component {
         console.log(err);
       }
       //When recipes are deleted, reload user favorites to handle color change of heart icon.
-      //this.loadUserRecipes();
+      this.loadUserRecipes();
+    });
+  };
+
+  deleteUserRecipe = (id) => {
+    API.deleteMeal(id).then((err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      this.loadUserRecipes();
     });
   };
 
@@ -51,17 +63,28 @@ class Recipes extends Component {
       image: document.getElementById("card-image-" + id).getAttribute("src"),
       link: document.getElementById("card-link-" + id).getAttribute("href"),
     };
-    //If card not currently in favorites, save recipe.
-    if (!this.state.favorites.includes(savedRecipe.title)) {
-      this.saveRecipe(savedRecipe);
-      /*
-      Legacy code for changing heart color.
-      Keeping it here for future debugging of favorite-click latency.
-      */
+    //If card is in staging area already when button is clicked, remove from staging area to prevent multiple-posting.
+    if (this.state.stagedRecipes.includes(savedRecipe.title)) {
+      console.log("Removing recipe from staging area.");
       this.setState({
+        stagedRecipes: this.state.stagedRecipes.filter(
+          (recipe) => recipe !== savedRecipe.title
+        ),
+      });
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.remove("new-favorite-meal");
+      document
+        .getElementById("favorite-icon-" + id)
+        .classList.add("text-muted");
+    }
+    //If card not currently in favorites, save recipe.
+    else if (!this.state.favorites.includes(savedRecipe.title)) {
+      this.saveRecipe(savedRecipe);
+      this.setState({
+        stagedRecipes: this.state.stagedRecipes.concat([savedRecipe.title]),
         favorites: this.state.favorites.concat([savedRecipe.title]),
       });
-
       document
         .getElementById("favorite-icon-" + id)
         .classList.remove("text-muted");
@@ -70,11 +93,7 @@ class Recipes extends Component {
         .classList.add("new-favorite-meal");
     } else {
       //If recipe already in favorites, delete recipe.
-      this.deleteRecipe(savedRecipe.title);
-      /*
-      Legacy code for changing heart color.
-      Keeping it here for future debugging of favorite0click latency.
-      */
+      this.deleteRecipeByTitle(savedRecipe.title);
       this.setState({
         favorites: this.state.favorites.filter(
           (meal) => meal !== savedRecipe.title
@@ -123,7 +142,18 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      //this.loadUserRecipes();
+      console.log(res);
+      console.log(res.data._id);
+      if (this.state.stagedRecipes.includes(recipe.title)) {
+        this.setState({
+          stagedRecipes: this.state.stagedRecipes.filter(
+            (meal) => meal !== recipe.title
+          ),
+        });
+        this.loadUserRecipes();
+      } else {
+        this.deleteUserRecipe(res.data._id);
+      }
     });
   };
 
