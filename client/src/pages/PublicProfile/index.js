@@ -227,7 +227,13 @@ class PublicProfile extends Component {
                       username={post.username}
                       postBody={post.postBody}
                     >
-                      <div>likes and comments here</div>
+                      <i class="far fa-heart"></i>
+                      <Link
+                        to={'/posts/' + post._id}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <i class="far fa-comments"></i> ({post.comments.length})
+                      </Link>
                     </PostCard>
                   </CardDiv>
                 ))}

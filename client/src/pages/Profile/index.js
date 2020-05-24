@@ -252,7 +252,7 @@ class Profile extends Component {
                   />
                 </div>
                 <div className="icon-container">
-                  <div className="icons">
+                  <div className="icons" id="image-icons">
                     {this.state.selectedFile ? (
                       <div>
                         <i
@@ -485,7 +485,6 @@ class Profile extends Component {
                       username={post.username}
                       postBody={post.postBody}
                     >
-                      <div>likes and comments here</div>
                       <Dropdown>
                         <div
                           className="dropdown-item"
@@ -505,6 +504,16 @@ class Profile extends Component {
                           Delete
                         </div>
                       </Dropdown>
+                      {/* <Link to={'/likes/' + post._id}>
+                        Like ({post.likes.length})
+                      </Link> */}
+                      <i class="far fa-heart"></i>
+                      <Link
+                        to={'/posts/' + post._id}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <i class="far fa-comments"></i> ({post.comments.length})
+                      </Link>
                     </PostCard>
                   </CardDiv>
                 ))}
