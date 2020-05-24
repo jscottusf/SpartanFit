@@ -31,7 +31,7 @@ class Recipes extends Component {
         console.log(err);
       }
       //When recipes are deleted, reload user favorites to handle color change of heart icon.
-      this.loadUserRecipes();
+      //this.loadUserRecipes();
     });
   };
 
@@ -56,24 +56,25 @@ class Recipes extends Component {
       this.saveRecipe(savedRecipe);
       /*
       Legacy code for changing heart color.
-      Keeping it here for future debugging of favorite0click latency.
+      Keeping it here for future debugging of favorite-click latency.
+      */
       this.setState({
         favorites: this.state.favorites.concat([savedRecipe.title]),
       });
-           
+
       document
         .getElementById("favorite-icon-" + id)
         .classList.remove("text-muted");
       document
         .getElementById("favorite-icon-" + id)
         .classList.add("new-favorite-meal");
-      */
     } else {
       //If recipe already in favorites, delete recipe.
       this.deleteRecipe(savedRecipe.title);
       /*
       Legacy code for changing heart color.
       Keeping it here for future debugging of favorite0click latency.
+      */
       this.setState({
         favorites: this.state.favorites.filter(
           (meal) => meal !== savedRecipe.title
@@ -85,7 +86,6 @@ class Recipes extends Component {
       document
         .getElementById("favorite-icon-" + id)
         .classList.add("text-muted");
-      */
     }
   };
 
@@ -123,8 +123,7 @@ class Recipes extends Component {
       if (err) {
         console.log(err);
       }
-      console.log("Save successful.");
-      this.loadUserRecipes();
+      //this.loadUserRecipes();
     });
   };
 
