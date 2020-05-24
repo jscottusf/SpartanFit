@@ -83,6 +83,7 @@ class Profile extends Component {
         currentWeight: res.data.currentWeight,
         goalWeight: res.data.goalWeight,
         imageUrl: res.data.image[0] ? res.data.image[0].profileImg : thumb,
+        likes: res.data.likes,
         posts: res.data.posts,
         selectedFile: null,
       });
@@ -240,15 +241,6 @@ class Profile extends Component {
       editId: '',
       editPost: '',
     });
-  };
-
-  handleLikeClick = (event, postId) => {
-    event.preventDefault();
-    API.likePost(this.props.id, {
-      postId: postId,
-    })
-      .then(res => this.loadUserProfile())
-      .catch(err => console.log(err));
   };
 
   render() {
@@ -525,13 +517,7 @@ class Profile extends Component {
                           Delete
                         </div>
                       </Dropdown>
-                      {/* <Link to={'/likes/' + post._id}>
-                        Like ({post.likes.length})
-                      </Link> */}
-                      <i
-                        class="far fa-heart"
-                        onClick={event => this.handleLikeClick(event, post._id)}
-                      ></i>
+
                       <Link
                         to={'/posts/' + post._id}
                         style={{ textDecoration: 'none', color: 'black' }}

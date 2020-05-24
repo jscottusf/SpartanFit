@@ -7,4 +7,5 @@ module.exports = {
   Post: require('./post'),
   Comment: require('./comment'),
   Like: require('./like'),
+  Follow: require('./follow'),
 };

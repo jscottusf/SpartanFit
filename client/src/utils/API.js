@@ -4,8 +4,14 @@ const key = process.env.REACT_APP_KEY;
 const id = process.env.REACT_APP_ID;
 
 export default {
-  likePost: function (id, postLikeData) {
-    return axios.post('/api/likes/' + id, postLikeData);
+  followUser: function (id, data) {
+    return axios.post('/api/follow/' + id, data);
+  },
+  unfollowUser: function (id) {
+    return axios.delete('/api/follow/' + id);
+  },
+  likePost: function (id) {
+    return axios.post('/api/likes/' + id);
   },
   unlikePost: function (id) {
     return axios.delete('/api/likes/' + id);

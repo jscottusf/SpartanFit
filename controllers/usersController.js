@@ -3,6 +3,14 @@ const db = require('../database/models');
 module.exports = {
   findAll: function (req, res) {
     db.User.find(req.query)
+      // .populate('image')
+      // .populate('likes')
+      // .populate('following')
+      // .populate({
+      //   path: 'posts',
+      //   options: { sort: '-createdAt' },
+      //   populate: { path: 'comments' },
+      // })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -10,6 +18,7 @@ module.exports = {
     db.User.findById(req.params.id)
       .populate('image')
       .populate('likes')
+      .populate('following')
       .populate({
         path: 'posts',
         options: { sort: '-createdAt' },

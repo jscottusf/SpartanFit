@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
-import SaveBtn from '../../components/SaveBtn';
 import { Link } from 'react-router-dom';
 import { Col, Row, Container } from '../../components/Grid';
-import { Input, TextArea, State } from '../../components/Form';
 import './style.css';
 import Alert from '../../components/Alert';
 import {
@@ -15,12 +13,15 @@ import {
 import thumb from '../../images/thumb.png';
 import Btn from '../../components/Btn';
 import PostCard from '../../components/PostCard';
+import { isThisSecond } from 'date-fns';
 
 class PublicProfile extends Component {
   constructor(props) {
     super(props);
     this.route = window.location.pathname;
     this.state = {
+      id: '',
+      userId: '',
       username: '',
       firstName: '',
       lastName: '',
@@ -36,14 +37,17 @@ class PublicProfile extends Component {
       variant: undefined,
       message: '',
       hover: false,
-      following: false,
+      following: null,
       imageUrl: '',
       posts: [],
+      lurkerData: null,
     };
   }
 
   componentDidMount = () => {
+    this.setState({ id: this.props.id });
     this.loadUserdata();
+    this.loadLurkerData();
   };
 
   loadUserdata = () => {
@@ -53,8 +57,8 @@ class PublicProfile extends Component {
       }
       this.setState({
         user: res.data[0],
-        id: res.data[0]._id,
-        username: res.data[0].username,
+        userId: res.data[0]._id,
+        username: res.data[0].slug,
         firstName: res.data[0].firstName,
         lastName: res.data[0].lastName,
         email: res.data[0].email,
@@ -73,13 +77,76 @@ class PublicProfile extends Component {
     });
   };
 
-  // handleInputChange = event => {
-  //   let value = event.target.value;
-  //   const name = event.target.name;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
+  loadLurkerData = () => {
+    API.getUser(this.props.id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      const lurkerFollows = res.data.following;
+      let following;
+      if (lurkerFollows.some(follow => follow.userId === this.state.userId)) {
+        following = true;
+      } else {
+        following = false;
+      }
+      this.setState({
+        lurkerData: res.data,
+        following: following,
+      });
+    });
+  };
+
+  handleFollowClick = event => {
+    event.preventDefault();
+    //cant follow yourself
+    if (this.state.id === this.state.userId) {
+      const show = true;
+      const message = 'You cannot follow yourself';
+      const variant = 'danger';
+      this.setState({ show: show, message: message, variant: variant });
+    } else {
+      API.followUser(this.state.id, {
+        username: this.state.username,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        userId: this.state.userId,
+      })
+        .then(res => {
+          if (res.status === 200) {
+            const show = true;
+            const message = 'You are now following ' + this.state.username;
+            const variant = 'success';
+            this.setState({ show: show, message: message, variant: variant });
+            // this.setState({
+            //   commentBody: '',
+            // });
+            this.componentDidMount();
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleUnfollowClick = () => {
+    const following = this.state.lurkerData.following;
+    let followId;
+    following.forEach(follow => {
+      if (follow.userId === this.state.userId) {
+        followId = follow._id;
+      }
+    });
+    console.log(followId);
+    //var index = this.state.lurkerData.following.some(this.state.userId);
+    API.unfollowUser(followId)
+      .then(res => {
+        this.componentDidMount();
+        const show = true;
+        const message = 'You unfollowed ' + this.state.username;
+        const variant = 'danger';
+        this.setState({ show: show, message: message, variant: variant });
+      })
+      .catch(err => console.log(err));
+  };
 
   toggleHover = () => {
     this.setState({ hover: !this.state.hover });
@@ -199,6 +266,7 @@ class PublicProfile extends Component {
                       style={{ borderRadius: '1.5rem' }}
                       onMouseEnter={this.toggleHover}
                       onMouseLeave={this.toggleHover}
+                      onClick={this.handleUnfollowClick}
                     />
                   ) : (
                     <Btn
@@ -206,6 +274,7 @@ class PublicProfile extends Component {
                       label="follow"
                       id="following"
                       style={{ borderRadius: '1.5rem' }}
+                      onClick={event => this.handleFollowClick(event)}
                     />
                   )}
                 </div>
