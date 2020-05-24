@@ -3,7 +3,6 @@ const router = require('express').Router();
 const apiRoutes = require('./api');
 const usersRoutes = require('./users');
 const passport = require('../passport');
-const multer = require('multer');
 const imageController = require('../controllers/imagesController');
 const upload = require('../services/file-upload');
 const singleUpload = upload.single('profileImg');

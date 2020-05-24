@@ -14,9 +14,9 @@ function PostCard(props) {
           </Link>
         </div>
         <div className="col-11">
-          <h6 className="card-subtitle mb-2 text-muted">
+          <h5 className="card-title mb-2">
             {props.firstName} {props.lastName}
-          </h6>
+          </h5>
           <div className="card-text mb-1">{props.postBody}</div>
           {props.children}
         </div>

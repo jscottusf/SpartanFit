@@ -3,7 +3,7 @@ import './style.css';
 
 export function InputBar(props) {
   return (
-    <form id="postbar" className="input-group mb-3 search searchbar">
+    <form id={props.barName} className="input-group mb-3 search searchbar">
       {props.children}
     </form>
   );

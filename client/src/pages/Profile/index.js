@@ -83,6 +83,7 @@ class Profile extends Component {
         currentWeight: res.data.currentWeight,
         goalWeight: res.data.goalWeight,
         imageUrl: res.data.image[0] ? res.data.image[0].profileImg : thumb,
+        likes: res.data.likes,
         posts: res.data.posts,
         selectedFile: null,
       });
@@ -475,7 +476,7 @@ class Profile extends Component {
             <hr></hr>
             <h4>Posts</h4>
             <hr></hr>
-            <InputBar>
+            <InputBar barName={'postbar'}>
               <BarInput
                 onChange={this.handleInputChange}
                 name="post"
@@ -516,10 +517,7 @@ class Profile extends Component {
                           Delete
                         </div>
                       </Dropdown>
-                      {/* <Link to={'/likes/' + post._id}>
-                        Like ({post.likes.length})
-                      </Link> */}
-                      <i class="far fa-heart"></i>
+
                       <Link
                         to={'/posts/' + post._id}
                         style={{ textDecoration: 'none', color: 'black' }}

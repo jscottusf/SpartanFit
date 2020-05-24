@@ -56,6 +56,18 @@ const userSchema = new Schema({
       ref: 'Post',
     },
   ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Like',
+    },
+  ],
+  following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Following',
+    },
+  ],
   currentWeight: Number,
   goalWeight: Number,
   slug: {
