@@ -16,7 +16,11 @@ export function CardImage(props) {
 }
 
 export function CardBody(props) {
-  return <div className="card-body">{props.children}</div>;
+  return (
+    <div className="card-body" id={props.id}>
+      {props.children}
+    </div>
+  );
 }
 
 export function CardTitle(props) {

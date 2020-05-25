@@ -43,6 +43,7 @@ class PublicProfile extends Component {
       posts: [],
       lurkerData: null,
       redirectTo: null,
+      occupation: null,
     };
   }
 
@@ -69,7 +70,7 @@ class PublicProfile extends Component {
           email: res.data[0].email,
           city: res.data[0].city,
           state: res.data[0].state,
-          joinDate: res.data[0].joinDate,
+          joinDate: res.data[0].createdAt,
           bio: res.data[0].bio,
           interests: res.data[0].interests,
           currentWeight: res.data[0].currentWeight,
@@ -78,6 +79,7 @@ class PublicProfile extends Component {
             ? res.data[0].image[0].profileImg
             : thumb,
           posts: res.data[0].posts,
+          occupation: res.data[0].occupation,
         });
       }
     });
@@ -222,26 +224,28 @@ class PublicProfile extends Component {
                               {this.state.city}, {this.state.state}
                             </p>
                           </Col>
-                        </Row>
-                        <Row>
                           <Col size="md-3">
-                            <label>Weight</label>
+                            <label>Job</label>
                           </Col>
                           <Col size="md-7">
-                            <p>{this.state.currentWeight}</p>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col size="md-3">
-                            <label>Goal</label>
-                          </Col>
-                          <Col size="md-7">
-                            <p>{this.state.goalWeight}</p>
+                            <p>{this.state.occupation}</p>
                           </Col>
                         </Row>
                       </Col>
                       <Col size="lg-7">
                         <Row>
+                          <Col size="md-4">
+                            <label>Weight</label>
+                          </Col>
+                          <Col size="md-8">
+                            <p>{this.state.currentWeight}</p>
+                          </Col>
+                          <Col size="md-4">
+                            <label>Goal</label>
+                          </Col>
+                          <Col size="md-8">
+                            <p>{this.state.goalWeight}</p>
+                          </Col>
                           <Col size="md-4">
                             <label>Interests</label>
                           </Col>

@@ -17,6 +17,8 @@ const postSchema = new Schema({
   userId: { type: String, required: true },
 });
 
+postSchema.index({ postBody: 'text' });
+
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

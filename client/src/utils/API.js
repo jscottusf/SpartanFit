@@ -4,6 +4,12 @@ const key = process.env.REACT_APP_KEY;
 const id = process.env.REACT_APP_ID;
 
 export default {
+  findUsers: function (query) {
+    return axios.get('/api/users?search=' + query);
+  },
+  postTextSearch: function (query) {
+    return axios.get('/api/posts?search=' + query);
+  },
   followUser: function (id, data) {
     return axios.post('/api/follow/' + id, data);
   },
