@@ -16,3 +16,7 @@ body {
 #workoutCard {
   min-height: 300px;
 }
+
+#workout-icon {
+  font-size: 30px;
+}

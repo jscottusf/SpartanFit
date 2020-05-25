@@ -311,40 +311,36 @@ class Workouts extends Component {
               </CardBody>
               <div className="card-footer">
                 <div className="row">
-                  <div className="col-md-5 d-flex flex-column">
-                    <button
-                      className="btn btn-danger text-light d-flex align-self-start delete-workout-btn"
+                  <div className="col-md-5">
+                    <i
+                      class="fas fa-trash-alt"
+                      id="workout-icon"
                       onClick={() => this.handleDeleteWorkout(data._id)}
-                    >
-                      Delete
-                    </button>
+                    ></i>
                   </div>
                   <div className="col-md-7 d-flex flex-column">
                     <div className="card-btn-holder d-flex align-self-end">
-                      <button
-                        className="btn btn-dark text-light view-entries-btn"
+                      <i
+                        class="fas fa-chart-area"
                         onClick={() => this.viewInfo(data._id, 'chart')}
                         data-toggle="modal"
                         data-target="#form-modal"
-                      >
-                        Full chart
-                      </button>
-                      <button
-                        className="btn bg-dark text-light ml-3 view-entries-btn"
+                        id="workout-icon"
+                      ></i>
+                      <i
+                        class="fas fa-list"
                         onClick={() => this.viewInfo(data._id, 'entries')}
                         data-toggle="modal"
                         data-target="#form-modal"
-                      >
-                        All entries
-                      </button>
-                      <button
-                        className="btn bg-dark text-light ml-3 add-entry-btn"
+                        id="workout-icon"
+                      ></i>
+                      <i
+                        class="fas fa-plus"
                         onClick={() => this.addEntry(data._id)}
                         data-toggle="modal"
                         data-target="#form-modal"
-                      >
-                        Add entry
-                      </button>
+                        id="workout-icon"
+                      ></i>
                     </div>
                   </div>
                 </div>
