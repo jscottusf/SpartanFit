@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
-import API from '../utils/API';
-import Modal from '../components/Modal';
-import AddEntry from '../components/WorkoutModalBodies/AddEntry';
-import AddWorkout from '../components/WorkoutModalBodies/AddWorkout';
-import ViewEntries from '../components/WorkoutModalBodies/ViewEntries';
-import ViewChart from '../components/WorkoutModalBodies/ViewChart';
-import WorkoutCard from '../components/WorkoutCard';
-import { format } from 'date-fns';
-import { Line } from 'react-chartjs-2';
-import './workouts.css';
-import { Col, Row, Container } from '../components/Grid';
+import React, { Component } from "react";
+import API from "../utils/API";
+import Modal from "../components/Modal";
+import AddEntry from "../components/WorkoutModalBodies/AddEntry";
+import AddWorkout from "../components/WorkoutModalBodies/AddWorkout";
+import ViewEntries from "../components/WorkoutModalBodies/ViewEntries";
+import ViewChart from "../components/WorkoutModalBodies/ViewChart";
+import WorkoutCard from "../components/WorkoutCard";
+import { format } from "date-fns";
+import { Line } from "react-chartjs-2";
+import "./workouts.css";
+import { Col, Row, Container } from "../components/Grid";
 import {
   CardDiv,
   CardBody,
   CardTitle,
   CardText,
-} from '../components/BootstrapCard';
-import GridContainer from '../components/GridContainer';
+} from "../components/BootstrapCard";
+import GridContainer from "../components/GridContainer";
 
 class Workouts extends Component {
   state = {
     workouts: [],
-    dataDate: '',
-    dataValue: '',
-    workoutName: '',
-    workoutDescription: '',
-    workoutType: '',
-    modalForm: '',
-    entryID: '',
+    dataDate: "",
+    dataValue: "",
+    workoutName: "",
+    workoutDescription: "",
+    workoutType: "",
+    modalForm: "",
+    entryID: "",
     retrievedEntries: [],
   };
 
@@ -36,16 +36,16 @@ class Workouts extends Component {
   };
 
   //Changes modal body to be the add-entry form for inputting data.
-  addEntry = id => {
-    this.setState({ modalForm: 'add-entry', entryID: id });
+  addEntry = (id) => {
+    this.setState({ modalForm: "add-entry", entryID: id });
   };
 
   addWorkout = () => {
-    this.setState({ modalForm: 'add-workout' });
+    this.setState({ modalForm: "add-workout" });
   };
 
   //Used for finding Stepsize for Chart.js from passed data.
-  cleanStepsize = arr => {
+  cleanStepsize = (arr) => {
     if (arr.length > 2) {
       return Math.floor(
         (Math.max(arr[0].value, arr[1].value, arr[2].value) -
@@ -64,7 +64,7 @@ class Workouts extends Component {
   };
 
   //Deletes data when button is clicked.
-  handleDeleteEntry = id => {
+  handleDeleteEntry = (id) => {
     console.log(`Deleting entry with ID: ${id}`);
     API.deleteData(id).then((res, err) => {
       if (err) {
@@ -76,7 +76,7 @@ class Workouts extends Component {
   };
 
   //Deletes workout and associated data when button is clicked.
-  handleDeleteWorkout = id => {
+  handleDeleteWorkout = (id) => {
     API.deleteWorkout(id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -85,7 +85,7 @@ class Workouts extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -95,9 +95,9 @@ class Workouts extends Component {
   //Submits form for both workouts and data entry
   handleFormSubmit = () => {
     switch (this.state.modalForm) {
-      case 'add-workout':
+      case "add-workout":
         return this.submitWorkouts();
-      case 'add-entry':
+      case "add-entry":
         return this.submitData(this.state.entryID);
       default:
         return null;
@@ -105,7 +105,7 @@ class Workouts extends Component {
   };
 
   //Grabs just one workout's information, used for grabbing more data to put in modals
-  loadOneWorkout = id => {
+  loadOneWorkout = (id) => {
     API.getWorkoutByID(id).then((res, err) => {
       if (err) {
         console.log(err);
@@ -127,20 +127,20 @@ class Workouts extends Component {
   };
 
   //Chooses contents of modal based on state
-  selectForm = form => {
+  selectForm = (form) => {
     switch (form) {
-      case 'add-workout':
+      case "add-workout":
         return <AddWorkout handleInputChange={this.handleInputChange} />;
-      case 'add-entry':
+      case "add-entry":
         return <AddEntry handleInputChange={this.handleInputChange} />;
-      case 'view-entries':
+      case "view-entries":
         return (
           <ViewEntries
             delete={this.handleDeleteEntry}
             data={this.state.retrievedEntries}
           />
         );
-      case 'view-chart':
+      case "view-chart":
         return <ViewChart data={this.state.retrievedEntries} />;
       default:
         return null;
@@ -152,7 +152,7 @@ class Workouts extends Component {
     if (this.state.dataValue && this.state.dataDate) {
       let newData = {
         value: this.state.dataValue,
-        date: this.state.dataDate,
+        date: this.state.dataDate.split("-").join("/"),
       };
       // Modify to put params
       //Grab id from state to put in params
@@ -196,7 +196,7 @@ class Workouts extends Component {
   render() {
     return (
       <div className="workouts">
-        <GridContainer style={{ gridTemplateColumns: '1fr 300px' }}>
+        <GridContainer style={{ gridTemplateColumns: "1fr 300px" }}>
           <h4>Your Workouts</h4>
           <button
             type="submit"
@@ -212,12 +212,12 @@ class Workouts extends Component {
           </button>
         </GridContainer>
         <hr></hr>
-        <GridContainer style={{ gridTemplateColumns: '1fr 1fr' }}>
-          {this.state.workouts.map(data => (
+        <GridContainer style={{ gridTemplateColumns: "1fr 1fr" }}>
+          {this.state.workouts.map((data) => (
             <CardDiv>
-              <CardBody id={'workoutCard'}>
+              <CardBody id={"workoutCard"}>
                 <CardTitle>{data.name}</CardTitle>
-                <GridContainer style={{ gridTemplateColumns: '1fr 1fr' }}>
+                <GridContainer style={{ gridTemplateColumns: "1fr 1fr" }}>
                   <div>
                     <Line
                       className="chart"
@@ -228,42 +228,44 @@ class Workouts extends Component {
                         labels: data.data
                           .slice(0, 3)
                           .reverse()
-                          .map(entry => format(new Date(entry.date), 'MM-dd')),
+                          .map((entry) =>
+                            format(new Date(entry.date), "MM-dd")
+                          ),
                         datasets: [
                           {
-                            label: 'Workout Progress',
+                            label: "Workout Progress",
                             scaleStepWidth: 2,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: "rgb(255, 99, 132)",
+                            borderColor: "rgb(255, 99, 132)",
                             //Values of data on the Y-axis of the chart.
                             data: data.data
                               .slice(0, 3)
                               .reverse()
-                              .map(entry => entry.value),
+                              .map((entry) => entry.value),
                           },
                         ],
                       }}
                       options={{
                         legend: {
                           labels: {
-                            fontColor: 'rgba (0, 0, 0, 0.9)',
+                            fontColor: "rgba (0, 0, 0, 0.9)",
                             fontSize: 16,
-                            fontStyle: 'bold',
+                            fontStyle: "bold",
                           },
                         },
                         scales: {
                           xAxes: [
                             {
                               ticks: {
-                                fontColor: 'rgba(0, 0, 0, 0.8)',
-                                fontStyle: 'bold',
+                                fontColor: "rgba(0, 0, 0, 0.8)",
+                                fontStyle: "bold",
                               },
                             },
                           ],
                           yAxes: [
                             {
                               ticks: {
-                                fontColor: 'rgba(0, 0, 0, 0.8)',
+                                fontColor: "rgba(0, 0, 0, 0.8)",
                                 precision: 0,
                                 //Sends the data to cleanStepsize function to dynamically
                                 //create an appropriate amount of y-ticks based on range of data.
@@ -285,15 +287,15 @@ class Workouts extends Component {
                             <tbody>
                               <tr>
                                 <th>Day</th>
-                                <th>{data.type || 'Frequency'}</th>
+                                <th>{data.type || "Frequency"}</th>
                               </tr>
-                              {data.data.slice(0, 3).map(data => {
+                              {data.data.slice(0, 3).map((data) => {
                                 return (
                                   <tr>
                                     <td>
-                                      {format(new Date(data.date), 'MM-dd-yy')}
-                                    </td>{' '}
-                                    <td>{data.value}</td>{' '}
+                                      {format(new Date(data.date), "MM-dd-yy")}
+                                    </td>{" "}
+                                    <td>{data.value}</td>{" "}
                                   </tr>
                                 );
                               })}
@@ -322,14 +324,14 @@ class Workouts extends Component {
                     <div className="card-btn-holder d-flex align-self-end">
                       <i
                         class="fas fa-chart-area"
-                        onClick={() => this.viewInfo(data._id, 'chart')}
+                        onClick={() => this.viewInfo(data._id, "chart")}
                         data-toggle="modal"
                         data-target="#form-modal"
                         id="workout-icon"
                       ></i>
                       <i
                         class="fas fa-list"
-                        onClick={() => this.viewInfo(data._id, 'entries')}
+                        onClick={() => this.viewInfo(data._id, "entries")}
                         data-toggle="modal"
                         data-target="#form-modal"
                         id="workout-icon"
