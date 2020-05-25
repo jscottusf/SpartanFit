@@ -7,6 +7,10 @@ export default {
   findUsers: function (query) {
     return axios.get('/api/users?search=' + query);
   },
+  postTextSearch: function (query) {
+    console.log('/api/posts?search=' + query);
+    return axios.get('/api/posts?search=' + query);
+  },
   followUser: function (id, data) {
     return axios.post('/api/follow/' + id, data);
   },

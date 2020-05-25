@@ -2,12 +2,22 @@ const db = require('../database/models');
 
 module.exports = {
   findAll: function (req, res) {
-    db.Post.find(req.query)
-      .limit(30)
-      .populate('comments')
-      .sort({ createdAt: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    if (req.query.search) {
+      console.log(req.query.search);
+      db.Post.find({ $text: { $search: req.query.search } })
+        .limit(30)
+        .populate('comments')
+        .sort({ createdAt: -1 })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    } else {
+      db.Post.find(req.query)
+        .limit(30)
+        .populate('comments')
+        .sort({ createdAt: -1 })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    }
   },
   findById: function (req, res) {
     db.Post.findById(req.params.id)

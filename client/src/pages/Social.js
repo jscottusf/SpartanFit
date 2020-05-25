@@ -24,11 +24,13 @@ class Social extends Component {
     super(props);
     this.state = {
       id: '',
-      searchForm: '',
+      userSearchForm: '',
+      postSearchForm: '',
       userSearchResults: [],
       activityFeed: [],
       userFollowing: [],
       followFeed: [],
+      postSearchResults: [],
     };
   }
 
@@ -61,29 +63,32 @@ class Social extends Component {
       .catch(err => console.log(err));
   };
 
-  //   filterPosts = () => {
-  //     this.state.user;
-  //   };
-
   handleInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
     this.setState({
       [name]: value,
-      userSearchResults: [],
     });
   };
 
   handleUserSearchClick = event => {
     event.preventDefault();
-    API.findUsers(this.state.searchForm)
+    API.findUsers(this.state.userSearchForm)
       .then(res => {
         if (res.status === 200) {
           this.setState({
             userSearchResults: res.data,
           });
-          this.componentDidMount();
         }
+      })
+      .catch(err => console.log(err));
+  };
+
+  handlePostSearch = event => {
+    event.preventDefault();
+    API.postTextSearch(this.state.postSearchForm)
+      .then(res => {
+        this.setState({ postSearchResults: res.data, activityFeed: res.data });
       })
       .catch(err => console.log(err));
   };
@@ -117,8 +122,16 @@ class Social extends Component {
                   <NavInput
                     placeHolder={'Search SpartanFit Social'}
                     style={{ width: 300 }}
+                    onChange={this.handleInputChange}
+                    name="postSearchForm"
+                    value={this.state.postSearchForm}
+                    type="text"
                   />
-                  <NavBarBtn type="submit" label="Explore" />
+                  <NavBarBtn
+                    onClick={event => this.handlePostSearch(event)}
+                    type="submit"
+                    label="Explore"
+                  />
                 </NavBarSearch>
               </div>
             </NavBarDiv>
@@ -162,8 +175,8 @@ class Social extends Component {
               <BarInput
                 placeHolder="Find other SpartanFit Warriors"
                 onChange={this.handleInputChange}
-                name="searchForm"
-                value={this.state.searchForm}
+                name="userSearchForm"
+                value={this.state.userSearchForm}
                 type="text"
               />
               <InputBarBtn
