@@ -2,17 +2,25 @@ const db = require('../database/models');
 
 module.exports = {
   findAll: function (req, res) {
-    db.User.find(req.query)
-      // .populate('image')
-      // .populate('likes')
-      // .populate('following')
-      // .populate({
-      //   path: 'posts',
-      //   options: { sort: '-createdAt' },
-      //   populate: { path: 'comments' },
-      // })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    if (req.query.search) {
+      console.log(req.query.search);
+      db.User.find({ $text: { $search: req.query.search } })
+        .limit(10)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    } else {
+      db.User.find(req.query)
+        .populate('image')
+        .populate('likes')
+        .populate('following')
+        .populate({
+          path: 'posts',
+          options: { sort: '-createdAt' },
+          populate: { path: 'comments' },
+        })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    }
   },
   findById: function (req, res) {
     db.User.findById(req.params.id)

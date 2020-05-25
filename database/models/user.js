@@ -76,6 +76,9 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.index({ lastName: 'text', firstName: 'text' });
+//userSchema.index({ '$**': 'text' });
+
 // Define schema methods
 userSchema.methods = {
   checkPassword: function (inputPassword) {

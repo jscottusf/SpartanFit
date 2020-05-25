@@ -11,7 +11,7 @@ const singleUpload = upload.single('profileImg');
 router.use('/api', apiRoutes);
 
 //User Routes
-router.use('/users', usersRoutes);
+router.use('/slugs/users', usersRoutes);
 
 //user authentication routes
 router.get('/user', (req, res, next) => {
