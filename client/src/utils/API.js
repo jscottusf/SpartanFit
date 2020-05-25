@@ -54,8 +54,7 @@ export default {
     return axios.get('/api/users/' + id);
   },
   getPublicProfile: function (route) {
-    console.log(route);
-    return axios.get(route);
+    return axios.get('/slugs' + route);
   },
   putUser: function (id, putData) {
     return axios.put('/api/users/' + id, putData);
