@@ -261,13 +261,13 @@ class Profile extends Component {
             </CardTitle>
             <Row style={{ padding: 0, margin: 0 }}>
               <Col size="lg-3">
-                <div className="profile-img">
-                  <img
-                    src={process.env.PUBLIC_URL + this.state.imageUrl}
-                    alt=""
-                  />
-                </div>
                 <div className="icon-container">
+                  <div className="profile-img">
+                    <img
+                      src={process.env.PUBLIC_URL + this.state.imageUrl}
+                      alt=""
+                    />
+                  </div>
                   <div className="icons" id="image-icons">
                     {this.state.selectedFile ? (
                       <div>

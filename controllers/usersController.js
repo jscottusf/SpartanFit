@@ -3,7 +3,6 @@ const db = require('../database/models');
 module.exports = {
   findAll: function (req, res) {
     if (req.query.search) {
-      console.log(req.query.search);
       db.User.find({ $text: { $search: req.query.search } })
         .limit(15)
         .populate('image')
