@@ -6,7 +6,7 @@ function AddEntry(props) {
       <div className="form-group">
         <label htmlFor="dataData">Date (MM/DD/YYYY)</label>
         <input
-          type="text"
+          type="date"
           className="form-control"
           id="dataDate"
           name="dataDate"
