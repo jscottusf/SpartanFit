@@ -53,6 +53,7 @@ class Profile extends Component {
       posts: [],
       editId: '',
       editPost: '',
+      occupation: '',
     };
   }
 
@@ -86,6 +87,7 @@ class Profile extends Component {
         likes: res.data.likes,
         posts: res.data.posts,
         selectedFile: null,
+        occupation: res.data.occupation,
       });
     });
   };
@@ -104,6 +106,7 @@ class Profile extends Component {
         interests: this.state.interests,
         currentWeight: this.state.currentWeight,
         goalWeight: this.state.goalWeight,
+        occupation: this.state.occupation,
         slug: this.state.username.toLowerCase(),
       })
         .then(res => {
@@ -385,12 +388,31 @@ class Profile extends Component {
                             </p>
                           )}
                         </Col>
-                      </Row>
-                      <Row>
                         <Col size="md-3">
-                          <label>Weight</label>
+                          <label>Job</label>
                         </Col>
                         <Col size="md-7">
+                          {this.state.editProfile ? (
+                            <div>
+                              <Input
+                                value={this.state.occupation}
+                                name="occupation"
+                                onChange={this.handleInputChange}
+                                type="text"
+                              />
+                            </div>
+                          ) : (
+                            <p>{this.state.occupation}</p>
+                          )}
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col size="lg-7">
+                      <Row>
+                        <Col size="md-4">
+                          <label>Weight</label>
+                        </Col>
+                        <Col size="md-8">
                           {this.state.editProfile ? (
                             <Input
                               value={this.state.currentWeight}
@@ -402,12 +424,10 @@ class Profile extends Component {
                             <p>{this.state.currentWeight}</p>
                           )}
                         </Col>
-                      </Row>
-                      <Row>
-                        <Col size="md-3">
+                        <Col size="md-4">
                           <label>Goal</label>
                         </Col>
-                        <Col size="md-7">
+                        <Col size="md-8">
                           {this.state.editProfile ? (
                             <Input
                               value={this.state.goalWeight}
@@ -419,10 +439,6 @@ class Profile extends Component {
                             <p>{this.state.goalWeight}</p>
                           )}
                         </Col>
-                      </Row>
-                    </Col>
-                    <Col size="lg-7">
-                      <Row>
                         <Col size="md-4">
                           <label>Interests</label>
                         </Col>

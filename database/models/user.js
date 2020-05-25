@@ -32,6 +32,7 @@ const userSchema = new Schema({
   },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  occupation: String,
   city: { type: String },
   state: { type: String },
   createdAt: { type: Date, default: Date.now },

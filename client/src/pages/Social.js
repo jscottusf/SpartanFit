@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
 import PostCard from '../components/PostCard';
-import { CardDiv, CardBody } from '../components/BootstrapCard';
-import { Row } from '../components/Grid';
-import { TextArea } from '../components/Form';
-import { InputBar, BarInput, InputBarBtn } from '../components/InputBar';
-import thumb from '../images/thumb.png';
 import {
-  FormModal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  SubmitBtn,
-  CloseBtn,
-} from '../components/BootstrapModal';
-import Dropdown from '../components/Dropdown';
+  CardDiv,
+  CardBody,
+  CardTitle,
+  CardText,
+} from '../components/BootstrapCard';
+import { Link } from 'react-router-dom';
+import { InputBar, BarInput, InputBarBtn } from '../components/InputBar';
+import {
+  NavBarDiv,
+  NavBarUl,
+  NavBarLi,
+  NavBarBtn,
+  NavInput,
+  NavBarSearch,
+} from '../components/SocialNav';
 import GridContainer from '../components/GridContainer';
 
 class Social extends Component {
@@ -22,12 +24,68 @@ class Social extends Component {
     super(props);
     this.state = {
       id: '',
+      searchForm: '',
+      userSearchResults: [],
+      activityFeed: [],
+      userFollowing: [],
+      followFeed: [],
     };
   }
 
   componentDidMount = () => {
     //this.props.getUser(); //i don't think this was needed but leaving the reference in case
     this.setState({ id: this.props.id });
+    this.loadPublicPosts();
+  };
+
+  loadPublicPosts = () => {
+    API.getPosts()
+      .then(res => {
+        this.setState({ activityFeed: res.data });
+      })
+      .catch(err => console.log(err));
+  };
+
+  loadFollowing = event => {
+    event.preventDefault();
+    API.getUser(this.state.id)
+      .then(res => {
+        const following = res.data.following.map(follow => follow.userId);
+        const followFeed = this.state.activityFeed.filter(post => {
+          if (following.indexOf(post.userId) >= 0) {
+            return post;
+          }
+        });
+        this.setState({ userFollowing: following, activityFeed: followFeed });
+      })
+      .catch(err => console.log(err));
+  };
+
+  //   filterPosts = () => {
+  //     this.state.user;
+  //   };
+
+  handleInputChange = event => {
+    let value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value,
+      userSearchResults: [],
+    });
+  };
+
+  handleUserSearchClick = event => {
+    event.preventDefault();
+    API.findUsers(this.state.searchForm)
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({
+            userSearchResults: res.data,
+          });
+          this.componentDidMount();
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -38,19 +96,106 @@ class Social extends Component {
           <div>
             <h4>Activity</h4>
             <hr></hr>
+            <NavBarDiv>
+              <div className="collapse navbar-collapse">
+                <NavBarUl>
+                  <NavBarLi
+                    style={{ cursor: 'pointer' }}
+                    onClick={this.loadPublicPosts}
+                  >
+                    <div>
+                      <i class="fas fa-globe-americas"></i> Public Feed
+                    </div>
+                  </NavBarLi>
+                  <NavBarLi style={{ cursor: 'pointer' }}>
+                    <div onClick={event => this.loadFollowing(event)}>
+                      <i class="fas fa-user-friends"></i> Social Feed
+                    </div>
+                  </NavBarLi>
+                </NavBarUl>
+                <NavBarSearch value={this.state.activitySearch}>
+                  <NavInput
+                    placeHolder={'Search SpartanFit Social'}
+                    style={{ width: 300 }}
+                  />
+                  <NavBarBtn type="submit" label="Explore" />
+                </NavBarSearch>
+              </div>
+            </NavBarDiv>
+            {this.state.activityFeed.map(post => {
+              return (
+                <CardDiv key={post._id}>
+                  <CardBody>
+                    <GridContainer style={{ gridTemplateColumns: '10% 1fr' }}>
+                      <Link to={'/users/' + post.username}>
+                        <div id="postImgDiv">
+                          <img
+                            id="postImg"
+                            src={post.userpic}
+                            alt="profile-pic"
+                          />
+                        </div>
+                      </Link>
+                      <div>
+                        <CardTitle>
+                          {post.firstName} {post.lastName}
+                        </CardTitle>
+                        <CardText>{post.postBody}</CardText>
+                        <Link
+                          to={'/posts/' + post._id}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                        >
+                          <i class="far fa-comments"></i> (
+                          {post.comments.length})
+                        </Link>
+                      </div>
+                    </GridContainer>
+                  </CardBody>
+                </CardDiv>
+              );
+            })}
           </div>
           <div>
             <h4>Find people</h4>
             <hr></hr>
             <InputBar>
               <BarInput
+                placeHolder="Find other SpartanFit Warriors"
                 onChange={this.handleInputChange}
                 name="searchForm"
                 value={this.state.searchForm}
                 type="text"
               />
-              <InputBarBtn onClick={this.handleCommentClick} label="Go" />
+              <InputBarBtn
+                onClick={event => this.handleUserSearchClick(event)}
+                label="Go"
+              />
             </InputBar>
+            {this.state.userSearchResults.map(user => (
+              <CardDiv>
+                <PostCard
+                  key={user._id}
+                  id={user._id}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  image={
+                    user.image[0] === undefined
+                      ? 'http://localhost:3000/static/media/thumb.3b7940ff.png'
+                      : user.image[0].profileImg
+                  }
+                  username={user.slug}
+                >
+                  {user.state ? (
+                    <div className="card-text mb-1">
+                      {user.city}, {user.state}
+                    </div>
+                  ) : (
+                    <div className="card-text mb-1">{user.state}</div>
+                  )}
+                  <div className="card-text mb-1">{user.bio}</div>
+                </PostCard>
+              </CardDiv>
+            ))}
           </div>
         </GridContainer>
       </div>

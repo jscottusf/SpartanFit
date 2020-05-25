@@ -5,7 +5,15 @@ module.exports = {
     if (req.query.search) {
       console.log(req.query.search);
       db.User.find({ $text: { $search: req.query.search } })
-        .limit(10)
+        .limit(15)
+        .populate('image')
+        .populate('likes')
+        .populate('following')
+        .populate({
+          path: 'posts',
+          options: { sort: '-createdAt' },
+          populate: { path: 'comments' },
+        })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     } else {
