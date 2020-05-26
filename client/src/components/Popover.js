@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
-import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
 
-function Example() {
+function Notifications(props) {
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
@@ -29,7 +28,50 @@ function Example() {
             Notifications
           </Popover.Title>
           <Popover.Content>
-            <strong>Holy guacamole!</strong> Check this info.
+            {props.notifications.length ? (
+              <div>
+                {props.notifications.map(n => {
+                  if (n.postId) {
+                    return (
+                      <div className="mb-1">
+                        <strong>
+                          <a id="user-name" href={'/users/' + n.username}>
+                            {n.firstName} {n.lastName}
+                          </a>
+                        </strong>{' '}
+                        {n.notificationType} on your{' '}
+                        <a id="post-notification" href={'/posts/' + n.postId}>
+                          post
+                        </a>
+                        <i
+                          class="fas fa-times-circle"
+                          id="x-icon"
+                          onClick={() => props.deleteNotification(n._id)}
+                        ></i>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="mb-1">
+                        <strong>
+                          <a id="user-name" href={'/users/' + n.username}>
+                            {n.firstName} {n.lastName}
+                          </a>
+                        </strong>{' '}
+                        {n.notificationType}
+                        <i
+                          class="fas fa-times-circle"
+                          id="x-icon"
+                          onClick={() => props.deleteNotification(n._id)}
+                        ></i>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            ) : (
+              <p>No notifications</p>
+            )}
           </Popover.Content>
         </Popover>
       </Overlay>
@@ -37,4 +79,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default Notifications;

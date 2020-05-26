@@ -38,7 +38,8 @@ module.exports = {
         userId: req.body.userId,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        notificationType: 'commented on your post',
+        postId: req.body.postId,
+        notificationType: 'commented',
       })
         .then(function (dbNotification) {
           return db.User.findByIdAndUpdate(

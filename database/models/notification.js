@@ -9,6 +9,7 @@ const notificationSchema = new Schema({
   //commented, posted, followed, etc
   notificationType: { type: String, required: true },
   seen: { type: Boolean, required: true, default: false },
+  postId: String,
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Row } from '../../components/Grid';
 import { Link } from 'react-router-dom';
-import Example from '../../components/Popover';
+
+import Notifications from '../../components/Popover';
 import API from '../../utils/API';
 import './style.css';
 
@@ -20,6 +21,9 @@ class NavMenu extends Component {
   componentWillMount() {
     this.setState({ id: this.props.id });
     this.loadUserNotifications();
+    setTimeout(() => {
+      this.componentWillMount();
+    }, 3000);
   }
 
   loadUserNotifications = () => {
@@ -31,6 +35,12 @@ class NavMenu extends Component {
         notifications: res.data.notifications,
       });
     });
+  };
+
+  deleteNotification = id => {
+    API.deleteNotification(id)
+      .then(res => this.componentWillMount())
+      .catch(err => console.log(err));
   };
 
   logout(event) {
@@ -66,7 +76,18 @@ class NavMenu extends Component {
               </h1>
               <div className="links" id="icon-links">
                 <Row>
-                  <Example />
+                  <div id="notification-container">
+                    <Notifications
+                      notifications={this.state.notifications}
+                      deleteNotification={id => this.deleteNotification(id)}
+                    />
+                    <span class="badge badge-pill badge-danger" id="badge">
+                      {this.state.notifications.length
+                        ? this.state.notifications.length
+                        : null}
+                    </span>
+                  </div>
+
                   <Link
                     to="/"
                     className={
