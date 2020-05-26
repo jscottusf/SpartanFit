@@ -41,7 +41,7 @@ module.exports = {
       })
       .populate({
         path: 'notifications',
-        options: { sort: '-createdAt' },
+        options: { sort: '-createdAt', limit: 15 },
       })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

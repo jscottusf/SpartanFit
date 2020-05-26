@@ -10,10 +10,28 @@ class NavMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       redirectTo: null,
+      notifications: [],
     };
     this.logout = this.logout.bind(this);
   }
+
+  componentWillMount() {
+    this.setState({ id: this.props.id });
+    this.loadUserNotifications();
+  }
+
+  loadUserNotifications = () => {
+    API.getUser(this.props.id).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.setState({
+        notifications: res.data.notifications,
+      });
+    });
+  };
 
   logout(event) {
     event.preventDefault();
