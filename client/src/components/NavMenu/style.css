@@ -35,3 +35,12 @@
 .links .active {
   color: #25e0fd;
 }
+
+#popover-contained {
+  min-width: 800px;
+}
+
+#popover-header {
+  background-color: #353b40;
+  color: white;
+}

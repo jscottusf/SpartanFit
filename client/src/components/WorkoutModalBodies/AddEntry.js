@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function AddEntry(props) {
   return (
@@ -6,7 +6,10 @@ function AddEntry(props) {
       <div className="form-group">
         <label htmlFor="dataData">Date (MM/DD/YYYY)</label>
         <input
-          type="text"
+          //I want to add this below to make things easier for the user but I noticed that it changes
+          //the component value to a different format ie: 2020-25-05
+          //Do you think it's possible to change how the data is accepted?
+          //type="date"
           className="form-control"
           id="dataDate"
           name="dataDate"

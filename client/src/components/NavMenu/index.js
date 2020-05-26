@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Row } from '../../components/Grid';
 import { Link } from 'react-router-dom';
+import Example from '../../components/Popover';
 import API from '../../utils/API';
 import './style.css';
 
@@ -47,6 +48,7 @@ class NavMenu extends Component {
               </h1>
               <div className="links" id="icon-links">
                 <Row>
+                  <Example />
                   <Link
                     to="/"
                     className={
