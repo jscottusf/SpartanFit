@@ -6,8 +6,10 @@ function RecipeCard(props) {
     <div className="card promoting-card" id={`card-${props.id}`}>
       <div className="card-body" style={{ height: "3%" }}>
         {/* If card is saved, tell user. */}
-        {props.saved ? (
-          <span className="float-left fadeIn">Recipe saved!</span>
+        {props.calories ? (
+          <span className="float-left fadeIn my-1 calorie-count">
+            {Math.trunc(props.calories)} calories
+          </span>
         ) : (
           ""
         )}
