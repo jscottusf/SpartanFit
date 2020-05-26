@@ -14,6 +14,7 @@ import {
 import thumb from '../../images/thumb.png';
 import Btn from '../../components/Btn';
 import PostCard from '../../components/PostCard';
+import Moment from 'react-moment';
 import { isThisSecond } from 'date-fns';
 
 class PublicProfile extends Component {
@@ -311,6 +312,7 @@ class PublicProfile extends Component {
                         image={post.userpic}
                         username={post.username}
                         postBody={post.postBody}
+                        createdAt={post.createdAt}
                       >
                         <Link
                           to={'/posts/' + post._id}

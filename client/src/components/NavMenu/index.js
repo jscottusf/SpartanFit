@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Row } from '../../components/Grid';
 import { Link } from 'react-router-dom';
-
 import Notifications from '../../components/Popover';
 import API from '../../utils/API';
 import './style.css';

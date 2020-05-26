@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
+import Moment from 'react-moment';
 
 function Notifications(props) {
   const [show, setShow] = useState(false);
@@ -47,7 +48,8 @@ function Notifications(props) {
                           class="fas fa-times-circle"
                           id="x-icon"
                           onClick={() => props.deleteNotification(n._id)}
-                        ></i>
+                        ></i>{' '}
+                        <Moment fromNow>{n.createdAt}</Moment>
                       </div>
                     );
                   } else {
@@ -63,7 +65,8 @@ function Notifications(props) {
                           class="fas fa-times-circle"
                           id="x-icon"
                           onClick={() => props.deleteNotification(n._id)}
-                        ></i>
+                        ></i>{' '}
+                        <Moment fromNow>{n.createdAt}</Moment>
                       </div>
                     );
                   }
