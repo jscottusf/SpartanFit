@@ -3,6 +3,11 @@ i:hover {
   transform: scale(1.15);
 }
 
+.calorie-count {
+  font-weight: bolder;
+  font-size: large;
+}
+
 .card {
   color: black;
 }

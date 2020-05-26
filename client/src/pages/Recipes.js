@@ -49,28 +49,6 @@ class Recipes extends Component {
     });
   };
 
-  /*Flips color of favorite icon
-    Not in use, but saving for possible alternative use.
-
-  flipIconColor = (id, color) => {
-    if (color === "red") {
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.remove("text-muted");
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.add("new-favorite-meal");
-    } else {
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.remove("new-favorite-meal");
-      document
-        .getElementById("favorite-icon-" + id)
-        .classList.add("text-muted");
-    }
-  };
-  */
-
   // Handles changes in input of form
   handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -194,6 +172,7 @@ class Recipes extends Component {
                 name={recipe.recipe.label}
                 link={recipe.recipe.url}
                 favorite={this.handleFavoriteClick}
+                calories={recipe.recipe.calories}
                 //If meal is in favorites, this is used to change heart icon color in recipe card.
                 savedMeal={
                   this.state.favorites.includes(recipe.recipe.label)
