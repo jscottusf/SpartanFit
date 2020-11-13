@@ -10,7 +10,7 @@ With our easy-to-use interface, set up and track your progress on your workouts 
 - username: user
 - password: password
 
-Deployed at: https://spartanfit.herokuapp.com/
+Deployed at: https://spartanfitness.herokuapp.com/
 
 # Homepage
 
